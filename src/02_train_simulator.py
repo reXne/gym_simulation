@@ -78,10 +78,9 @@ def train_vae(tuples, epochs=10):
 
     return model
 
-
 if __name__ == "__main__":
     tuples = load_tuples(filename="./data/sampled_tuples/tuples_data.pkl")
     print(tuples[0])  # Print the first tuple to verify
     model = train_vae(tuples, epochs=10)
     # Save the model if needed
-    torch.save(model.state_dict(), 'vae_model.pth')
+    torch.save(model.state_dict(), ',/data/models/vae_model.pth')
