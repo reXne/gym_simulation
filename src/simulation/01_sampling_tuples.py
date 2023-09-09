@@ -5,9 +5,14 @@ import pickle
 def simulate_environment():
     # Initialize environment
     env = gym.make('CartPole-v1')
-    num_episodes = 1000
+    num_episodes = 10000
     tuples = []
 
+    print('observation_space')
+    print(env.observation_space)
+    print('action_space')
+    print(env.action_space)
+    
     for _ in range(num_episodes):
         observation = env.reset()
         if isinstance(observation, tuple):  # Check if the observation is a tuple
@@ -23,7 +28,7 @@ def simulate_environment():
     
     return tuples
 
-def save_tuples(tuples, filename="./data/sampled_tuples/tuples_data.pkl"):
+def save_tuples(tuples, filename="./data/sampled_tuples/sampled_tuples.pkl"):
     with open(filename, 'wb') as f:
         pickle.dump(tuples, f)
     print(f"Tuples saved to {filename}")
