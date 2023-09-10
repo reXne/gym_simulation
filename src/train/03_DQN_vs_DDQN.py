@@ -105,40 +105,51 @@ def train_dqn(episodes=500, use_ddqn=False, render=False):
     agent = DQNAgent(env.observation_space.shape[0], env.action_space.n, use_ddqn=use_ddqn)
     rewards = []
 
+    score = 0
     for episode in range(episodes):
         state = env.reset()
         if isinstance(state, tuple):
             state, _ = state
-        total_reward = 0
+        episode_reward = 0
         done = False
-            
-        while not done:
+        
+        max_timesteps = 1000
+        timesteps = 0
+
+        while not done and timesteps < max_timesteps:
             action = agent.choose_action(state)
-            next_state, reward, done, _, _ = env.step(action)
+            next_state, reward, done, _, _= env.step(action)
             agent.buffer.push(state, action, reward, next_state, done)
             agent.update()
-            total_reward += reward
+            episode_reward += reward
             state = next_state
+            timesteps += 1
 
-        rewards.append(total_reward)
+        rewards.append(episode_reward)
+        score += episode_reward
+
+        if use_ddqn:
+            print(f'Policy: DDQN, Episode {episode}, Episode reward {episode_reward}, Running average {score/(episode+1)}')
+        else:
+            print(f'Policy: DQN, Episode {episode}, Episode reward {episode_reward}, Running average {score/(episode+1)}')
 
         if episode % TARGET_UPDATE == 0:
             agent.target_net.load_state_dict(agent.policy_net.state_dict())
-
-        print(f"Episode {episode}, Reward: {total_reward}")
 
     env.close()
     return rewards
 
 if __name__ == "__main__":
-    episodes = 100
+    episodes = 500
     dqn_rewards = train_dqn(episodes, use_ddqn=False, render=False)
-
+    ddqn_rewards = train_dqn(episodes, use_ddqn=True, render=False)
+    
     # Plotting
     plt.plot(dqn_rewards, label='DQN', color='blue')
+    plt.plot(ddqn_rewards, label='DDQN', color='red')
     plt.xlabel('Episode')
     plt.ylabel('Reward')
-    plt.title('Performance of DQN')
+    plt.title('Performance Comparison: DQN vs DDQN')
     plt.legend()
-    plt.savefig('./data/plots/DQN.png')
+    plt.savefig('./data/plots/DQN_vs_DDQN.png')
     plt.show()

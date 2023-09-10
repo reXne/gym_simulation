@@ -1,5 +1,7 @@
 python ./src/train/example_1.py
+
 python ./src/train/example_2.py
+
 python ./src/train/example_3.py
 
 python ./src/simulation/01_sampling_tuples.py
