@@ -2,3 +2,5 @@
 *.pkl
 *.pth
 *.png
+
+wandb/

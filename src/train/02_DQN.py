@@ -6,6 +6,8 @@ import torch.optim as optim
 from collections import namedtuple, deque
 import random
 import matplotlib.pyplot as plt
+import wandb
+#wandb login
 
 # Hyperparameters
 GAMMA = 0.99
@@ -15,6 +17,9 @@ EPSILON_START = 1.0
 EPSILON_END = 0.01
 EPSILON_DECAY = 0.995
 TARGET_UPDATE = 10
+
+# Initialize wandb
+wandb.init(project="dqn-cartpole")
 
 # Neural Network for Q-value approximation
 class QNetwork(nn.Module):
@@ -59,6 +64,9 @@ class DQNAgent:
         self.epsilon = EPSILON_START
         self.use_ddqn = use_ddqn
 
+        # Watch the policy network in wandb
+        wandb.watch(self.policy_net)
+
     def choose_action(self, state):
         if random.random() > self.epsilon:
             with torch.no_grad():
@@ -94,10 +102,15 @@ class DQNAgent:
         loss.backward()
         self.optimizer.step()
 
+        # Log the loss to wandb
+        wandb.log({"Loss": loss.item()})
+
         self.epsilon = max(EPSILON_END, self.epsilon * EPSILON_DECAY)
 
-# Modify train_dqn function to accept render argument
-def train_dqn(episodes=500, use_ddqn=False, render=False):
+    def get_epsilon(self):
+        return self.epsilon
+
+def train_dqn(episodes=500, use_ddqn=False, render=False, wandb_logging=False):
     env = gym.make('CartPole-v1')
     if render:
         env = gym.wrappers.Monitor(env, "videos", force=True)
@@ -118,18 +131,28 @@ def train_dqn(episodes=500, use_ddqn=False, render=False):
 
         while not done and timesteps < max_timesteps:
             action = agent.choose_action(state)
-            next_state, reward, done, _, _= env.step(action)
+            next_state, reward, done, _, _ = env.step(action)
             agent.buffer.push(state, action, reward, next_state, done)
             agent.update()
             episode_reward += reward
             state = next_state
             timesteps += 1
 
-
         rewards.append(episode_reward)
         score += episode_reward
-        print(f'DQN Policy: Episode {episode}, Episode reward {episode_reward}, Running average {score/(episode+1)}')
+        avg_score = score / (episode + 1)
+        print(f'DQN Policy: Episode {episode}, Episode reward {episode_reward}, Running average {avg_score}')
    
+        # Log the episode reward and average reward to wandb
+        wandb.log({"Episode Reward": episode_reward, "Running Average": avg_score})
+                # Log to Weights & Biases
+        if wandb_logging:
+            wandb.log({
+                "Episode Reward": episode_reward,
+                "Running Average": score / (episode + 1),
+                "Epsilon": agent.get_epsilon()   # Log epsilon here
+            })
+
         if episode % TARGET_UPDATE == 0:
             agent.target_net.load_state_dict(agent.policy_net.state_dict())
 
@@ -138,13 +161,44 @@ def train_dqn(episodes=500, use_ddqn=False, render=False):
 
 if __name__ == "__main__":
     episodes = 500
-    dqn_rewards = train_dqn(episodes, use_ddqn=False, render=False)
+    dqn_rewards = train_dqn(episodes, use_ddqn=False, render=False, wandb_logging=True)
+    cum_avg_rewards = np.cumsum(dqn_rewards) / (np.arange(episodes) + 1)
 
-    # Plotting
+
+    # Plotting 1
     plt.plot(dqn_rewards, label='DQN', color='blue')
     plt.xlabel('Episode')
     plt.ylabel('Reward')
-    plt.title('Performance of DQN')
+    plt.title('Performance of DQN episode reward')
     plt.legend()
     plt.savefig('./data/plots/DQN.png')
     plt.show()
+
+    # Plotting
+    plt.figure(figsize=(10, 5))  # Adjusted the figure size for better clarity
+    plt.plot(dqn_rewards, label='DQN Rewards', color='blue')
+    plt.plot(cum_avg_rewards, label='Cumulative Avg', color='red', linestyle='dashed')
+    plt.xlabel('Episode')
+    plt.ylabel('Reward')
+    plt.title('Performance of DQN cumulative episode reward')
+    plt.legend()
+    plt.savefig('./data/plots/DQN_with_CumAvg.png')
+    plt.show()
+
+    # Save the plot to wandb
+    wandb.log({"DQN Performance": [wandb.Image(plt)]})
+
+    # Finish the wandb run
+    wandb.finish()
+
+
+
+
+
+
+
+    # Save the plot to wandb
+    wandb.log({"DQN Performance": [wandb.Image(plt)]})
+
+    # Finish the wandb run
+    wandb.finish()
