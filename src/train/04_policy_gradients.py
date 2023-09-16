@@ -1,100 +1,108 @@
+import argparse
 import gym
+import numpy as np
+from itertools import count
+from collections import deque
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 import torch.optim as optim
-from collections import deque
-import matplotlib.pyplot as plt
+from torch.distributions import Categorical
 
-# Hyperparameters
-GAMMA = 0.99
-LR = 0.001
 
-# Policy Network using a simple feed-forward neural network
-class PolicyNetwork(nn.Module):
-    def __init__(self, input_dim, output_dim):
-        super(PolicyNetwork, self).__init__()
-        self.fc1 = nn.Linear(input_dim, 128)
-        self.fc2 = nn.Linear(128, output_dim)
+parser = argparse.ArgumentParser(description='PyTorch REINFORCE example')
+parser.add_argument('--gamma', type=float, default=0.99, metavar='G',
+                    help='discount factor (default: 0.99)')
+parser.add_argument('--seed', type=int, default=543, metavar='N',
+                    help='random seed (default: 543)')
+parser.add_argument('--render', action='store_true',
+                    help='render the environment')
+parser.add_argument('--log-interval', type=int, default=10, metavar='N',
+                    help='interval between training status logs (default: 10)')
+args = parser.parse_args()
+
+
+env = gym.make('CartPole-v1')
+env.reset(seed=args.seed)
+torch.manual_seed(args.seed)
+
+
+class Policy(nn.Module):
+    def __init__(self):
+        super(Policy, self).__init__()
+        self.affine1 = nn.Linear(4, 128)
+        self.dropout = nn.Dropout(p=0.6)
+        self.affine2 = nn.Linear(128, 2)
+
+        self.saved_log_probs = []
+        self.rewards = []
 
     def forward(self, x):
-        x = torch.relu(self.fc1(x))
-        return torch.softmax(self.fc2(x), dim=-1)
+        x = self.affine1(x)
+        x = self.dropout(x)
+        x = F.relu(x)
+        action_scores = self.affine2(x)
+        return F.softmax(action_scores, dim=1)
 
-# Policy Gradient Agent
-class PGAgent:
-    def __init__(self, input_dim, output_dim):
-        self.policy_net = PolicyNetwork(input_dim, output_dim).float()
-        self.optimizer = optim.Adam(self.policy_net.parameters(), LR)
-        self.trajectory = []
-        
-    def choose_action(self, state):
-        probs = self.policy_net(torch.FloatTensor(state))
-        action = torch.multinomial(probs, 1).item()
-        return action
 
-    def update(self):
-        total_reward = sum([x[2] for x in self.trajectory])
-        returns = []
+policy = Policy()
+optimizer = optim.Adam(policy.parameters(), lr=1e-2)
+eps = np.finfo(np.float32).eps.item()
 
-        # Calculate the returns (discounted rewards)
-        G = 0
-        for s, a, r in reversed(self.trajectory):
-            G = r + GAMMA * G
-            returns.insert(0, G)
 
-        returns = torch.tensor(returns)
-        returns = (returns - returns.mean()) / (returns.std() + 1e-9)  # Normalize
+def select_action(state):
+    state = torch.from_numpy(state).float().unsqueeze(0)
+    probs = policy(state)
+    m = Categorical(probs)
+    action = m.sample()
+    policy.saved_log_probs.append(m.log_prob(action))
+    return action.item()
 
-        for (s, a, r), G in zip(self.trajectory, returns):
-            self.optimizer.zero_grad()
-            prob = self.policy_net(torch.FloatTensor(s))
-            loss = -torch.log(prob[a]) * G  # negative for gradient ascent
-            loss.backward()
-            self.optimizer.step()
 
-        self.trajectory = []
+def finish_episode():
+    R = 0
+    policy_loss = []
+    returns = deque()
+    for r in policy.rewards[::-1]:
+        R = r + args.gamma * R
+        returns.appendleft(R)
+    returns = torch.tensor(returns)
+    returns = (returns - returns.mean()) / (returns.std() + eps)
+    for log_prob, R in zip(policy.saved_log_probs, returns):
+        policy_loss.append(-log_prob * R)
+    optimizer.zero_grad()
+    policy_loss = torch.cat(policy_loss).sum()
+    policy_loss.backward()
+    optimizer.step()
+    del policy.rewards[:]
+    del policy.saved_log_probs[:]
 
-    def store_transition(self, state, action, reward):
-        self.trajectory.append((state, action, reward))
 
-def train_pg(episodes=500, render=False):
-    env = gym.make('CartPole-v1')
-    if render:
-        env = gym.wrappers.Monitor(env, "videos", force=True)
+def main():
+    running_reward = 10
+    for i_episode in count(1):
+        state, _ = env.reset()
+        ep_reward = 0
+        for t in range(1, 10000):  # Don't infinite loop while learning
+            action = select_action(state)
+            state, reward, done, _, _ = env.step(action)
+            if args.render:
+                env.render()
+            policy.rewards.append(reward)
+            ep_reward += reward
+            if done:
+                break
 
-    agent = PGAgent(env.observation_space.shape[0], env.action_space.n)
-    rewards = []
+        running_reward = 0.05 * ep_reward + (1 - 0.05) * running_reward
+        finish_episode()
+        if i_episode % args.log_interval == 0:
+            print('Episode {}\tLast reward: {:.2f}\tAverage reward: {:.2f}'.format(
+                  i_episode, ep_reward, running_reward))
+        if running_reward > env.spec.reward_threshold:
+            print("Solved! Running reward is now {} and "
+                  "the last episode runs to {} time steps!".format(running_reward, t))
+            break
 
-    for episode in range(episodes):
-        state = env.reset()
-        if isinstance(state, tuple):
-            state, _ = state
-        episode_reward = 0
-        done = False
 
-        while not done:
-            action = agent.choose_action(state)
-            next_state, reward, done, _, _ = env.step(action)
-            agent.store_transition(state, action, reward)
-            episode_reward += reward
-            state = next_state
-
-        agent.update()
-        rewards.append(episode_reward)
-        print(f'PG Policy: Episode {episode}, Reward: {episode_reward}')
-
-    env.close()
-    return rewards
-
-if __name__ == "__main__":
-    episodes = 1000
-    pg_rewards = train_pg(episodes, render=False)
-
-    # Plotting
-    plt.plot(pg_rewards, label='Policy Gradient', color='blue')
-    plt.xlabel('Episode')
-    plt.ylabel('Reward')
-    plt.title('Performance of Policy Gradient')
-    plt.legend()
-    plt.savefig('./data/plots/PG.png')
-    plt.show()
+if __name__ == '__main__':
+    main()

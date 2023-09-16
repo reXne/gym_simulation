@@ -32,24 +32,39 @@ class RSSM(nn.Module):
         
         # Reward Predictor
         self.reward_predictor = nn.Sequential(
-            nn.Linear(latent_dim, hidden_dim),  # Predict from z_next
+            nn.Linear(latent_dim, hidden_dim),
+            nn.ReLU(),
+            nn.Linear(hidden_dim, 1)
+        )
+        
+        # Done Predictor
+        self.done_predictor = nn.Sequential(
+            nn.Linear(latent_dim, hidden_dim),
             nn.ReLU(),
             nn.Linear(hidden_dim, 1),
             nn.Sigmoid()  # Add sigmoid activation
         )
 
-        # Done Predictor
-        self.done_predictor = nn.Sequential(
-            nn.Linear(latent_dim, hidden_dim),  # Predict from z_next
-            nn.ReLU(),
-            nn.Linear(hidden_dim, 1),
-            nn.Sigmoid()  # Add sigmoid activation
-        )
+        # Initialize the output weights of the reward predictor to zeros
+        nn.init.zeros_(self.reward_predictor[-1].weight)
+        nn.init.zeros_(self.reward_predictor[-1].bias)
 
     def reparameterize(self, mu, logvar):
         std = torch.exp(0.5 * logvar)
         eps = torch.randn_like(std)
         return mu + eps * std
+
+    @staticmethod
+    def symlog(x):
+        positive_part = torch.where(x > 0, torch.log(x + 1), torch.zeros_like(x))
+        negative_part = torch.where(x <= 0, -torch.log(-x + 1), torch.zeros_like(x))
+        return positive_part + negative_part
+
+    @staticmethod
+    def symexp(x):
+        positive_part = torch.where(x > 0, torch.exp(x) - 1, torch.zeros_like(x))
+        negative_part = torch.where(x <= 0, -torch.exp(-x) + 1, torch.zeros_like(x))
+        return positive_part + negative_part
 
     def forward(self, state, action):
         # Encoding
@@ -63,18 +78,26 @@ class RSSM(nn.Module):
         z_next = self.reparameterize(mu_next, logvar_next)
         
         # Reward and Done Prediction from z_next
-        reward = self.reward_predictor(z_next)
+        raw_reward = self.reward_predictor(z_next)
+        reward = self.symexp(raw_reward)
         done = self.done_predictor(z_next)
         
         # Decoding
-        next_obs = self.decoder(torch.cat([z_next, action], dim=1))
+        raw_next_obs = self.decoder(torch.cat([z_next, action], dim=1))
+        next_obs = self.symexp(raw_next_obs)
         
         return next_obs, reward, done, mu, logvar, mu_next, logvar_next
 
-    def prediction_loss(self, recon_state, recon_reward, recon_done, state, reward, done):
-        state_loss = nn.MSELoss()(recon_state, state)
-        reward_loss = nn.MSELoss()(recon_reward, reward)
+    def prediction_loss(self, recon_state, raw_recon_reward, recon_done, state, reward, done):
+        transformed_state = self.symlog(state)
+        state_loss = nn.MSELoss()(recon_state, transformed_state)
+        
+        transformed_reward = self.symlog(reward)
+        
+        reward_loss = nn.MSELoss()(raw_recon_reward, transformed_reward)
+        
         done_loss = nn.BCELoss()(recon_done, done)
+        
         return state_loss + reward_loss + done_loss
 
     def kl_divergence(self, a, b):
@@ -90,7 +113,7 @@ class RSSM(nn.Module):
         detached_posterior = {'mu': posterior['mu'].detach(), 'logvar': posterior['logvar'].detach()}
         
         kl_div = self.kl_divergence(detached_posterior, prior)
-        return torch.clamp(kl_div, min=1.0)  # Free bits
+        return torch.clamp(kl_div, min=1.0) # Free bits
 
     def representation_loss(self, posterior, prior):
         detached_prior = {'mu': prior['mu'].detach(), 'logvar': prior['logvar'].detach()}
@@ -98,8 +121,8 @@ class RSSM(nn.Module):
         kl_div = self.kl_divergence(posterior, detached_prior)
         return torch.clamp(kl_div, min=1.0)  # Free bits
 
-    def total_loss(self, recon_state, recon_reward, recon_done, state, reward, done, posterior, prior, beta_pred=1.0, beta_dyn=0.5, beta_rep=0.1):
-        L_pred = self.prediction_loss(recon_state, recon_reward, recon_done, state, reward, done)
+    def total_loss(self, recon_state, raw_recon_reward, recon_done, state, reward, done, posterior, prior, beta_pred=1.0, beta_dyn=0.5, beta_rep=0.1):
+        L_pred = self.prediction_loss(recon_state, raw_recon_reward, recon_done, state, reward, done)
         L_dyn = self.dynamics_loss(posterior, prior)
         L_rep = self.representation_loss(posterior, prior)
         L = beta_pred * L_pred + beta_dyn * L_dyn + beta_rep * L_rep

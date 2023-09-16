@@ -31,11 +31,11 @@ def simulate_environment(initial_observation, model, num_steps, save_path='./dat
         with torch.no_grad():
             next_observation, reward, done, mu, logvar, mu_next, logvar_next = model(observation, action)
             reward = (reward >= 0.5).float()
-
-        print(f"Action: {action.item()}, Reward: {reward.item()}, Done: {done.item() > 0.5}, Next Observation: {next_observation.squeeze().tolist()}")
+            done = (done >= 0.5)
+        print(f"Observation: {observation.squeeze().tolist()} Action: {action.item()}, Reward: {reward.item()}, Done: {done.item()}, Next Observation: {next_observation.squeeze().tolist()}")
         
         # Append the tuple to the list
-        generated_tuples.append((observation.squeeze().tolist(), action.item(), reward.item(), next_observation.squeeze().tolist(), done.item() > 0.5))
+        generated_tuples.append((observation.squeeze().tolist(), action.item(), reward.item(), next_observation.squeeze().tolist(), done.item()))
         
         if done.item() > 0.5:
             break
@@ -56,4 +56,4 @@ if __name__ == "__main__":
 
     # Simulate the environment using the loaded model
     initial_obs = env.reset()
-    simulate_environment(initial_obs, model, 100)
+    simulate_environment(initial_obs, model, 1000)
