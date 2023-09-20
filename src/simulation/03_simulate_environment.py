@@ -7,7 +7,7 @@ import os
 
 from simulator import RSSM
 
-def load_model(model_path, input_dim, action_dim=1, hidden_dim=128, latent_dim=20):
+def load_model(model_path, input_dim, action_dim=1, hidden_dim=32, latent_dim=16):
     model = RSSM(input_dim, action_dim, hidden_dim, latent_dim)
     model.load_state_dict(torch.load(model_path))
     model.eval()

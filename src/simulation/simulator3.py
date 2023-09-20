@@ -7,7 +7,7 @@ class RSSM(nn.Module):
         
         # Encoder
         self.encoder = nn.Sequential(
-            nn.Linear(input_dim, hidden_dim),
+            nn.Linear(input_dim + action_dim, hidden_dim),
             nn.ReLU(),
             nn.Linear(hidden_dim, hidden_dim),
             nn.ReLU(),
@@ -16,7 +16,7 @@ class RSSM(nn.Module):
         
         # Decoder
         self.decoder = nn.Sequential(
-            nn.Linear(latent_dim, hidden_dim),
+            nn.Linear(latent_dim + action_dim, hidden_dim),
             nn.ReLU(),
             nn.Linear(hidden_dim, hidden_dim),
             nn.ReLU(),
@@ -32,14 +32,14 @@ class RSSM(nn.Module):
         
         # Reward Predictor
         self.reward_predictor = nn.Sequential(
-            nn.Linear(latent_dim + action_dim, hidden_dim),
+            nn.Linear(latent_dim, hidden_dim),
             nn.ReLU(),
             nn.Linear(hidden_dim, 1)
         )
         
         # Done Predictor
         self.done_predictor = nn.Sequential(
-            nn.Linear(latent_dim + action_dim, hidden_dim),
+            nn.Linear(latent_dim, hidden_dim),
             nn.ReLU(),
             nn.Linear(hidden_dim, 1),
             nn.Sigmoid()  # Add sigmoid activation
@@ -68,7 +68,7 @@ class RSSM(nn.Module):
     
     def forward(self, state, action):
         # Encoding
-        h = self.encoder(state)
+        h = self.encoder(torch.cat([state, action], dim=1))
         mu, logvar = torch.chunk(h, 2, dim=1)
         z = self.reparameterize(mu, logvar)
         
@@ -78,24 +78,29 @@ class RSSM(nn.Module):
         z_next = self.reparameterize(mu_next, logvar_next)
         
         # Reward and Done Prediction from z (current latent state)
-        reward = self.reward_predictor(torch.cat([z, action], dim=1))
-        reward = self.symexp(reward)
+        raw_reward = self.reward_predictor(z)
+        reward = self.symexp(raw_reward)
+        done = self.done_predictor(z)
 
-        done = self.done_predictor(torch.cat([z, action], dim=1))
+        # Reward and Done Prediction from z_next
+        #raw_reward = self.reward_predictor(z_next)
+        #reward = self.symexp(raw_reward)
+        #done = self.done_predictor(z_next)
 
         # Decoding
-        next_obs = self.decoder(z_next)
-        next_obs = self.symexp(next_obs)
+        raw_next_obs = self.decoder(torch.cat([z_next, action], dim=1))
+        next_obs = self.symexp(raw_next_obs)
         
         return next_obs, reward, done, mu, logvar, mu_next, logvar_next
 
 
     def prediction_loss(self, recon_state, raw_recon_reward, recon_done, state, reward, done):
-        state = self.symlog(state)
-        state_loss = nn.MSELoss()(recon_state, state)
+        transformed_state = self.symlog(state)
+        state_loss = nn.MSELoss()(recon_state, transformed_state)
         
-        reward = self.symlog(reward)
-        reward_loss = nn.MSELoss()(raw_recon_reward, reward)
+        transformed_reward = self.symlog(reward)
+        
+        reward_loss = nn.MSELoss()(raw_recon_reward, transformed_reward)
         
         done_loss = nn.BCELoss()(recon_done, done)
         

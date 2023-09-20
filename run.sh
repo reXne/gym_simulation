@@ -10,7 +10,7 @@
 
 #python ./src/train/07_breakout.py
 
-python ./src/simulation/01_sampling_tuples.py
+#python ./src/simulation/01_sampling_tuples.py
 
 python ./src/simulation/02_train_simulator.py
 
