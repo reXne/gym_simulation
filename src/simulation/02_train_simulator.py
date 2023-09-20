@@ -39,10 +39,10 @@ if __name__ == "__main__":
     dones_tensor = torch.FloatTensor([float(d) for d in dones]).unsqueeze(1)
 
     # Initialize model and optimizer
-    model = RSSM(len(old_observations[0]), 1, 32, 16)
+    model = RSSM(len(old_observations[0]), 1, 64, 8)
     optimizer = optim.Adam(model.parameters(), lr=0.001)
 
-    model = train_rssm(model, old_observations_tensor, actions_tensor, observations_tensor, rewards_tensor, dones_tensor, optimizer, epochs=30)
+    model = train_rssm(model, old_observations_tensor, actions_tensor, observations_tensor, rewards_tensor, dones_tensor, optimizer, epochs=100)
 
     # Save the model if needed
     torch.save(model.state_dict(), './data/models/rssm_model.pth')

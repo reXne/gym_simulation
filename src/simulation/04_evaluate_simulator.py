@@ -9,11 +9,16 @@ def compute_metrics(tuples):
     _, _, rewards, _, dones = zip(*tuples)
     mean_reward = sum(rewards) / len(rewards)
     
-    episode_lengths = [i for i, done in enumerate(dones) if done]
+    done_indices = [i for i, done in enumerate(dones) if done]
     
     # Diagnostic print statements
     print(f"Number of done flags set to True: {sum(dones)}")
     print(f"First 10 simulated tuples: {tuples[:10]}")
+    
+    # Calculate episode lengths
+    episode_lengths = [done_indices[0] + 1]  # Length of the first episode
+    for i in range(1, len(done_indices)):
+        episode_lengths.append(done_indices[i] - done_indices[i-1])
     
     # Check if episode_lengths is empty
     if not episode_lengths:
@@ -23,6 +28,7 @@ def compute_metrics(tuples):
         mean_episode_length = sum(episode_lengths) / len(episode_lengths)
     
     return mean_reward, mean_episode_length
+
 
 
 if __name__ == "__main__":

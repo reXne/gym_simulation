@@ -79,22 +79,22 @@ class RSSM(nn.Module):
         
         # Reward and Done Prediction from z (current latent state)
         reward = self.reward_predictor(torch.cat([z, action], dim=1))
-        reward = self.symexp(reward)
+        #reward = self.symexp(reward)
 
         done = self.done_predictor(torch.cat([z, action], dim=1))
 
         # Decoding
         next_obs = self.decoder(z_next)
-        next_obs = self.symexp(next_obs)
+        #next_obs = self.symexp(next_obs)
         
         return next_obs, reward, done, mu, logvar, mu_next, logvar_next
 
 
     def prediction_loss(self, recon_state, raw_recon_reward, recon_done, state, reward, done):
-        state = self.symlog(state)
+        #state = self.symlog(state)
         state_loss = nn.MSELoss()(recon_state, state)
         
-        reward = self.symlog(reward)
+        #reward = self.symlog(reward)
         reward_loss = nn.MSELoss()(raw_recon_reward, reward)
         
         done_loss = nn.BCELoss()(recon_done, done)
