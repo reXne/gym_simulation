@@ -4,3 +4,5 @@
 *.png
 
 wandb/
+
+venv/

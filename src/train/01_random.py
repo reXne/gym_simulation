@@ -54,7 +54,6 @@ def evaluate_policy(env, strategy='random', model=None, render=True, num_episode
     print(f'Score / num_episodes {score/num_episodes}')
     env.close()
 
-
 def main():
     env = gym.make('CartPole-v1', render_mode='human')
     print('observation_space:\n', env.observation_space)

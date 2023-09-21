@@ -2,6 +2,8 @@
 
 #python ./src/train/02_DQN.py
 
+#python ./src/train/02_DQN_wand.py
+
 #python ./src/train/03_DQN_vs_DDQN.py
 
 #python ./src/train/04_policy_gradients.py
