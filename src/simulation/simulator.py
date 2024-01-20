@@ -2,12 +2,12 @@ import torch
 import torch.nn as nn
 
 class RSSM(nn.Module):
-    def __init__(self, input_dim, action_dim, hidden_dim, latent_dim):
+    def __init__(self, state_dim, action_dim, hidden_dim, latent_dim):
         super(RSSM, self).__init__()
         
         # Encoder
         self.encoder = nn.Sequential(
-            nn.Linear(input_dim, hidden_dim),
+            nn.Linear(state_dim, hidden_dim),
             nn.ReLU(),
             nn.Linear(hidden_dim, hidden_dim),
             nn.ReLU(),
@@ -20,26 +20,33 @@ class RSSM(nn.Module):
             nn.ReLU(),
             nn.Linear(hidden_dim, hidden_dim),
             nn.ReLU(),
-            nn.Linear(hidden_dim, input_dim)  # next_observation
+            nn.Linear(hidden_dim, state_dim)  # next_observation
         )
         
-        # Dynamics Predictor
-        self.dynamics_predictor = nn.Sequential(
-            nn.Linear(latent_dim + action_dim, hidden_dim),
+        # Sequence model
+        self.sequence_model = nn.Sequential(
+            nn.Linear(state_dim + latent_dim + action_dim, hidden_dim),
             nn.ReLU(),
-            nn.Linear(hidden_dim, 2 * latent_dim)  # mean and log variance for next latent state
+            nn.Linear(hidden_dim, state_dim)  
         )
-        
+      
+        # Dynamics predictor
+        self.dynamics_predictor = nn.Sequential(
+            nn.Linear(state_dim, hidden_dim),
+            nn.ReLU(),
+            nn.Linear(hidden_dim, latent_dim)  
+        )
+    
         # Reward Predictor
         self.reward_predictor = nn.Sequential(
-            nn.Linear(latent_dim + action_dim, hidden_dim),
+            nn.Linear(state_dim + latent_dim, hidden_dim),
             nn.ReLU(),
             nn.Linear(hidden_dim, 1)
         )
         
         # Done Predictor
         self.done_predictor = nn.Sequential(
-            nn.Linear(latent_dim + action_dim, hidden_dim),
+            nn.Linear(state_dim + latent_dim, hidden_dim),
             nn.ReLU(),
             nn.Linear(hidden_dim, 1),
             nn.Sigmoid()  # Add sigmoid activation
@@ -72,34 +79,18 @@ class RSSM(nn.Module):
         mu, logvar = torch.chunk(h, 2, dim=1)
         z = self.reparameterize(mu, logvar)
         
-        # Dynamics Prediction
-        dynamics_out = self.dynamics_predictor(torch.cat([z, action], dim=1))
-        mu_next, logvar_next = torch.chunk(dynamics_out, 2, dim=1)
+        # Sequence model
+        state_next = self.dynamics_predictor(torch.cat([state, z, action], dim=1))
+        mu_next, logvar_next = torch.chunk(state_next, 2, dim=1)
         z_next = self.reparameterize(mu_next, logvar_next)
         
         # Reward and Done Prediction from z (current latent state)
-        reward = self.reward_predictor(torch.cat([z, action], dim=1))
+        reward = self.reward_predictor(torch.cat([state_next, z_next], dim=1))
         #reward = self.symexp(reward)
 
-        done = self.done_predictor(torch.cat([z, action], dim=1))
-
-        # Decoding
-        next_obs = self.decoder(z_next)
-        #next_obs = self.symexp(next_obs)
+        done = self.done_predictor(torch.cat([state_next, z_next], dim=1))
         
-        return next_obs, reward, done, mu, logvar, mu_next, logvar_next
-
-
-    def prediction_loss(self, recon_state, raw_recon_reward, recon_done, state, reward, done):
-        #state = self.symlog(state)
-        state_loss = nn.MSELoss()(recon_state, state)
-        
-        #reward = self.symlog(reward)
-        reward_loss = nn.MSELoss()(raw_recon_reward, reward)
-        
-        done_loss = nn.BCELoss()(recon_done, done)
-        
-        return state_loss + reward_loss + done_loss
+        return state_next, reward, done, mu, logvar, mu_next, logvar_next
 
     def kl_divergence(self, a, b):
         mu1, logvar1 = a['mu'], a['logvar']
@@ -109,6 +100,18 @@ class RSSM(nn.Module):
         sigma2_sq = logvar2.exp()
         kl_div = 0.5 * (logvar2 - logvar1 + (sigma1_sq + (mu1 - mu2).pow(2)) / sigma2_sq - 1)
         return kl_div.mean()
+    
+    def prediction_loss(self, recon_state, reward_pred, done_pred, state, reward, done):
+        #state = self.symlog(state)
+        state_loss = nn.MSELoss()(recon_state, state)
+        
+        #reward = self.symlog(reward)
+        reward_loss = nn.MSELoss()(reward_pred, reward)
+        
+        done_loss = nn.BCELoss()(done_pred, done)
+        
+        return state_loss + reward_loss + done_loss
+
     
     def dynamics_loss(self, posterior, prior):
         detached_posterior = {'mu': posterior['mu'].detach(), 'logvar': posterior['logvar'].detach()}
@@ -122,8 +125,8 @@ class RSSM(nn.Module):
         kl_div = self.kl_divergence(posterior, detached_prior)
         return torch.clamp(kl_div, min=1.0)  # Free bits
 
-    def total_loss(self, recon_state, raw_recon_reward, recon_done, state, reward, done, posterior, prior, beta_pred=1.0, beta_dyn=0.5, beta_rep=0.1):
-        L_pred = self.prediction_loss(recon_state, raw_recon_reward, recon_done, state, reward, done)
+    def total_loss(self, recon_state, reward_pred, done_pred, state, reward, done, posterior, prior, beta_pred=1.0, beta_dyn=0.5, beta_rep=0.1):
+        L_pred = self.prediction_loss(recon_state, reward_pred, done_pred, state, reward, done)
         L_dyn = self.dynamics_loss(posterior, prior)
         L_rep = self.representation_loss(posterior, prior)
         L = beta_pred * L_pred + beta_dyn * L_dyn + beta_rep * L_rep
