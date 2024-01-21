@@ -7,11 +7,14 @@ from collections import namedtuple, deque
 import random
 import matplotlib.pyplot as plt
 
+from gym import spaces
+
+from envs.custom_reco import CustomerBehaviorEnv
 # Hyperparameters
 GAMMA = 0.99
 LR = 0.001
 BATCH_SIZE = 64
-EPSILON_START = 1.0
+EPSILON_START = 0.01
 EPSILON_END = 0.01
 EPSILON_DECAY = 0.995
 TARGET_UPDATE = 10
@@ -91,8 +94,12 @@ class DQNAgent:
     def get_epsilon(self):
         return self.epsilon
 
-def train_dqn(episodes=500, use_ddqn=False, render=True):
-    env = gym.make('CartPole-v1')
+def train_dqn(episodes=500, use_ddqn=False, render=False):
+    #env = gym.make('CartPole-v1')
+    initial_state_mean = 10
+    initial_state_std = 2
+
+    env = CustomerBehaviorEnv(initial_state_mean, initial_state_std)
 
     agent = DQNAgent(env.observation_space.shape[0], env.action_space.n, use_ddqn=use_ddqn)
     rewards = []
@@ -110,7 +117,7 @@ def train_dqn(episodes=500, use_ddqn=False, render=True):
 
         while not done and timesteps < max_timesteps:
             action = agent.choose_action(state)
-            next_state, reward, done, _, _ = env.step(action)
+            next_state, reward, done, _ = env.step(action)
             agent.buffer.push(state, action, reward, next_state, done)
             agent.update()
             episode_reward += reward
@@ -132,7 +139,7 @@ def train_dqn(episodes=500, use_ddqn=False, render=True):
 
 if __name__ == "__main__":
     episodes = 500
-    dqn_rewards = train_dqn(episodes, use_ddqn=False, render=True)
+    dqn_rewards = train_dqn(episodes, use_ddqn=False, render=False)
     cum_avg_rewards = np.cumsum(dqn_rewards) / (np.arange(episodes) + 1)
 
     # Plotting 1
