@@ -14,7 +14,7 @@ from envs.custom_reco import CustomerBehaviorEnv
 GAMMA = 0.99
 LR = 0.001
 BATCH_SIZE = 64
-EPSILON_START = 0.01
+EPSILON_START = 1.0
 EPSILON_END = 0.01
 EPSILON_DECAY = 0.995
 TARGET_UPDATE = 10

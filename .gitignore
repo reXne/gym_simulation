@@ -2,7 +2,11 @@
 *.pkl
 *.pth
 *.png
-
+*.pt
+*.gz
+*.pyc
 wandb/
 
 venv/
+dataset/
+data/
