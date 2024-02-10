@@ -1,10 +1,10 @@
-2024-01-20 16:15:21,025 - INFO - observation_space
-2024-01-20 16:15:21,025 - INFO - Box([-4.8000002e+00 -3.4028235e+38 -4.1887903e-01 -3.4028235e+38], [4.8000002e+00 3.4028235e+38 4.1887903e-01 3.4028235e+38], (4,), float32)
-2024-01-20 16:15:21,026 - INFO - action_space
-2024-01-20 16:15:21,026 - INFO - Discrete(2)
-2024-01-20 16:15:26,643 - INFO - Tuples saved to ./data/sampled_tuples/sampled_tuples.pkl
-2024-01-20 16:15:26,644 - INFO - Summary Statistics:
-2024-01-20 16:15:26,644 - INFO - Average Reward: 22.2349
-2024-01-20 16:15:26,644 - INFO - Total Episodes: 10000
-2024-01-20 16:15:26,644 - INFO - Total Dones: 10000
-2024-01-20 16:15:26,644 - INFO - Reward Distribution: {0: 0, 1: 222349}
+2024-02-10 11:07:38,978 - INFO - observation_space
+2024-02-10 11:07:38,979 - INFO - Box([-4.8000002e+00 -3.4028235e+38 -4.1887903e-01 -3.4028235e+38], [4.8000002e+00 3.4028235e+38 4.1887903e-01 3.4028235e+38], (4,), float32)
+2024-02-10 11:07:38,979 - INFO - action_space
+2024-02-10 11:07:38,979 - INFO - Discrete(2)
+2024-02-10 11:07:41,479 - INFO - Tuples saved to ./data/sampled_tuples/sampled_tuples.pkl
+2024-02-10 11:07:41,479 - INFO - Summary Statistics:
+2024-02-10 11:07:41,480 - INFO - Average Reward: 22.2054
+2024-02-10 11:07:41,480 - INFO - Total Episodes: 10000
+2024-02-10 11:07:41,480 - INFO - Total Dones: 10000
+2024-02-10 11:07:41,481 - INFO - Reward Distribution: {0: 0, 1: 222054}

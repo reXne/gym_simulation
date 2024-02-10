@@ -3,24 +3,27 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 import numpy as np
-from simulator import RSSM  # Assuming you have this import
+from src.simulation.simulator import RSSM  # Make sure this is the updated RSSM
+from src.simulation.loss import compute_loss  # Assuming the updated loss function is here
 
-
-# Training function
-def train_rssm(model, old_observations_tensor, actions_tensor, observations_tensor, rewards_tensor, dones_tensor, optimizer, epochs=10):
+# Updated training function to handle new model outputs and loss calculation
+def train_rssm(model, state_tensor, actions_tensor, state_next_tensor, rewards_tensor, dones_tensor, optimizer, epochs=10):
     for epoch in range(epochs):
         optimizer.zero_grad()
-        predicted_next_obs, raw_predicted_rewards, predicted_dones, mu, logvar, mu_next, logvar_next = model(old_observations_tensor, actions_tensor)
         
-        # Create the posterior and prior dictionaries
-        posterior = {'mu': mu, 'logvar': logvar}
-        prior = {'mu': mu_next, 'logvar': logvar_next}
+        # Get model outputs
+        outputs = model(state_tensor, actions_tensor)
+        # Unpack outputs; adjust as per your model's return values
+        state_next_pred, reward_dist, done_dist, decoded, posterior, prior = outputs
+    
+        # Calculate loss using the updated function
+        total_loss, loss_details = compute_loss(outputs, state_tensor, rewards_tensor, dones_tensor, state_next_tensor)
         
-        loss = model.total_loss(predicted_next_obs, raw_predicted_rewards, predicted_dones, observations_tensor, rewards_tensor, dones_tensor, posterior, prior)
-        
-        loss.backward()
+        # Backward pass and optimization
+        total_loss.backward()
         optimizer.step()
-        print(f"Epoch {epoch+1}/{epochs}, Loss: {loss.item()}")
+        
+        print(f"Epoch {epoch+1}/{epochs}, Loss: {total_loss.item()}, Details: {loss_details}")
 
     return model
 
@@ -31,18 +34,28 @@ if __name__ == "__main__":
         tuples = pickle.load(f)
 
     # Extract data from tuples
-    old_observations, actions, rewards, observations, dones = zip(*tuples)
-    old_observations_tensor = torch.FloatTensor(np.stack(old_observations))
-    actions_tensor = torch.FloatTensor(actions).unsqueeze(1)
-    observations_tensor = torch.FloatTensor(np.stack(observations))
-    rewards_tensor = torch.FloatTensor(rewards).unsqueeze(1)
-    dones_tensor = torch.FloatTensor([float(d) for d in dones]).unsqueeze(1)
+    state, actions, rewards, state_next, dones = zip(*tuples)
+    state_tensor = torch.FloatTensor(np.stack(state))
+    actions_tensor = torch.FloatTensor(actions).unsqueeze(-1)  # Ensure correct shape
+    state_next_tensor = torch.FloatTensor(np.stack(state_next))
+    rewards_tensor = torch.FloatTensor(rewards)  # Adjust type if necessary
+    rewards_tensor = rewards_tensor.unsqueeze(1)
+    dones_tensor = torch.FloatTensor(dones).unsqueeze(-1)  # Ensure correct shape and type
+
+    print("State tensor shape:", state_tensor.shape)
+    print("Actions tensor shape:", actions_tensor.shape)
+    print("State next tensor shape:", state_next_tensor.shape)
+    print("Rewards tensor shape:", rewards_tensor.shape)
+    print("Dones tensor shape:", dones_tensor.shape)
+
 
     # Initialize model and optimizer
-    model = RSSM(len(old_observations[0]), 1, 64, 8)
+    model = RSSM(len(state[0]), 1, 64, 8)  # Adjust parameters as necessary
     optimizer = optim.Adam(model.parameters(), lr=0.001)
+        
+    
+    # Train the model
+    model = train_rssm(model, state_tensor, actions_tensor, state_next_tensor, rewards_tensor, dones_tensor, optimizer, epochs=100)
 
-    model = train_rssm(model, old_observations_tensor, actions_tensor, observations_tensor, rewards_tensor, dones_tensor, optimizer, epochs=100)
-
-    # Save the model if needed
+    # Save the model
     torch.save(model.state_dict(), './data/models/rssm_model.pth')
