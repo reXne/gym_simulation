@@ -39,16 +39,14 @@ class RSSM(nn.Module):
         self.reward_predictor = nn.Sequential(
             nn.Linear(state_dim + latent_dim, hidden_dim),
             nn.ReLU(),
-            nn.Linear(hidden_dim, 1),
-            nn.Sigmoid()
+            nn.Linear(hidden_dim, 1) #,nn.Sigmoid()
         )
         
         # Done Predictor
         self.done_predictor = nn.Sequential(
             nn.Linear(state_dim + latent_dim, hidden_dim),
             nn.ReLU(),
-            nn.Linear(hidden_dim, 1),
-            nn.Sigmoid()
+            nn.Linear(hidden_dim, 1) #,nn.Sigmoid()
         )
 
     def reparameterize(self, mu, logvar):

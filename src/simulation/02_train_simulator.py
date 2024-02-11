@@ -48,14 +48,13 @@ if __name__ == "__main__":
     print("Rewards tensor shape:", rewards_tensor.shape)
     print("Dones tensor shape:", dones_tensor.shape)
 
-
     # Initialize model and optimizer
-    model = RSSM(len(state[0]), 1, 64, 8)  # Adjust parameters as necessary
+    model = RSSM(state_dim = len(state[0]), action_dim = 1, hidden_dim = 8, latent_dim =2)  # Adjust parameters as necessary
     optimizer = optim.Adam(model.parameters(), lr=0.001)
         
     
     # Train the model
-    model = train_rssm(model, state_tensor, actions_tensor, state_next_tensor, rewards_tensor, dones_tensor, optimizer, epochs=100)
+    model = train_rssm(model, state_tensor, actions_tensor, state_next_tensor, rewards_tensor, dones_tensor, optimizer, epochs=1000)
 
     # Save the model
     torch.save(model.state_dict(), './data/models/rssm_model.pth')

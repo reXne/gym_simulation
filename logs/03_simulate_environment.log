@@ -1,18 +1,6 @@
-2023-09-19 23:06:10,950 - INFO - Tuples saved to ./data/simulated_tuples/simulated_tuples.pkl
-2023-09-19 23:06:10,957 - INFO - Summary Statistics for Simulated Environment:
-2023-09-19 23:06:10,957 - INFO - Average Reward: 0.875
-2023-09-19 23:06:10,957 - INFO - Total Steps: 10000
-2023-09-19 23:06:10,957 - INFO - Total Dones: 0
-2023-09-19 23:06:10,957 - INFO - Reward Distribution: {0.0: 1250, 1.0: 8750}
-2023-09-19 23:14:53,807 - INFO - Tuples saved to ./data/simulated_tuples/simulated_tuples.pkl
-2023-09-19 23:14:53,810 - INFO - Summary Statistics for Simulated Environment:
-2023-09-19 23:14:53,810 - INFO - Average Reward: 0.9982
-2023-09-19 23:14:53,810 - INFO - Total Steps: 10000
-2023-09-19 23:14:53,810 - INFO - Total Dones: 0
-2023-09-19 23:14:53,810 - INFO - Reward Distribution: {0.0: 18, 1.0: 9982}
-2023-09-19 23:19:37,382 - INFO - Tuples saved to ./data/simulated_tuples/simulated_tuples.pkl
-2023-09-19 23:19:37,387 - INFO - Summary Statistics for Simulated Environment:
-2023-09-19 23:19:37,387 - INFO - Average Reward: 0.9974
-2023-09-19 23:19:37,387 - INFO - Total Steps: 10000
-2023-09-19 23:19:37,387 - INFO - Total Dones: 0
-2023-09-19 23:19:37,387 - INFO - Reward Distribution: {0.0: 26, 1.0: 9974}
+2024-02-10 23:21:10,967 - INFO - Tuples saved to ./data/simulated_tuples/simulated_tuples.pkl
+2024-02-10 23:21:10,968 - INFO - Summary Statistics for Simulated Environment:
+2024-02-10 23:21:10,968 - INFO - Average Reward: 7.398
+2024-02-10 23:21:10,968 - INFO - Total Episodes: 1000
+2024-02-10 23:21:10,968 - INFO - Total Dones: 1000
+2024-02-10 23:21:10,968 - INFO - Reward Distribution: {0: 216, 1: 7398}

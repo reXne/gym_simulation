@@ -1,7 +1,7 @@
-import gym
 import random
 import pickle
 import logging
+import gymnasium as gym
 
 # Set up logging configuration
 logging.basicConfig(level=logging.INFO,
