@@ -1,0 +1,25 @@
+2024-02-11 22:08:42,853 - INFO - Environment: CartPole-v1
+2024-02-11 22:08:42,853 - INFO - Observation Space: Box([-4.8000002e+00 -3.4028235e+38 -4.1887903e-01 -3.4028235e+38], [4.8000002e+00 3.4028235e+38 4.1887903e-01 3.4028235e+38], (4,), float32)
+2024-02-11 22:08:42,853 - INFO - Action Space: Discrete(2)
+2024-02-11 22:08:49,978 - INFO - Tuples saved to ./data/sampled_tuples/sampled_tuples_CartPole-v1.pkl
+2024-02-11 22:28:04,262 - INFO - Environment: CartPole-v1
+2024-02-11 22:28:04,262 - INFO - Observation Space: Box([-4.8000002e+00 -3.4028235e+38 -4.1887903e-01 -3.4028235e+38], [4.8000002e+00 3.4028235e+38 4.1887903e-01 3.4028235e+38], (4,), float32)
+2024-02-11 22:28:04,273 - INFO - Action Space: Discrete(2)
+2024-02-11 22:28:27,883 - INFO - Environment: CartPole-v1
+2024-02-11 22:28:27,884 - INFO - Observation Space: Box([-4.8000002e+00 -3.4028235e+38 -4.1887903e-01 -3.4028235e+38], [4.8000002e+00 3.4028235e+38 4.1887903e-01 3.4028235e+38], (4,), float32)
+2024-02-11 22:28:27,884 - INFO - Action Space: Discrete(2)
+2024-02-11 22:28:31,184 - INFO - Total Episodes: 10000
+2024-02-11 22:28:31,184 - INFO - Total Dones: 10000
+2024-02-11 22:28:31,184 - INFO - Mean Reward: 1.00
+2024-02-11 22:28:31,184 - INFO - Action Distribution: {0: 110349, 1: 111180}
+2024-02-11 22:28:31,184 - INFO - Reward Distribution: {1.0: 221529}
+2024-02-11 22:28:33,325 - INFO - Tuples saved to ./data/sampled_tuples/sampled_tuples_CartPole-v1.pkl
+2024-02-11 22:29:08,272 - INFO - Environment: FrozenLake-v1
+2024-02-11 22:29:08,273 - INFO - Observation Space: Discrete(16)
+2024-02-11 22:29:08,273 - INFO - Action Space: Discrete(4)
+2024-02-11 22:29:09,052 - INFO - Total Episodes: 10000
+2024-02-11 22:29:09,052 - INFO - Total Dones: 10000
+2024-02-11 22:29:09,052 - INFO - Mean Reward: 0.00
+2024-02-11 22:29:09,052 - INFO - Action Distribution: {0: 19505, 1: 19233, 2: 19405, 3: 19487}
+2024-02-11 22:29:09,052 - INFO - Reward Distribution: {0.0: 77496, 1.0: 134}
+2024-02-11 22:29:09,206 - INFO - Tuples saved to ./data/sampled_tuples/sampled_tuples_FrozenLake-v1.pkl

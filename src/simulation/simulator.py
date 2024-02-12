@@ -62,7 +62,6 @@ class RSSM(nn.Module):
         
         prior = Normal(torch.zeros_like(mu), torch.ones_like(logvar))
         
-
         state_next = self.sequence_model(torch.cat([state, z, action], dim=1))
         
         # z_next para predecr next reward y continues

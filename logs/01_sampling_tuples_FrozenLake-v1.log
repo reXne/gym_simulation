@@ -1,0 +1,18 @@
+2024-02-11 22:29:45,700 - INFO - Environment: FrozenLake-v1
+2024-02-11 22:29:45,700 - INFO - Observation Space: Discrete(16)
+2024-02-11 22:29:45,700 - INFO - Action Space: Discrete(4)
+2024-02-11 22:29:46,858 - INFO - Total Episodes: 10000
+2024-02-11 22:29:46,859 - INFO - Total Dones: 10000
+2024-02-11 22:29:46,859 - INFO - Mean Reward: 0.00
+2024-02-11 22:29:46,859 - INFO - Action Distribution: {0: 19422, 1: 19094, 2: 19653, 3: 19299}
+2024-02-11 22:29:46,859 - INFO - Reward Distribution: {0.0: 77307, 1.0: 161}
+2024-02-11 22:29:47,030 - INFO - Tuples saved to ./data/sampled_tuples/sampled_tuples_FrozenLake-v1.pkl
+2024-02-11 22:32:18,637 - INFO - Environment: FrozenLake-v1
+2024-02-11 22:32:18,638 - INFO - Observation Space: Discrete(16)
+2024-02-11 22:32:18,638 - INFO - Action Space: Discrete(4)
+2024-02-11 22:32:19,403 - INFO - Total Episodes: 10000
+2024-02-11 22:32:19,405 - INFO - Total Dones: 10000
+2024-02-11 22:32:19,405 - INFO - Mean Reward: 0.00
+2024-02-11 22:32:19,406 - INFO - Action Distribution: {0: 18824, 1: 18903, 2: 19191, 3: 18908}
+2024-02-11 22:32:19,407 - INFO - Reward Distribution: {0.0: 75674, 1.0: 152}
+2024-02-11 22:32:19,547 - INFO - Tuples saved to ./data/sampled_tuples/sampled_tuples_FrozenLake-v1.pkl

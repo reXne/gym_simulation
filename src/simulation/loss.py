@@ -20,7 +20,7 @@ def compute_loss(outputs, target_state, target_reward, target_done, next_state):
     done_loss = -done_dist.log_prob(target_done.float()).mean()
 
     # Combine the losses
-    total_loss = recon_loss + kl_loss + sequence_model_loss + reward_loss + done_loss
+    total_loss =  kl_loss * 0.1 + sequence_model_loss * 0.5 + (recon_loss + reward_loss + done_loss) * 1.0 
     return total_loss, {
         'total_loss': total_loss.item(),
         'recon_loss': recon_loss.item(),

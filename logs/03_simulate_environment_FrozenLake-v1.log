@@ -1,0 +1,16 @@
+2024-02-11 21:57:32,379 - INFO - Environment: FrozenLake-v1
+2024-02-11 21:57:32,379 - INFO - Observation Space: Discrete(16)
+2024-02-11 21:57:32,380 - INFO - Action Space: Discrete(4)
+2024-02-11 21:57:33,395 - INFO - Tuples saved to ./data/sampled_tuples/sampled_tuples_FrozenLake-v1.pkl
+2024-02-11 22:02:40,375 - INFO - Environment: FrozenLake-v1
+2024-02-11 22:02:40,375 - INFO - Observation Space: Discrete(16)
+2024-02-11 22:02:40,375 - INFO - Action Space: Discrete(4)
+2024-02-11 22:02:41,289 - INFO - Tuples saved to ./data/sampled_tuples/sampled_tuples_FrozenLake-v1.pkl
+2024-02-11 22:04:01,102 - INFO - Environment: FrozenLake-v1
+2024-02-11 22:04:01,102 - INFO - Observation Space: Discrete(16)
+2024-02-11 22:04:01,102 - INFO - Action Space: Discrete(4)
+2024-02-11 22:04:02,473 - INFO - Tuples saved to ./data/sampled_tuples/sampled_tuples_FrozenLake-v1.pkl
+2024-02-11 22:05:17,041 - INFO - Environment: FrozenLake-v1
+2024-02-11 22:05:17,041 - INFO - Observation Space: Discrete(16)
+2024-02-11 22:05:17,041 - INFO - Action Space: Discrete(4)
+2024-02-11 22:05:18,261 - INFO - Tuples saved to ./data/sampled_tuples/sampled_tuples_FrozenLake-v1.pkl
