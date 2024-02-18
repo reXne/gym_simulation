@@ -5,7 +5,7 @@ import numpy as np
 import pickle
 import os
 import logging
-from simulation.frozen_lake_simple.simulator import SequenceModel
+from simulation.frozen_lake.simulator_v1 import SequenceModel
 from torch.distributions import (
     Normal, Bernoulli, Beta, Binomial, Categorical, 
     OneHotCategorical, Independent
@@ -53,6 +53,7 @@ def simulate_environment(env_name, num_episodes):
         state_idx = env.reset()[0]  # Assuming env.reset() returns a single integer state index
         state = to_one_hot(state_idx, num_states).unsqueeze(0)
         
+        is_initial = True
         done = False
         while not done:
             action_idx = select_random_action(num_actions)
@@ -76,8 +77,9 @@ def simulate_environment(env_name, num_episodes):
             state_distribution[next_state_idx] = state_distribution.get(next_state_idx, 0) + 1
             
             # Append tuple with indices and reward
-            generated_tuples.append((state_idx, action_idx, reward, next_state_idx, done))
-            
+            generated_tuples.append((state_idx, action_idx, reward, next_state_idx, done, is_initial))
+            is_initial = False
+
             total_rewards += reward
             if not done:
                 state_idx = next_state_idx  # Update for next iteration

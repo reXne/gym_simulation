@@ -1,3 +1,5 @@
+# Simple Neural Network approach
+
 import torch
 import torch.nn as nn
 from torch.distributions import (
@@ -29,4 +31,6 @@ class SequenceModel(nn.Module):
         done = self.done_head(output)
         
         return next_state, reward, done
+
+
 

@@ -1,24 +1,6 @@
-2024-02-17 19:07:49,797 - INFO - Summary Statistics for Simulated Environment:
-2024-02-17 19:40:19,803 - INFO - Tuples saved to ./data/simulated_tuples/simulated_tuples_FrozenLake-v1.pkl
-2024-02-17 19:40:19,887 - INFO - Summary Statistics for Simulated Environment:
-2024-02-17 19:40:19,889 - INFO - Average Reward: tensor([[0.0270]])
-2024-02-17 19:40:19,890 - INFO - Total Episodes: 1000
-2024-02-17 19:40:19,890 - INFO - Total Dones: 1000
-2024-02-17 19:49:26,026 - INFO - Tuples saved to ./data/simulated_tuples/simulated_tuples_FrozenLake-v1.pkl
-2024-02-17 19:49:26,043 - INFO - Summary Statistics for Simulated Environment:
-2024-02-17 19:49:26,043 - INFO - Average Reward: 0.02
-2024-02-17 19:49:26,043 - INFO - Total Episodes: 1000
-2024-02-17 19:49:26,043 - INFO - Total Dones: 1000
-2024-02-17 19:49:26,043 - INFO - Reward Distribution: {0.0: 8260, 1.0: 20}
-2024-02-17 20:28:44,562 - INFO - Tuples saved to ./data/simulated_tuples/simulated_tuples_FrozenLake-v1.pkl
-2024-02-17 20:28:44,581 - INFO - Summary Statistics for Simulated Environment:
-2024-02-17 20:28:44,581 - INFO - Average Reward: 0.027
-2024-02-17 20:28:44,581 - INFO - Total Episodes: 1000
-2024-02-17 20:28:44,581 - INFO - Total Dones: 1000
-2024-02-17 20:28:44,581 - INFO - Reward Distribution: {0.0: 8749, 1.0: 27}
-2024-02-17 20:37:15,784 - INFO - Tuples saved to ./data/simulated_tuples/simulated_tuples_FrozenLake-v1.pkl
-2024-02-17 20:37:15,784 - INFO - Summary Statistics for Simulated Environment:
-2024-02-17 20:37:15,784 - INFO - Average Reward: 0.03
-2024-02-17 20:37:15,784 - INFO - Total Episodes: 1000
-2024-02-17 20:37:15,784 - INFO - Total Dones: 1000
-2024-02-17 20:37:15,784 - INFO - Reward Distribution: {0.0: 8436, 1.0: 30}
+2024-02-18 10:38:25,007 - INFO - Tuples saved to ./data/simulated_tuples/simulated_tuples_FrozenLake-v1.pkl
+2024-02-18 10:38:25,008 - INFO - Summary Statistics for Simulated Environment:
+2024-02-18 10:38:25,008 - INFO - Average Reward: 0.008
+2024-02-18 10:38:25,008 - INFO - Total Episodes: 1000
+2024-02-18 10:38:25,008 - INFO - Total Dones: 1000
+2024-02-18 10:38:25,008 - INFO - Reward Distribution: {0.0: 7544, 1.0: 8}

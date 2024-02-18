@@ -3,8 +3,8 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 import numpy as np
-from src.simulation.frozen_lake.simulator import RSSM  
-from src.simulation.frozen_lake.loss import compute_loss
+from simulation.frozen_lake.simulator_v1 import RSSM  
+from simulation.frozen_lake.loss_v1 import compute_loss
 from torch.utils.data import Dataset, DataLoader
 
 
