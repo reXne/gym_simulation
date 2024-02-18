@@ -3,8 +3,8 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 import numpy as np
-from src.simulation.simulator import RSSM  # Make sure this is the updated RSSM
-from src.simulation.loss import compute_loss  # Assuming the updated loss function is here
+from src.simulation.frozen_lake.simulator import RSSM  
+from src.simulation.frozen_lake.loss import compute_loss
 from torch.utils.data import Dataset, DataLoader
 
 

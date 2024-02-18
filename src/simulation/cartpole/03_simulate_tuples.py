@@ -5,7 +5,8 @@ import numpy as np
 import pickle
 import os
 import logging
-from src.simulation.simulator import RSSM
+from simulation.cartpole.simulator import RSSM
+
 
 def select_random_action(num_actions):
     """Selects a random action and returns it as a one-hot encoded tensor."""

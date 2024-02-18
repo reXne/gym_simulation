@@ -2,8 +2,6 @@ import gymnasium as gym
 import os
 import pickle
 import logging
-import torch
-from torch.utils.data import Dataset, DataLoader
 import numpy as np
 
 def save_tuples(tuples, env_name, filename="./data/sampled_tuples/sampled_tuples"):
@@ -13,7 +11,7 @@ def save_tuples(tuples, env_name, filename="./data/sampled_tuples/sampled_tuples
     with open(filename, 'wb') as f:
         pickle.dump(tuples, f)
     logging.info(f"Tuples saved to {filename}")
-
+t
 def sample_environment(env_name='CartPole-v1', map_name="4x4", is_slippery=True, render=False):
     """Simulate the environment and collect tuples of observations, actions, rewards, and new observations."""
     if env_name == 'FrozenLake-v1':
@@ -30,9 +28,10 @@ def sample_environment(env_name='CartPole-v1', map_name="4x4", is_slippery=True,
     
     for _ in range(num_episodes):
         observation = env.reset()
+        is_initial_state = True 
         if isinstance(observation, tuple):
           observation = observation[0]
-          
+        
         done = False
         while not done:
             action = env.action_space.sample()
@@ -40,7 +39,8 @@ def sample_environment(env_name='CartPole-v1', map_name="4x4", is_slippery=True,
             observation, reward, done, _, _ = env.step(action)
             if isinstance(observation, tuple):
                  observation = observation[0]
-            tuples.append((old_observation, action, reward, observation, done))
+            tuples.append((old_observation, action, reward, observation, done, is_initial_state))
+            is_initial_state = False
     
     env.close()
     
@@ -81,3 +81,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
