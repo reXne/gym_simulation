@@ -3,11 +3,42 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 import numpy as np
-from simulation.frozen_lake.simulator_v1 import RSSM  
-from simulation.frozen_lake.loss_v1 import compute_loss
-from torch.utils.data import Dataset, DataLoader
+import matplotlib.pyplot as plt
+from src.simulation.frozen_lake.simulator_v2 import SimulatorV2
+from torch.utils.data import Dataset, DataLoader, random_split
 
+import torch.nn.functional as F
+from torch.distributions import (
+    Normal, Bernoulli, Beta, Binomial, Categorical, 
+    OneHotCategorical, Independent, kl_divergence
+)
 
+def compute_loss(outputs, targets):
+    # Assuming 'outputs' is unpacked here as before or within the function
+    target_state, target_reward, target_done, target_state_next = targets
+    state_next_logits, reward_logits, done_logits, decoder_logits, prior_dist, posterior_dist = outputs
+    target_state_next_indices = torch.argmax(target_state_next, dim=1)
+    
+    reward_dist = Bernoulli(logits = reward_logits)
+    done_dist = Bernoulli(logits = done_logits)
+    
+    kl_loss = kl_divergence(posterior_dist, prior_dist).mean()
+    decoder_loss = F.cross_entropy(decoder_logits, target_state_next_indices)
+    sequence_model_loss = F.cross_entropy(state_next_logits, target_state)
+    reward_loss = -reward_dist.log_prob(target_reward).mean()
+    done_loss = -done_dist.log_prob(target_done.float()).mean()
+
+    # Combine the losses
+    total_loss =  kl_loss * 0.3 + decoder_loss * 0.4 + (sequence_model_loss + reward_loss + done_loss) * 1.0 
+    return total_loss, {
+        'total_loss': total_loss.item(),
+        'sequence_model_loss': sequence_model_loss.item(),
+        'reward_loss': reward_loss.item(),
+        'done_loss': done_loss.item(),
+        'recon_loss': decoder_loss.item(),
+        'kl_loss': kl_loss.item(),
+    }
+    
 def to_one_hot(index, num_classes):
     """Converts an integer index into a one-hot encoded tensor."""
     one_hot_tensor = torch.zeros(num_classes)
@@ -29,70 +60,118 @@ class TuplesDataset(Dataset):
         return (self.states[idx], self.actions[idx], self.rewards[idx],
                 self.next_states[idx], self.dones[idx])
         
-# Updated training function to handle new model outputs and loss calculation
-def train_rssm(model, dataloader, optimizer, epochs=10):
+def prepare_data_loaders(dataset, batch_size=1024, split_ratio=0.8):
+    """Splits the dataset into training and validation sets and prepares data loaders."""
+    train_size = int(len(dataset) * split_ratio)
+    val_size = len(dataset) - train_size
+    train_dataset, val_dataset = random_split(dataset, [train_size, val_size])
+    train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
+    val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False)
+    return train_loader, val_loader
+       
+def train_and_validate(model, train_loader, val_loader, optimizer, epochs=20):
+    # Initialize lists to store total losses for each epoch
+    train_losses = []
+    val_losses = []
+
+    # Initialize dicts to store detailed loss components for each epoch
+    train_loss_details = {'total_loss': [], 'sequence_model_loss': [], 'reward_loss': [], 'done_loss': [], 'recon_loss': [], 'kl_loss': []}
+    val_loss_details = {'total_loss': [], 'sequence_model_loss': [], 'reward_loss': [], 'done_loss': [], 'recon_loss': [], 'kl_loss': []}
+
     for epoch in range(epochs):
-        for state_tensor, actions_tensor, rewards_tensor, state_next_tensor, dones_tensor in dataloader:
+        model.train()
+        total_train_loss = 0
+        details_accum_train = {key: 0 for key in train_loss_details.keys()}  # Accumulators for detailed components
+
+        # Training loop
+        for states, actions, rewards, next_states, dones in train_loader:
             optimizer.zero_grad()
-            
-            # Get model outputs for the batch
-            outputs = model(state_tensor, actions_tensor)
-            # Calculate loss for the batch
-            total_loss, loss_details = compute_loss(outputs, state_tensor, rewards_tensor, dones_tensor, state_next_tensor)
-            
-            # Backward pass and optimization
-            total_loss.backward()
+            outputs = model(states, actions)
+            targets = next_states, rewards, dones, next_states
+            loss, details = compute_loss(outputs, targets) 
+            loss.backward()
             optimizer.step()
-        
-        print(f"Epoch {epoch+1}/{epochs}, Loss: {total_loss.item()}, Details: {loss_details}")
+            total_train_loss += loss.item()
+            for key in details:
+                details_accum_train[key] += details[key]
 
-    return model
+        # Calculate and store average loss and details for the epoch
+        train_losses.append(total_train_loss / len(train_loader))
+        for key in train_loss_details:
+            train_loss_details[key].append(details_accum_train[key] / len(train_loader))
 
-def main(env_name):
+        # Validation loop
+        model.eval()
+        total_val_loss = 0
+        details_accum_val = {key: 0 for key in val_loss_details.keys()}  # Accumulators for detailed components
+
+        with torch.no_grad(): 
+            for states, actions, rewards, next_states, dones in val_loader:
+                outputs = model(state = states, action = actions)
+                targets = next_states, rewards, dones, next_states
+                val_loss, details = compute_loss(outputs, targets) 
+                total_val_loss += val_loss.item()
+                for key in details:
+                    details_accum_val[key] += details[key]
+
+        # Calculate and store average loss and details for the epoch
+        val_losses.append(total_val_loss / len(val_loader))
+        for key in val_loss_details:
+            val_loss_details[key].append(details_accum_val[key] / len(val_loader))
+
+        # Print epoch summary with consistent naming
+        print(f"Epoch {epoch+1}:")
+        print(f"  Train Loss: {train_losses[-1]:.4f} - Details: { {k: v[-1] for k, v in train_loss_details.items()} }")
+        print(f"  Val Loss: {val_losses[-1]:.4f} - Details: { {k: v[-1] for k, v in val_loss_details.items()} }")
+
+    
+    return train_losses, val_losses, train_loss_details, val_loss_details
+
+
+
+    
+def plot_loss_components(train_losses, val_losses):
+    fig, axs = plt.subplots(2, 3, figsize=(12, 10))
+    axs = axs.flatten()
+    keys = ['total_loss', 'sequence_model_loss', 'reward_loss', 'done_loss', 'recon_loss', 'kl_loss']
+    
+    for i, key in enumerate(keys):
+        axs[i].plot(train_losses[key], label=f'Train {key}')
+        axs[i].plot(val_losses[key], label=f'Validation {key}')
+        axs[i].set_title(f'{key} over epochs')
+        axs[i].set_xlabel('Epoch')
+        axs[i].set_ylabel('Loss')
+        axs[i].legend()
+    
+    plt.tight_layout()
+    plt.savefig('losses.png')
+    plt.show()
+
+def main():
     # Load data
+    env_name = 'FrozenLake-v1'
+    simulator_version = 'v2'
     with open(f"./data/sampled_tuples/sampled_tuples_{env_name}.pkl", 'rb') as f:
         tuples = pickle.load(f)
 
-    states, actions, rewards, next_states, dones = zip(*tuples)
+    states, actions, rewards, next_states, dones, _ = zip(*tuples)
+    states = torch.stack([to_one_hot(s, 16) for s in states])
+    actions = torch.stack([to_one_hot(a, 4) for a in actions])
+    rewards = torch.FloatTensor(rewards).unsqueeze(-1)
+    next_states = torch.stack([to_one_hot(s, 16) for s in next_states])
+    dones = torch.FloatTensor(dones).unsqueeze(-1)
 
-    actions_tensor = torch.FloatTensor(np.array(actions)).unsqueeze(-1)
-    rewards_tensor = torch.FloatTensor(np.array(rewards)).unsqueeze(-1)
-    dones_tensor = torch.FloatTensor(np.array(dones)).unsqueeze(-1)
-    
-    if env_name == 'FrozenLake-v1':
-        num_states = 16  # Total number of states in FrozenLake-v1
-        num_actions = 4  # Total number of actions in FrozenLake-v1
-        
-        states = torch.stack([to_one_hot(s, num_states) for s in states])
-        next_states = torch.stack([to_one_hot(s, num_states) for s in next_states])
-        actions = torch.stack([to_one_hot(a, num_actions) for a in actions])
-        
-        actions_tensor = torch.FloatTensor(np.array(actions)).unsqueeze(-1)
-        actions_tensor = actions_tensor.squeeze(-1)
-        
-    if env_name == 'CartPole-v1':
-        num_states = 4  # Total number of states in FrozenLake-v1
-        num_actions = 1  # Total number of actions in FrozenLake-v1
-        
-        states = torch.FloatTensor(np.stack(states))
-        next_states = torch.FloatTensor(np.stack(next_states))
-
-
-    # Create dataset and dataloader
-    dataset = TuplesDataset(states, actions_tensor, rewards_tensor, next_states, dones_tensor)
-    batch_size = 1024  # Adjust as needed
-    dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=True)
-
-    model = RSSM(state_dim=num_states, action_dim= num_actions, hidden_dim=8, latent_dim=2)
+    dataset = TuplesDataset(states, actions, rewards, next_states, dones)
+    train_loader, val_loader = prepare_data_loaders(dataset, batch_size=1024, split_ratio=0.8)
+    model = SimulatorV2(latent_dim=8,  hidden_dim=8, action_dim=4, state_dim=16)
     optimizer = optim.Adam(model.parameters(), lr=0.001)
 
-    # Train the model
-    model = train_rssm(model, dataloader, optimizer, epochs=3)
+    train_losses, val_losses, train_loss_details, val_loss_details = train_and_validate(model, train_loader, val_loader, optimizer, epochs=50)
+
+    plot_loss_components(train_loss_details, val_loss_details)
 
     # Save the trained model
-    torch.save(model.state_dict(), f'./data/models/rssm_model_{env_name}.pth')
-
+    torch.save(model.state_dict(), f'./data/models/simulator_{simulator_version}.pth')
 
 if __name__ == "__main__":
-    # main(env_name='CartPole-v1')
-    main(env_name='FrozenLake-v1')
+    main()

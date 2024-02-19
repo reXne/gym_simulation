@@ -4,8 +4,8 @@ import torch.nn as nn
 import torch.optim as optim
 import numpy as np
 import matplotlib.pyplot as plt
-from src.simulation.frozen_lake.simulator_v2 import SimulatorV2
 from torch.utils.data import Dataset, DataLoader, random_split
+from src.simulation.frozen_lake.simulator_v1 import SimulatorV1
 
 import torch.nn.functional as F
 from torch.distributions import (
@@ -13,30 +13,23 @@ from torch.distributions import (
     OneHotCategorical, Independent, kl_divergence
 )
 
-def compute_loss(outputs, targets):
-    # Assuming 'outputs' is unpacked here as before or within the function
-    target_state, target_reward, target_done, target_state_next = targets
-    state_next_logits, reward_logits, done_logits, decoder_logits, prior_dist, posterior_dist = outputs
-    target_state_next_indices = torch.argmax(target_state_next, dim=1)
+def compute_loss(outputs, inputs):
+    target_state, target_reward, target_done, target_state_next = inputs
+    state_next_logits, reward_logits, done_logits = outputs
     
     reward_dist = Bernoulli(logits = reward_logits)
     done_dist = Bernoulli(logits = done_logits)
-    
-    kl_loss = kl_divergence(posterior_dist, prior_dist).mean()
-    decoder_loss = F.cross_entropy(decoder_logits, target_state_next_indices)
-    sequence_model_loss = F.cross_entropy(state_next_logits, target_state)
+    target_state_next_indices = torch.argmax(target_state_next, dim=1)
+    sequence_model_loss = F.cross_entropy(state_next_logits, target_state_next_indices)
     reward_loss = -reward_dist.log_prob(target_reward).mean()
     done_loss = -done_dist.log_prob(target_done.float()).mean()
-
-    # Combine the losses
-    total_loss =  kl_loss * 0.3 + decoder_loss * 0.4 + (sequence_model_loss + reward_loss + done_loss) * 1.0 
+    
+    total_loss =  sequence_model_loss + reward_loss + done_loss
     return total_loss, {
         'total_loss': total_loss.item(),
         'sequence_model_loss': sequence_model_loss.item(),
         'reward_loss': reward_loss.item(),
         'done_loss': done_loss.item(),
-        'recon_loss': decoder_loss.item(),
-        'kl_loss': kl_loss.item(),
     }
     
 def to_one_hot(index, num_classes):
@@ -57,9 +50,8 @@ class TuplesDataset(Dataset):
         return len(self.states)
 
     def __getitem__(self, idx):
-        return (self.states[idx], self.actions[idx], self.rewards[idx],
-                self.next_states[idx], self.dones[idx])
-        
+        return self.states[idx], self.actions[idx], self.rewards[idx], self.next_states[idx], self.dones[idx]
+
 def prepare_data_loaders(dataset, batch_size=1024, split_ratio=0.8):
     """Splits the dataset into training and validation sets and prepares data loaders."""
     train_size = int(len(dataset) * split_ratio)
@@ -68,15 +60,15 @@ def prepare_data_loaders(dataset, batch_size=1024, split_ratio=0.8):
     train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
     val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False)
     return train_loader, val_loader
-       
+
 def train_and_validate(model, train_loader, val_loader, optimizer, epochs=20):
     # Initialize lists to store total losses for each epoch
     train_losses = []
     val_losses = []
 
     # Initialize dicts to store detailed loss components for each epoch
-    train_loss_details = {'total_loss': [], 'sequence_model_loss': [], 'reward_loss': [], 'done_loss': [], 'recon_loss': [], 'kl_loss': []}
-    val_loss_details = {'total_loss': [], 'sequence_model_loss': [], 'reward_loss': [], 'done_loss': [], 'recon_loss': [], 'kl_loss': []}
+    train_loss_details = {'total_loss': [], 'sequence_model_loss': [], 'reward_loss': [], 'done_loss': []}
+    val_loss_details = {'total_loss': [], 'sequence_model_loss': [], 'reward_loss': [], 'done_loss': []}
 
     for epoch in range(epochs):
         model.train()
@@ -86,7 +78,7 @@ def train_and_validate(model, train_loader, val_loader, optimizer, epochs=20):
         # Training loop
         for states, actions, rewards, next_states, dones in train_loader:
             optimizer.zero_grad()
-            outputs = model(states, actions)
+            outputs = model(torch.cat([states, actions], dim=1))
             targets = next_states, rewards, dones, next_states
             loss, details = compute_loss(outputs, targets) 
             loss.backward()
@@ -105,11 +97,11 @@ def train_and_validate(model, train_loader, val_loader, optimizer, epochs=20):
         total_val_loss = 0
         details_accum_val = {key: 0 for key in val_loss_details.keys()}  # Accumulators for detailed components
 
-        with torch.no_grad(): 
+        with torch.no_grad():
             for states, actions, rewards, next_states, dones in val_loader:
-                outputs = model(state = states, action = actions)
+                outputs = model(torch.cat([states, actions], dim=1))
                 targets = next_states, rewards, dones, next_states
-                val_loss, details = compute_loss(outputs, targets) 
+                val_loss, details = compute_loss(outputs, targets)  # Adjust according to actual function signature
                 total_val_loss += val_loss.item()
                 for key in details:
                     details_accum_val[key] += details[key]
@@ -131,9 +123,9 @@ def train_and_validate(model, train_loader, val_loader, optimizer, epochs=20):
 
     
 def plot_loss_components(train_losses, val_losses):
-    fig, axs = plt.subplots(2, 3, figsize=(12, 10))
+    fig, axs = plt.subplots(2, 2, figsize=(12, 10))
     axs = axs.flatten()
-    keys = ['total_loss', 'sequence_model_loss', 'reward_loss', 'done_loss', 'recon_loss', 'kl_loss']
+    keys = ['total_loss', 'sequence_model_loss', 'reward_loss', 'done_loss']
     
     for i, key in enumerate(keys):
         axs[i].plot(train_losses[key], label=f'Train {key}')
@@ -147,10 +139,13 @@ def plot_loss_components(train_losses, val_losses):
     plt.savefig('losses.png')
     plt.show()
 
+
+
+
 def main():
     # Load data
     env_name = 'FrozenLake-v1'
-    simulator_version = 'v2'
+    simulator_version = 'v1'
     with open(f"./data/sampled_tuples/sampled_tuples_{env_name}.pkl", 'rb') as f:
         tuples = pickle.load(f)
 
@@ -163,7 +158,8 @@ def main():
 
     dataset = TuplesDataset(states, actions, rewards, next_states, dones)
     train_loader, val_loader = prepare_data_loaders(dataset, batch_size=1024, split_ratio=0.8)
-    model = SimulatorV2(latent_dim=8,  hidden_dim=8, action_dim=4, state_dim=16)
+
+    model = SimulatorV1(input_dim=16+4, hidden_dim=8, state_dim=16)
     optimizer = optim.Adam(model.parameters(), lr=0.001)
 
     train_losses, val_losses, train_loss_details, val_loss_details = train_and_validate(model, train_loader, val_loader, optimizer, epochs=50)

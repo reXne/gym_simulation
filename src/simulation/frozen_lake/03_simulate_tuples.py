@@ -5,7 +5,7 @@ import numpy as np
 import pickle
 import os
 import logging
-from simulation.frozen_lake.simulator_v1 import SequenceModel
+from src.simulation.frozen_lake.simulator_v1 import SimulatorV1
 from torch.distributions import (
     Normal, Bernoulli, Beta, Binomial, Categorical, 
     OneHotCategorical, Independent
@@ -23,7 +23,7 @@ def to_one_hot(index, num_classes):
     return one_hot_tensor
 
 def load_model(model_path, input_dim, hidden_dim=8, state_dim=16):
-    model = SequenceModel(input_dim=input_dim, hidden_dim=hidden_dim, state_dim=state_dim)
+    model = SimulatorV1(input_dim=input_dim, hidden_dim=hidden_dim, state_dim=state_dim)
     model.load_state_dict(torch.load(model_path, map_location=torch.device('cpu')))
     model.eval()
     return model
@@ -37,7 +37,10 @@ def save_tuples(tuples, filename):
 
 def simulate_environment(env_name, num_episodes):
     env = gym.make(env_name)
-    model_path = f'./data/models/sequence_model_{env_name}.pth'
+    simulator_version = 'v1'
+    model_path = f'./data/models/simulator_{simulator_version}.pth'
+    
+    simulator_version = 'v1'
     num_states = 16  # For FrozenLake-v1
     num_actions = 4  # For FrozenLake-v1
     
@@ -88,7 +91,7 @@ def simulate_environment(env_name, num_episodes):
                 total_dones += 1
                 
     avg_reward = total_rewards / num_episodes
-    save_path = f'./data/simulated_tuples/simulated_tuples_{env_name}.pkl'
+    save_path = f'./data/simulated_tuples/simulated_tuples_{simulator_version}.pkl'
     save_tuples(generated_tuples, save_path)
     
     return {
@@ -102,10 +105,11 @@ def simulate_environment(env_name, num_episodes):
 
 def main():
     env_name='FrozenLake-v1'
+    simulator_version = 'v1'
     # Set up logging configuration
     logging.basicConfig(level=logging.INFO,
                         format='%(asctime)s - %(levelname)s - %(message)s',
-                        filename=f'./logs/03_simulate_environment_{env_name}.log',
+                        filename=f'./logs/03_simulate_environment_{simulator_version}.log',
                         filemode='w')
 
     

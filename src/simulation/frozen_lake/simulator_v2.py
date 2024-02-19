@@ -8,14 +8,14 @@ from torch.distributions import (
 )
 
 
-class RSSM(nn.Module):
+class SimulatorV2(nn.Module):
     def __init__(self, state_dim, action_dim, hidden_dim, latent_dim):
-        super(RSSM, self).__init__()
+        super().__init__()
         self.encoder_model = EncoderModel(state_dim, hidden_dim, latent_dim)
         self.decoder_model = DecoderModel(latent_dim, hidden_dim, state_dim)
         self.sequence_model = SequenceModel(state_dim + latent_dim + action_dim, hidden_dim, state_dim)
-        self.reward_model = RewardModel(state_dim + latent_dim, hidden_dim, 1)
-        self.continue_model = ContinueModel(state_dim + latent_dim, hidden_dim, 1)
+        self.reward_model = RewardModel(state_dim + latent_dim, hidden_dim)
+        self.continue_model = ContinueModel(state_dim + latent_dim, hidden_dim)
 
     def forward(self, state, action):
         h = self.encoder_model(state)
@@ -28,12 +28,12 @@ class RSSM(nn.Module):
         
         state_next_logits = self.sequence_model(torch.cat([state, z, action], dim=1))
         
-        decoded_logits = self.decoder_model(z)  
+        decoder_logits = self.decoder_model(z)  
 
         reward_logits = self.reward_model(torch.cat([state, z], dim=1))
         continue_logits = self.continue_model(torch.cat([state, z], dim=1))
 
-        return state_next_logits, reward_logits, continue_logits, decoded_logits, prior_dist, posterior_dist
+        return state_next_logits, reward_logits, continue_logits, decoder_logits, prior_dist, posterior_dist
 
 class EncoderModel(nn.Module):
     def __init__(self, input_dim, hidden_dim, latent_dim):

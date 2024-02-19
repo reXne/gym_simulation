@@ -33,8 +33,9 @@ def compute_metrics(tuples):
 
 if __name__ == "__main__":
     env_name = 'FrozenLake-v1'
+    simulator_version = 'v1'
     real_tuples = load_tuples(f"./data/sampled_tuples/sampled_tuples_{env_name}.pkl")
-    simulated_tuples = load_tuples(f"./data/simulated_tuples/simulated_tuples_{env_name}.pkl")
+    simulated_tuples = load_tuples(f"./data/simulated_tuples/simulated_tuples_{simulator_version}.pkl")
 
     real_mean_reward, real_mean_episode_length = compute_metrics(real_tuples)
     simulated_mean_reward, simulated_mean_episode_length = compute_metrics(simulated_tuples)

@@ -7,7 +7,7 @@ from torch.distributions import (
     OneHotCategorical, Independent
 )
 
-class SequenceModel(nn.Module):
+class SimulatorV1(nn.Module):
     def __init__(self, input_dim, hidden_dim, state_dim):
         super().__init__()
         

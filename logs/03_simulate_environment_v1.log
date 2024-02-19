@@ -1,0 +1,6 @@
+2024-02-18 17:45:37,134 - INFO - Tuples saved to ./data/simulated_tuples/simulated_tuples_v1.pkl
+2024-02-18 17:45:37,134 - INFO - Summary Statistics for Simulated Environment:
+2024-02-18 17:45:37,134 - INFO - Average Reward: 0.005
+2024-02-18 17:45:37,134 - INFO - Total Episodes: 1000
+2024-02-18 17:45:37,134 - INFO - Total Dones: 1000
+2024-02-18 17:45:37,134 - INFO - Reward Distribution: {0.0: 7831, 1.0: 5}

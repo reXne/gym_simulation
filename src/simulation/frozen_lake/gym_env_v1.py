@@ -1,7 +1,7 @@
 import torch
 import numpy as np
 # Ensure correct import path for SequenceModel
-from src.simulation.frozen_lake.simulator_v1 import SequenceModel  
+from src.simulation.frozen_lake.simulator_v1 import SimulatorV1  
 from torch.distributions import (
     Normal, Bernoulli, Beta, Binomial, Categorical, 
     OneHotCategorical, Independent
@@ -20,7 +20,7 @@ class ActionSpace:
     
 class SimulatedGymEnvironment:
     def __init__(self, model_path, state_dim, action_dim, hidden_dim=8):
-        self.model = SequenceModel(input_dim=state_dim+action_dim, hidden_dim=hidden_dim, state_dim=state_dim)
+        self.model = SimulatorV1(input_dim=state_dim+action_dim, hidden_dim=hidden_dim, state_dim=state_dim)
         self.model.load_state_dict(torch.load(model_path))
         self.model.eval()  # Set the model to evaluation mode
         
