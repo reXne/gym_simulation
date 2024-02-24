@@ -4,7 +4,7 @@ import torch.nn as nn
 import torch.optim as optim
 import numpy as np
 import matplotlib.pyplot as plt
-from simulation.frozen_lake.v2.simulator import SimulatorV2
+from src.simulation.frozen_lake.v3.simulator import SimulatorV3
 from torch.utils.data import Dataset, DataLoader, random_split
 
 import torch.nn.functional as F
@@ -16,11 +16,9 @@ from torch.distributions import (
 def compute_loss(outputs, targets):
     # Assuming 'outputs' is unpacked here as before or within the function
     target_state, target_reward, target_done, target_state_next = targets
-    state_next_logits, reward_logits, done_logits, decoder_logits, prior_logits, posterior_logits = outputs
+    state_next_logits, reward_logits, done_logits, decoder_logits, prior_dist, posterior_dist = outputs
     target_state_next_indices = torch.argmax(target_state_next, dim=1)
     
-    # next state con accion random se saca su posterior 
-
     reward_dist = Bernoulli(logits = reward_logits)
     done_dist = Bernoulli(logits = done_logits)
     
@@ -126,10 +124,7 @@ def train_and_validate(model, train_loader, val_loader, optimizer, epochs=20):
         print(f"  Train Loss: {train_losses[-1]:.4f} - Details: { {k: v[-1] for k, v in train_loss_details.items()} }")
         print(f"  Val Loss: {val_losses[-1]:.4f} - Details: { {k: v[-1] for k, v in val_loss_details.items()} }")
 
-    
     return train_losses, val_losses, train_loss_details, val_loss_details
-
-
 
     
 def plot_loss_components(train_losses, val_losses):
@@ -173,7 +168,7 @@ def main():
     plot_loss_components(train_loss_details, val_loss_details)
 
     # Save the trained model
-    torch.save(model.state_dict(), f'./data/models/simulator_{simulator_version}.pth')
+    torch.save(model.state_dict(), f'./data/models/{env_name}/simulator_{simulator_version}.pth')
 
 if __name__ == "__main__":
     main()

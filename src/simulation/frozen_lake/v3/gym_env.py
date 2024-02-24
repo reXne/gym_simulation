@@ -1,7 +1,7 @@
 import torch
 import numpy as np
 # Ensure correct import path for SequenceModel
-from simulation.frozen_lake.v1.simulator import SimulatorV1  
+from src.simulation.frozen_lake.v2.simulator import SimulatorV2  
 from torch.distributions import (
     Normal, Bernoulli, Beta, Binomial, Categorical, 
     OneHotCategorical, Independent
@@ -19,8 +19,8 @@ class ActionSpace:
         return np.random.randint(0, self.n)
     
 class SimulatedGymEnvironment:
-    def __init__(self, model_path, state_dim, action_dim, hidden_dim=8):
-        self.model = SimulatorV1(input_dim=state_dim+action_dim, hidden_dim=hidden_dim, state_dim=state_dim)
+    def __init__(self, model_path,state_dim, action_dim, hidden_dim, latent_dim):
+        self.model = SimulatorV2(state_dim=state_dim, action_dim = action_dim, hidden_dim=hidden_dim, latent_dim=latent_dim)
         self.model.load_state_dict(torch.load(model_path))
         self.model.eval()  # Set the model to evaluation mode
         
@@ -48,10 +48,8 @@ class SimulatedGymEnvironment:
         action_tensor = torch.zeros(1, self.action_dim)
         action_tensor[0, action_index] = 1.0
         
-        state_action_tensor = torch.cat([current_state_tensor, action_tensor], dim=1)
-        
         with torch.no_grad():
-            next_state_logits, reward_logits, done_logits = self.model(state_action_tensor)
+            next_state_logits, reward_logits, done_logits, _, _, _ = self.model(current_state_tensor, action_tensor)
             
         next_state_dist = Categorical(logits=next_state_logits)
         next_state_index = next_state_dist.sample().item()
@@ -70,13 +68,14 @@ class SimulatedGymEnvironment:
 
 if __name__ == "__main__":
     env_name = 'FrozenLake-v1'
-    simulator_version = 'v1'
+    simulator_version = 'v2'
     model_path = f'./data/models/{env_name}/simulator_{simulator_version}.pth'
     state_dim = 16
     action_dim = 4
     num_episodes = 100
-    
-    simulated_env = SimulatedGymEnvironment(model_path, state_dim, action_dim)
+    hidden_dim=8
+    latent_dim = 8
+    simulated_env = SimulatedGymEnvironment(model_path=model_path, state_dim=state_dim, action_dim=action_dim, hidden_dim=hidden_dim, latent_dim=latent_dim)
     total_reward = 0  # Track total reward across all episodes
     
     for episode in range(num_episodes):

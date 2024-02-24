@@ -10,7 +10,7 @@ import random
 import torch
 from torch import nn
 import torch.nn.functional as F
-from src.simulation.frozen_lake.v1.gym_env import SimulatedGymEnvironment  
+from src.simulation.frozen_lake.v2.gym_env import SimulatedGymEnvironment  
 
 
 # Define model
@@ -61,9 +61,14 @@ class FrozenLakeDQL():
         # Create FrozenLake instance
         #env = gym.make('FrozenLake-v1', map_name="4x4", is_slippery=is_slippery, render_mode='human' if render else None)
         env_name = 'FrozenLake-v1'
-        simulator_version = 'v1'
+        simulator_version = 'v2'
         model_path = f'./data/models/{env_name}/simulator_{simulator_version}.pth'
-        env = SimulatedGymEnvironment(model_path=model_path, state_dim=16, action_dim=4)
+        state_dim = 16
+        action_dim = 4
+        num_episodes = 100
+        hidden_dim=8
+        latent_dim = 8
+        env = SimulatedGymEnvironment(model_path=model_path, state_dim=state_dim, action_dim=action_dim, hidden_dim=hidden_dim, latent_dim=latent_dim)
         num_states = env.observation_space.n
         num_actions = env.action_space.n
         
@@ -212,9 +217,14 @@ class FrozenLakeDQL():
     def test(self, episodes):
         # Create FrozenLake instance
         env_name = 'FrozenLake-v1'
-        simulator_version = 'v1'
+        simulator_version = 'v2'
         model_path = f'./data/models/{env_name}/simulator_{simulator_version}.pth'
-        env = SimulatedGymEnvironment(model_path=model_path, state_dim=16, action_dim=4)
+        state_dim = 16
+        action_dim = 4
+        num_episodes = 50
+        hidden_dim=8
+        latent_dim = 8
+        env = SimulatedGymEnvironment(model_path=model_path, state_dim=state_dim, action_dim=action_dim, hidden_dim=hidden_dim, latent_dim=latent_dim)
         num_states = env.observation_space.n
         num_actions = env.action_space.n
         

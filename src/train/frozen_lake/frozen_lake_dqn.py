@@ -63,8 +63,6 @@ class FrozenLakeDQL():
         # Create policy and target network. Number of nodes in the hidden layer can be adjusted.
         policy_dqn = DQN(in_states=num_states, h1_nodes=num_states, out_actions=num_actions)
         target_dqn = DQN(in_states=num_states, h1_nodes=num_states, out_actions=num_actions)
-
-        # Make the target and policy networks the same (copy weights/biases from one network to the other)
         target_dqn.load_state_dict(policy_dqn.state_dict())
 
         print('Policy (random, before training):')
@@ -81,11 +79,13 @@ class FrozenLakeDQL():
 
         # Track number of steps taken. Used for syncing policy => target network.
         step_count=0
-            
+        total_reward = 0  # Initialize total reward
+
         for i in range(episodes):
             state = env.reset()[0]  # Initialize to state 0
             terminated = False      # True when agent falls in hole or reached goal
             truncated = False       # True when agent takes more than 200 actions    
+            episode_reward = 0  # Initialize reward for the episode
 
             # Agent navigates map until it falls into hole/reaches goal (terminated), or has taken 200 actions (truncated).
             while(not terminated and not truncated):
@@ -110,10 +110,14 @@ class FrozenLakeDQL():
 
                 # Increment step counter
                 step_count+=1
+                episode_reward += reward
 
-            # Keep track of the rewards collected per episode.
-            if reward == 1:
-                rewards_per_episode[i] = 1
+            total_reward += episode_reward
+            rewards_per_episode[i] = episode_reward
+            
+            if (i + 1) % 100 == 0:
+                    average_reward = total_reward / (i + 1)
+                    print(f"Episode: {i + 1}, Total Reward: {total_reward}, Average Reward: {average_reward}")
 
             # Check if enough experience has been collected and if at least 1 reward has been collected
             if len(memory)>self.mini_batch_size and np.sum(rewards_per_episode)>0:
@@ -129,6 +133,9 @@ class FrozenLakeDQL():
                     target_dqn.load_state_dict(policy_dqn.state_dict())
                     step_count=0
 
+        # Calculate and print average reward per episode
+        average_reward = total_reward / episodes
+        print(f"Average Reward per Episode: {average_reward}")
         # Close environment
         env.close()
 
@@ -262,4 +269,4 @@ if __name__ == '__main__':
     frozen_lake = FrozenLakeDQL()
     is_slippery = True
     frozen_lake.train(3000, is_slippery=is_slippery)
-    frozen_lake.test(10, is_slippery=is_slippery)
+    frozen_lake.test(5, is_slippery=is_slippery)

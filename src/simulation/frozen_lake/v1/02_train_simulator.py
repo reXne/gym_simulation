@@ -5,7 +5,7 @@ import torch.optim as optim
 import numpy as np
 import matplotlib.pyplot as plt
 from torch.utils.data import Dataset, DataLoader, random_split
-from simulation.frozen_lake.v1.simulator import SimulatorV1
+from src.simulation.frozen_lake.v1.simulator import SimulatorV1
 
 import torch.nn.functional as F
 from torch.distributions import (
@@ -167,7 +167,7 @@ def main():
     plot_loss_components(train_loss_details, val_loss_details)
 
     # Save the trained model
-    torch.save(model.state_dict(), f'./data/models/simulator_{simulator_version}.pth')
+    torch.save(model.state_dict(), f'./data/models/{env_name}/simulator_{simulator_version}.pth')
 
 if __name__ == "__main__":
     main()

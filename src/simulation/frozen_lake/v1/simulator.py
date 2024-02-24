@@ -2,10 +2,6 @@
 
 import torch
 import torch.nn as nn
-from torch.distributions import (
-    Normal, Bernoulli, Beta, Binomial, Categorical, 
-    OneHotCategorical, Independent
-)
 
 class SimulatorV1(nn.Module):
     def __init__(self, input_dim, hidden_dim, state_dim):
