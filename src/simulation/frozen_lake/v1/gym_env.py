@@ -1,7 +1,7 @@
 import torch
 import numpy as np
 # Ensure correct import path for SequenceModel
-from src.simulation.frozen_lake.simulator_v1 import SimulatorV1  
+from simulation.frozen_lake.v1.simulator import SimulatorV1  
 from torch.distributions import (
     Normal, Bernoulli, Beta, Binomial, Categorical, 
     OneHotCategorical, Independent

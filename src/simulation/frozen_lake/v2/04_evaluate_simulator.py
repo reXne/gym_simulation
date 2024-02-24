@@ -5,8 +5,9 @@ def load_tuples(filename):
         tuples = pickle.load(f)
     return tuples
 
+
 def compute_metrics(tuples):
-    _, _, rewards, _, dones = zip(*tuples)
+    _, _, rewards, _, dones, _ = zip(*tuples)
     mean_reward = sum(rewards) / len(rewards)
     
     done_indices = [i for i, done in enumerate(dones) if done]
@@ -30,13 +31,15 @@ def compute_metrics(tuples):
     return mean_reward, mean_episode_length
 
 
-
 if __name__ == "__main__":
-    real_tuples = load_tuples("./data/sampled_tuples/sampled_tuples.pkl")
-    simulated_tuples = load_tuples("./data/simulated_tuples/simulated_tuples.pkl")
+    env_name = 'FrozenLake-v1'
+    simulator_version = 'v2'
+    real_tuples = load_tuples(f"./data/sampled_tuples/sampled_tuples_{env_name}.pkl")
+    simulated_tuples = load_tuples(f"./data/simulated_tuples/{env_name}/simulated_tuples_{simulator_version}.pkl")
 
     real_mean_reward, real_mean_episode_length = compute_metrics(real_tuples)
     simulated_mean_reward, simulated_mean_episode_length = compute_metrics(simulated_tuples)
 
     print(f"Real Environment - Mean Reward: {real_mean_reward}, Mean Episode Length: {real_mean_episode_length}")
     print(f"Simulated Environment - Mean Reward: {simulated_mean_reward}, Mean Episode Length: {simulated_mean_episode_length}")
+

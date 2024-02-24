@@ -5,7 +5,7 @@ import numpy as np
 import pickle
 import os
 import logging
-from src.simulation.frozen_lake.simulator_v1 import SimulatorV1
+from src.simulation.frozen_lake.v2.simulator import SimulatorV2
 from torch.distributions import (
     Normal, Bernoulli, Beta, Binomial, Categorical, 
     OneHotCategorical, Independent
@@ -22,12 +22,6 @@ def to_one_hot(index, num_classes):
     one_hot_tensor[index] = 1.0
     return one_hot_tensor
 
-def load_model(model_path, input_dim, hidden_dim=8, state_dim=16):
-    model = SimulatorV1(input_dim=input_dim, hidden_dim=hidden_dim, state_dim=state_dim)
-    model.load_state_dict(torch.load(model_path, map_location=torch.device('cpu')))
-    model.eval()
-    return model
-
 def save_tuples(tuples, filename):
     if not os.path.exists(os.path.dirname(filename)):
         os.makedirs(os.path.dirname(filename))
@@ -37,14 +31,15 @@ def save_tuples(tuples, filename):
 
 def simulate_environment(env_name, num_episodes):
     env = gym.make(env_name)
-    simulator_version = 'v1'
-    model_path = f'./data/models/simulator_{simulator_version}.pth'
+    simulator_version = 'v2'
+    model_path = f'./data/models/{env_name}/simulator_{simulator_version}.pth'
     
-    simulator_version = 'v1'
     num_states = 16  # For FrozenLake-v1
     num_actions = 4  # For FrozenLake-v1
     
-    model = load_model(model_path, input_dim=num_states + num_actions, hidden_dim=8, state_dim=num_states)
+    model = SimulatorV2(latent_dim=8,  hidden_dim=8, action_dim=num_actions, state_dim=num_states)
+    model.load_state_dict(torch.load(model_path, map_location=torch.device('cpu')))
+    model.eval()
     
     generated_tuples = []
     total_rewards = 0
@@ -64,8 +59,7 @@ def simulate_environment(env_name, num_episodes):
             state_action = torch.cat([state, action], dim=-1)
             
             with torch.no_grad():
-                next_state_logits, reward_logits, done_logits = model(state_action)
-            
+                next_state_logits, reward_logits, done_logits,  decoder_logits, prior_dist, posterior_dist= model(state, action)
             reward_dist = Bernoulli(logits=reward_logits)
             done_dist = Bernoulli(logits=done_logits)
             
@@ -91,7 +85,7 @@ def simulate_environment(env_name, num_episodes):
                 total_dones += 1
                 
     avg_reward = total_rewards / num_episodes
-    save_path = f'./data/simulated_tuples/simulated_tuples_{simulator_version}.pkl'
+    save_path = f'./data/simulated_tuples/{env_name}/simulated_tuples_{simulator_version}.pkl'
     save_tuples(generated_tuples, save_path)
     
     return {
@@ -105,7 +99,7 @@ def simulate_environment(env_name, num_episodes):
 
 def main():
     env_name='FrozenLake-v1'
-    simulator_version = 'v1'
+    simulator_version = 'v2'
     # Set up logging configuration
     logging.basicConfig(level=logging.INFO,
                         format='%(asctime)s - %(levelname)s - %(message)s',

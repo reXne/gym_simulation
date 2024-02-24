@@ -14,8 +14,8 @@ class SimulatorV2(nn.Module):
         self.encoder_model = EncoderModel(state_dim, hidden_dim, latent_dim)
         self.decoder_model = DecoderModel(latent_dim, hidden_dim, state_dim)
         self.sequence_model = SequenceModel(state_dim + latent_dim + action_dim, hidden_dim, state_dim)
-        self.reward_model = RewardModel(state_dim + latent_dim, hidden_dim)
-        self.continue_model = ContinueModel(state_dim + latent_dim, hidden_dim)
+        self.reward_model = RewardModel(state_dim + latent_dim + action_dim, hidden_dim)
+        self.continue_model = ContinueModel(state_dim + latent_dim + action_dim, hidden_dim)
 
     def forward(self, state, action):
         h = self.encoder_model(state)
@@ -27,12 +27,13 @@ class SimulatorV2(nn.Module):
         prior_dist = Normal(torch.zeros_like(mu), torch.ones_like(logvar))
         
         state_next_logits = self.sequence_model(torch.cat([state, z, action], dim=1))
+
+        reward_logits = self.reward_model(torch.cat([state, z, action], dim=1))
         
+        continue_logits = self.continue_model(torch.cat([state, z, action], dim=1))
+
         decoder_logits = self.decoder_model(z)  
-
-        reward_logits = self.reward_model(torch.cat([state, z], dim=1))
-        continue_logits = self.continue_model(torch.cat([state, z], dim=1))
-
+        
         return state_next_logits, reward_logits, continue_logits, decoder_logits, prior_dist, posterior_dist
 
 class EncoderModel(nn.Module):
