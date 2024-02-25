@@ -33,7 +33,7 @@ def compute_metrics(tuples):
 
 if __name__ == "__main__":
     env_name = 'FrozenLake-v1'
-    simulator_version = 'v2'
+    simulator_version = 'v3'
     real_tuples = load_tuples(f"./data/sampled_tuples/sampled_tuples_{env_name}.pkl")
     simulated_tuples = load_tuples(f"./data/simulated_tuples/{env_name}/simulated_tuples_{simulator_version}.pkl")
 

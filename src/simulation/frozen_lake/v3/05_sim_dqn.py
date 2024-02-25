@@ -10,7 +10,7 @@ import random
 import torch
 from torch import nn
 import torch.nn.functional as F
-from src.simulation.frozen_lake.v2.gym_env import SimulatedGymEnvironment  
+from src.simulation.frozen_lake.v3.gym_env import SimulatedGymEnvironment  
 
 
 # Define model
@@ -217,7 +217,7 @@ class FrozenLakeDQL():
     def test(self, episodes):
         # Create FrozenLake instance
         env_name = 'FrozenLake-v1'
-        simulator_version = 'v2'
+        simulator_version = 'v3'
         model_path = f'./data/models/{env_name}/simulator_{simulator_version}.pth'
         state_dim = 16
         action_dim = 4

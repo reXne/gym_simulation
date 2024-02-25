@@ -115,3 +115,46 @@ class ContinueModel(nn.Module):
         return logits 
 
     
+class VAEInitialStateModel(nn.Module):
+    def __init__(self, state_dim, hidden_dim, latent_dim):
+        super().__init__()
+        # Encoder
+        self.encoder = nn.Sequential(
+            nn.Linear(state_dim, hidden_dim),
+            nn.ReLU(),
+            nn.Linear(hidden_dim, hidden_dim),
+            nn.ReLU()
+        )
+        self.fc_mu = nn.Linear(hidden_dim, latent_dim)
+        self.fc_logvar = nn.Linear(hidden_dim, latent_dim)
+
+        # Decoder
+        self.decoder = nn.Sequential(
+            nn.Linear(latent_dim, hidden_dim),
+            nn.ReLU(),
+            nn.Linear(hidden_dim, hidden_dim),
+            nn.ReLU(),
+            nn.Linear(hidden_dim, state_dim)  # Assuming the state is continuous
+        )
+
+    def reparametrize(self, mu, logvar):
+        std = torch.exp(0.5 * logvar)
+        eps = torch.randn_like(std)
+        return mu + eps * std
+
+    def forward(self, x):
+        h = self.encoder(x)
+        mu = self.fc_mu(h)
+        logvar = self.fc_logvar(h)
+        z = self.reparametrize(mu, logvar)
+        return self.decoder(z), mu, logvar
+
+def vae_loss(recon_x, x, mu, logvar):
+    # Reconstruction loss
+    recon_loss = F.mse_loss(recon_x, x, reduction='sum')
+
+    # KL divergence loss
+    kl_loss = -0.5 * torch.sum(1 + logvar - mu.pow(2) - logvar.exp())
+
+    # Total loss
+    return recon_loss + kl_loss
