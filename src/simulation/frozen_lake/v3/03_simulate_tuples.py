@@ -5,7 +5,7 @@ import numpy as np
 import pickle
 import os
 import logging
-from src.simulation.frozen_lake.v2.simulator import SimulatorV2
+from src.simulation.frozen_lake.v2.simulator import SimulatorV3
 from torch.distributions import (
     Normal, Bernoulli, Beta, Binomial, Categorical, 
     OneHotCategorical, Independent
@@ -31,13 +31,13 @@ def save_tuples(tuples, filename):
 
 def simulate_environment(env_name, num_episodes):
     env = gym.make(env_name)
-    simulator_version = 'v2'
+    simulator_version = 'v3'
     model_path = f'./data/models/{env_name}/simulator_{simulator_version}.pth'
     
     num_states = 16  # For FrozenLake-v1
     num_actions = 4  # For FrozenLake-v1
     
-    model = SimulatorV2(latent_dim=8,  hidden_dim=8, action_dim=num_actions, state_dim=num_states)
+    model = SimulatorV3(latent_dim=8,  hidden_dim=8, action_dim=num_actions, state_dim=num_states)
     model.load_state_dict(torch.load(model_path, map_location=torch.device('cpu')))
     model.eval()
     
@@ -99,7 +99,7 @@ def simulate_environment(env_name, num_episodes):
 
 def main():
     env_name='FrozenLake-v1'
-    simulator_version = 'v2'
+    simulator_version = 'v3'
     # Set up logging configuration
     logging.basicConfig(level=logging.INFO,
                         format='%(asctime)s - %(levelname)s - %(message)s',
