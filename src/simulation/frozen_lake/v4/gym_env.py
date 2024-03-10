@@ -1,7 +1,7 @@
 import torch
 import numpy as np
 # Ensure correct import path for SequenceModel
-from src.simulation.frozen_lake.v3.simulator import SimulatorV3
+from src.simulation.frozen_lake.v4.simulator import SimulatorV4
 from torch.distributions import (
     Normal, Bernoulli, Beta, Binomial, Categorical, 
     OneHotCategorical, Independent
@@ -19,8 +19,9 @@ class ActionSpace:
         return np.random.randint(0, self.n)
     
 class SimulatedGymEnvironment:
-    def __init__(self, model_path,state_dim, action_dim, hidden_dim, latent_dim):
-        self.model = SimulatorV3(state_dim=state_dim, action_dim = action_dim, hidden_dim=hidden_dim, latent_dim=latent_dim)
+    def __init__(self, model_path,state_dim, action_dim, hidden_dim, latent_dim): 
+
+        self.model = SimulatorV4(obs_dim=state_dim, action_dim = action_dim, hidden_dim=hidden_dim, latent_dim=latent_dim)
         self.model.load_state_dict(torch.load(model_path))
         self.model.eval()  # Set the model to evaluation mode
         
@@ -34,7 +35,6 @@ class SimulatedGymEnvironment:
         self.reset()
 
     def reset(self):
-        # Example: Reset to a zero state or select a random initial state
         self.current_state_index = 0
         return self.current_state_index
     
@@ -65,16 +65,15 @@ class SimulatedGymEnvironment:
         return next_state_index, reward, done, {}, {}
 
 
-
 if __name__ == "__main__":
     env_name = 'FrozenLake-v1'
-    simulator_version = 'v3'
+    simulator_version = 'v4'
     model_path = f'./data/models/{env_name}/simulator_{simulator_version}.pth'
     state_dim = 16
     action_dim = 4
     num_episodes = 100
-    hidden_dim=8
-    latent_dim = 8
+    hidden_dim= 8
+    latent_dim = 4
     simulated_env = SimulatedGymEnvironment(model_path=model_path, state_dim=state_dim, action_dim=action_dim, hidden_dim=hidden_dim, latent_dim=latent_dim)
     total_reward = 0  # Track total reward across all episodes
     

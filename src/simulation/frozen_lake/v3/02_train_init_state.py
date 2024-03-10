@@ -1,5 +1,7 @@
 # Assuming 'initial_states' is a DataLoader containing your initial state data
 
+from src.simulation.frozen_lake.v3.simulator import VAEInitialStateModel
+
 model = VAEInitialStateModel(state_dim, hidden_dim, latent_dim)
 optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
 

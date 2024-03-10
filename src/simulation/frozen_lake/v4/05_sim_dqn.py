@@ -61,7 +61,7 @@ class FrozenLakeDQL():
         # Create FrozenLake instance
         #env = gym.make('FrozenLake-v1', map_name="4x4", is_slippery=is_slippery, render_mode='human' if render else None)
         env_name = 'FrozenLake-v1'
-        simulator_version = 'v3'
+        simulator_version = 'v'
         model_path = f'./data/models/{env_name}/simulator_{simulator_version}.pth'
         state_dim = 16
         action_dim = 4
@@ -217,7 +217,7 @@ class FrozenLakeDQL():
     def test(self, episodes):
         # Create FrozenLake instance
         env_name = 'FrozenLake-v1'
-        simulator_version = 'v3'
+        simulator_version = 'v4'
         model_path = f'./data/models/{env_name}/simulator_{simulator_version}.pth'
         state_dim = 16
         action_dim = 4
