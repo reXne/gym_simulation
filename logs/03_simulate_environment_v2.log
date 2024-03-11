@@ -1,12 +1,6 @@
-2024-02-24 14:40:19,317 - INFO - Tuples saved to ./data/simulated_tuples/FrozenLake-v1/simulated_tuples_v2.pkl
-2024-02-24 14:40:19,318 - INFO - Summary Statistics for Simulated Environment:
-2024-02-24 14:40:19,318 - INFO - Average Reward: 0.004
-2024-02-24 14:40:19,318 - INFO - Total Episodes: 1000
-2024-02-24 14:40:19,318 - INFO - Total Dones: 1000
-2024-02-24 14:40:19,318 - INFO - Reward Distribution: {0.0: 7886, 1.0: 4}
-2024-02-24 14:56:36,630 - INFO - Tuples saved to ./data/simulated_tuples/simulated_tuples_v2.pkl
-2024-02-24 14:56:36,631 - INFO - Summary Statistics for Simulated Environment:
-2024-02-24 14:56:36,631 - INFO - Average Reward: 0.006
-2024-02-24 14:56:36,631 - INFO - Total Episodes: 1000
-2024-02-24 14:56:36,631 - INFO - Total Dones: 1000
-2024-02-24 14:56:36,631 - INFO - Reward Distribution: {0.0: 7399, 1.0: 6}
+2024-03-10 20:43:56,230 - INFO - Tuples saved to ./data/simulated_tuples/FrozenLake-v1/simulated_tuples_v2.pkl
+2024-03-10 20:43:56,232 - INFO - Summary Statistics for Simulated Environment:
+2024-03-10 20:43:56,232 - INFO - Average Reward: 0.011
+2024-03-10 20:43:56,232 - INFO - Total Episodes: 1000
+2024-03-10 20:43:56,232 - INFO - Total Dones: 1000
+2024-03-10 20:43:56,232 - INFO - Reward Distribution: {0.0: 8373, 1.0: 11}

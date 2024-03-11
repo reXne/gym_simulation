@@ -79,7 +79,7 @@ def train_and_validate(model, train_loader, val_loader, optimizer, epochs=20):
         for states, actions, rewards, next_states, dones in train_loader:
             optimizer.zero_grad()
             outputs = model(torch.cat([states, actions], dim=1))
-            targets = next_states, rewards, dones, next_states
+            targets = states, rewards, dones, next_states
             loss, details = compute_loss(outputs, targets) 
             loss.backward()
             optimizer.step()
@@ -100,7 +100,7 @@ def train_and_validate(model, train_loader, val_loader, optimizer, epochs=20):
         with torch.no_grad():
             for states, actions, rewards, next_states, dones in val_loader:
                 outputs = model(torch.cat([states, actions], dim=1))
-                targets = next_states, rewards, dones, next_states
+                targets = states, rewards, dones, next_states
                 val_loss, details = compute_loss(outputs, targets)  # Adjust according to actual function signature
                 total_val_loss += val_loss.item()
                 for key in details:

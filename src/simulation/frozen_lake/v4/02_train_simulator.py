@@ -16,22 +16,23 @@ from torch.distributions import (
 def compute_loss(outputs, outputs_next, targets):
     # Assuming 'outputs' is unpacked here as before or within the function
     target_state, target_reward, target_done, target_state_next = targets
-    state_next_logits, _, _, _, prior_dist, _ = outputs
-    _, reward_logits, done_logits, decoder_logits, _, posterior_dist = outputs_next
+    state_next_logits, _, _, decoder_logits, prior_dist, _ = outputs
+    _, reward_logits, done_logits, _ , _, posterior_dist = outputs_next
 
+    target_state_indices = torch.argmax(target_state, dim=1)
     target_state_next_indices = torch.argmax(target_state_next, dim=1)
     
     reward_dist = Bernoulli(logits = reward_logits)
     done_dist = Bernoulli(logits = done_logits)
     
     kl_loss = kl_divergence(posterior_dist, prior_dist).mean()
-    decoder_loss = F.cross_entropy(decoder_logits, target_state_next_indices)
-    sequence_model_loss = F.cross_entropy(state_next_logits, target_state)
+    decoder_loss = F.cross_entropy(decoder_logits, target_state_indices)
+    sequence_model_loss = F.cross_entropy(state_next_logits, target_state_next_indices)
     reward_loss = -reward_dist.log_prob(target_reward).mean()
     done_loss = -done_dist.log_prob(target_done.float()).mean()
 
     # Combine the losses
-    total_loss =  kl_loss * 0.3 + decoder_loss * 0.4 + (sequence_model_loss + reward_loss + done_loss) * 1.0 
+    total_loss =  kl_loss * 0.1 + decoder_loss * 0.4 + (sequence_model_loss + reward_loss + done_loss) * 1.0 
     return total_loss, {
         'total_loss': total_loss.item(),
         'sequence_model_loss': sequence_model_loss.item(),
@@ -90,7 +91,7 @@ def train_and_validate(model, train_loader, val_loader, optimizer, epochs=20):
             optimizer.zero_grad()
             outputs = model(states, actions)
             outputs_next = model(next_states, actions)
-            targets = next_states, rewards, dones, next_states
+            targets = states, rewards, dones, next_states
             loss, details = compute_loss(outputs, outputs_next, targets) 
             loss.backward()
             optimizer.step()
@@ -112,7 +113,7 @@ def train_and_validate(model, train_loader, val_loader, optimizer, epochs=20):
             for states, actions, rewards, next_states, dones in val_loader:
                 outputs = model(states, actions)
                 outputs_next = model(next_states, actions)
-                targets = next_states, rewards, dones, next_states
+                targets = states, rewards, dones, next_states
                 val_loss, details = compute_loss(outputs, outputs_next, targets) 
                 total_val_loss += val_loss.item()
                 for key in details:

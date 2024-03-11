@@ -1,36 +1,30 @@
-2024-03-09 20:57:40,297 - INFO - Tuples saved to ./data/simulated_tuples/FrozenLake-v1/simulated_tuples_v4.pkl
-2024-03-09 20:57:40,298 - INFO - Summary Statistics for Simulated Environment:
-2024-03-09 20:57:40,298 - INFO - Average Reward: 0.016
-2024-03-09 20:57:40,298 - INFO - Total Episodes: 1000
-2024-03-09 20:57:40,298 - INFO - Total Dones: 1000
-2024-03-09 20:57:40,298 - INFO - Reward Distribution: {0.0: 8554, 1.0: 16}
-2024-03-09 21:11:14,151 - INFO - Tuples saved to ./data/simulated_tuples/FrozenLake-v1/simulated_tuples_v4.pkl
-2024-03-09 21:11:14,152 - INFO - Summary Statistics for Simulated Environment:
-2024-03-09 21:11:14,152 - INFO - Average Reward: 0.009
-2024-03-09 21:11:14,152 - INFO - Total Episodes: 1000
-2024-03-09 21:11:14,153 - INFO - Total Dones: 1000
-2024-03-09 21:11:14,153 - INFO - Reward Distribution: {0.0: 8136, 1.0: 9}
-2024-03-09 21:12:18,148 - INFO - Tuples saved to ./data/simulated_tuples/FrozenLake-v1/simulated_tuples_v4.pkl
-2024-03-09 21:12:18,149 - INFO - Summary Statistics for Simulated Environment:
-2024-03-09 21:12:18,149 - INFO - Average Reward: 0.007
-2024-03-09 21:12:18,150 - INFO - Total Episodes: 1000
-2024-03-09 21:12:18,150 - INFO - Total Dones: 1000
-2024-03-09 21:12:18,150 - INFO - Reward Distribution: {0.0: 7998, 1.0: 7}
-2024-03-09 21:13:18,373 - INFO - Tuples saved to ./data/simulated_tuples/FrozenLake-v1/simulated_tuples_v4.pkl
-2024-03-09 21:13:18,373 - INFO - Summary Statistics for Simulated Environment:
-2024-03-09 21:13:18,373 - INFO - Average Reward: 0.012
-2024-03-09 21:13:18,374 - INFO - Total Episodes: 1000
-2024-03-09 21:13:18,374 - INFO - Total Dones: 1000
-2024-03-09 21:13:18,374 - INFO - Reward Distribution: {0.0: 7781, 1.0: 12}
-2024-03-09 21:22:47,868 - INFO - Tuples saved to ./data/simulated_tuples/FrozenLake-v1/simulated_tuples_v4.pkl
-2024-03-09 21:22:47,869 - INFO - Summary Statistics for Simulated Environment:
-2024-03-09 21:22:47,869 - INFO - Average Reward: 0.002
-2024-03-09 21:22:47,869 - INFO - Total Episodes: 1000
-2024-03-09 21:22:47,869 - INFO - Total Dones: 1000
-2024-03-09 21:22:47,869 - INFO - Reward Distribution: {0.0: 8963, 1.0: 2}
-2024-03-09 21:24:19,315 - INFO - Tuples saved to ./data/simulated_tuples/FrozenLake-v1/simulated_tuples_v4.pkl
-2024-03-09 21:24:19,315 - INFO - Summary Statistics for Simulated Environment:
-2024-03-09 21:24:19,315 - INFO - Average Reward: 0.002
-2024-03-09 21:24:19,315 - INFO - Total Episodes: 1000
-2024-03-09 21:24:19,315 - INFO - Total Dones: 1000
-2024-03-09 21:24:19,316 - INFO - Reward Distribution: {0.0: 9053, 1.0: 2}
+2024-03-10 23:55:03,740 - INFO - Tuples saved to ./data/simulated_tuples/FrozenLake-v1/simulated_tuples_v4.pkl
+2024-03-10 23:55:03,741 - INFO - Summary Statistics for Simulated Environment:
+2024-03-10 23:55:03,741 - INFO - Average Reward: 0.01
+2024-03-10 23:55:03,742 - INFO - Total Episodes: 1000
+2024-03-10 23:55:03,742 - INFO - Total Dones: 1000
+2024-03-10 23:55:03,742 - INFO - Reward Distribution: {0.0: 9297, 1.0: 10}
+2024-03-11 00:03:21,161 - INFO - Tuples saved to ./data/simulated_tuples/FrozenLake-v1/simulated_tuples_v2.pkl
+2024-03-11 00:03:21,161 - INFO - Summary Statistics for Simulated Environment:
+2024-03-11 00:03:21,161 - INFO - Average Reward: 0.013
+2024-03-11 00:03:21,161 - INFO - Total Episodes: 1000
+2024-03-11 00:03:21,161 - INFO - Total Dones: 1000
+2024-03-11 00:03:21,161 - INFO - Reward Distribution: {0.0: 7588, 1.0: 13}
+2024-03-11 00:15:27,511 - INFO - Tuples saved to ./data/simulated_tuples/FrozenLake-v1/simulated_tuples_v2.pkl
+2024-03-11 00:15:27,512 - INFO - Summary Statistics for Simulated Environment:
+2024-03-11 00:15:27,512 - INFO - Average Reward: 7.0
+2024-03-11 00:15:27,512 - INFO - Total Episodes: 1
+2024-03-11 00:15:27,512 - INFO - Total Dones: 1
+2024-03-11 00:15:27,512 - INFO - Reward Distribution: {0.0: 10723, 1.0: 7}
+2024-03-11 00:22:56,949 - INFO - Tuples saved to ./data/simulated_tuples/FrozenLake-v1/simulated_tuples_v2.pkl
+2024-03-11 00:22:56,950 - INFO - Summary Statistics for Simulated Environment:
+2024-03-11 00:22:56,951 - INFO - Average Reward: 0.004
+2024-03-11 00:22:56,951 - INFO - Total Episodes: 1000
+2024-03-11 00:22:56,951 - INFO - Total Dones: 1000
+2024-03-11 00:22:56,951 - INFO - Reward Distribution: {0.0: 7873, 1.0: 4}
+2024-03-11 00:34:04,715 - INFO - Tuples saved to ./data/simulated_tuples/FrozenLake-v1/simulated_tuples_v3.pkl
+2024-03-11 00:34:04,715 - INFO - Summary Statistics for Simulated Environment:
+2024-03-11 00:34:04,716 - INFO - Average Reward: 0.013
+2024-03-11 00:34:04,716 - INFO - Total Episodes: 1000
+2024-03-11 00:34:04,716 - INFO - Total Dones: 1000
+2024-03-11 00:34:04,716 - INFO - Reward Distribution: {0.0: 8743, 1.0: 13}

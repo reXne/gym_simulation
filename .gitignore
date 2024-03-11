@@ -5,6 +5,7 @@
 *.pt
 *.gz
 *.pyc
+*.log
 wandb/
 
 venv/

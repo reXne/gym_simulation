@@ -13,7 +13,7 @@ def compute_metrics(tuples):
     
     # Diagnostic print statements
     print(f"Number of done flags set to True: {sum(dones)}")
-    print(f"First 10 simulated tuples: {tuples[:10]}")
+    print(f"First 10 simulated tuples: {tuples[:100]}")
     
     # Calculate episode lengths
     episode_lengths = [done_indices[0] + 1]  # Length of the first episode

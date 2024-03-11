@@ -17,14 +17,16 @@ def compute_loss(outputs, targets):
     # Assuming 'outputs' is unpacked here as before or within the function
     target_state, target_reward, target_done, target_state_next = targets
     state_next_logits, reward_logits, done_logits, decoder_logits, prior_dist, posterior_dist = outputs
+    
+    target_state_indices = torch.argmax(target_state, dim=1)
     target_state_next_indices = torch.argmax(target_state_next, dim=1)
     
     reward_dist = Bernoulli(logits = reward_logits)
     done_dist = Bernoulli(logits = done_logits)
     
     kl_loss = kl_divergence(posterior_dist, prior_dist).mean()
-    decoder_loss = F.cross_entropy(decoder_logits, target_state_next_indices)
-    sequence_model_loss = F.cross_entropy(state_next_logits, target_state)
+    decoder_loss = F.cross_entropy(decoder_logits, target_state_indices)
+    sequence_model_loss = F.cross_entropy(state_next_logits, target_state_next_indices)
     reward_loss = -reward_dist.log_prob(target_reward).mean()
     done_loss = -done_dist.log_prob(target_done.float()).mean()
 
@@ -87,7 +89,7 @@ def train_and_validate(model, train_loader, val_loader, optimizer, epochs=20):
         for states, actions, rewards, next_states, dones in train_loader:
             optimizer.zero_grad()
             outputs = model(states, actions)
-            targets = next_states, rewards, dones, next_states
+            targets = states, rewards, dones, next_states
             loss, details = compute_loss(outputs, targets) 
             loss.backward()
             optimizer.step()
@@ -108,7 +110,7 @@ def train_and_validate(model, train_loader, val_loader, optimizer, epochs=20):
         with torch.no_grad(): 
             for states, actions, rewards, next_states, dones in val_loader:
                 outputs = model(state = states, action = actions)
-                targets = next_states, rewards, dones, next_states
+                targets = states, rewards, dones, next_states
                 val_loss, details = compute_loss(outputs, targets) 
                 total_val_loss += val_loss.item()
                 for key in details:
@@ -160,7 +162,7 @@ def main():
 
     dataset = TuplesDataset(states, actions, rewards, next_states, dones)
     train_loader, val_loader = prepare_data_loaders(dataset, batch_size=1024, split_ratio=0.8)
-    model = SimulatorV2(latent_dim=8,  hidden_dim=8, action_dim=4, state_dim=16)
+    model = SimulatorV2(latent_dim=4,  hidden_dim=8, action_dim=4, state_dim=16)
     optimizer = optim.Adam(model.parameters(), lr=0.001)
 
     train_losses, val_losses, train_loss_details, val_loss_details = train_and_validate(model, train_loader, val_loader, optimizer, epochs=50)
