@@ -5,7 +5,7 @@ import numpy as np
 import pickle
 import os
 import logging
-from src.simulation.frozen_lake.v4.simulator import SimulatorV4
+from src.simulation.frozen_lake.v5.simulator import SimulatorV5
 from torch.distributions import (
     Normal, Bernoulli, Beta, Binomial, Categorical, 
     OneHotCategorical, Independent
@@ -31,15 +31,15 @@ def save_tuples(tuples, filename):
 
 def simulate_environment(env_name, num_episodes):
     env = gym.make(env_name)
-    simulator_version = 'v4'
+    simulator_version = 'v5'
     model_path = f'./data/models/{env_name}/simulator_{simulator_version}.pth'
     
     num_states = 16  
     num_actions = 4  
+    latent_dim=4
     hidden_dim=8
-    latent_dim=8
-    
-    model = SimulatorV4(obs_dim=num_states, action_dim=num_actions,  hidden_dim=hidden_dim, latent_dim=latent_dim)
+     
+    model = SimulatorV5(latent_dim=latent_dim,  hidden_dim=hidden_dim, action_dim=num_actions, state_dim=num_states)
     model.load_state_dict(torch.load(model_path, map_location=torch.device('cpu')))
     model.eval()
     
@@ -49,7 +49,6 @@ def simulate_environment(env_name, num_episodes):
     reward_distribution = {}
     state_distribution = {}
     
-
     for episode in range(num_episodes):
         state_idx = env.reset()[0]  # Assuming env.reset() returns a single integer state index
         state = to_one_hot(state_idx, num_states).unsqueeze(0)
@@ -63,21 +62,13 @@ def simulate_environment(env_name, num_episodes):
             
             with torch.no_grad():
                 next_state_logits, reward_logits, done_logits,  decoder_logits, prior_dist, posterior_dist= model(state, action)
-                
-                
-            next_state_idx = torch.argmax(next_state_logits, dim=1).item()             
-                
-            # reward_dist = Bernoulli(logits=reward_logits)
-            # done_dist = Bernoulli(logits=done_logits)
-            # reward = reward_dist.sample().item()
-            # done = done_dist.sample().item() > 0.5          
-            reward_prob = torch.sigmoid(reward_logits)
-            done_prob = torch.sigmoid(done_logits)
-            reward = (reward_prob > 0.5).int().item()  
-            done = (done_prob > 0.5).item()
-
-
-    
+            reward_dist = Bernoulli(logits=reward_logits)
+            done_dist = Bernoulli(logits=done_logits)
+            
+            next_state_idx = torch.argmax(next_state_logits, dim=1).item()
+            
+            reward = reward_dist.sample().item()
+            done = done_dist.sample().item() > 0.5
             
             # Update distributions
             reward_distribution[reward] = reward_distribution.get(reward, 0) + 1
@@ -109,7 +100,7 @@ def simulate_environment(env_name, num_episodes):
 
 def main():
     env_name='FrozenLake-v1'
-    simulator_version = 'v4'
+    simulator_version = 'v5'
     # Set up logging configuration
     logging.basicConfig(level=logging.INFO,
                         format='%(asctime)s - %(levelname)s - %(message)s',

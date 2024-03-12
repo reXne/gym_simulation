@@ -4,7 +4,7 @@ import torch.nn as nn
 import torch.optim as optim
 import numpy as np
 import matplotlib.pyplot as plt
-from src.simulation.frozen_lake.v4.simulator import SimulatorV4
+from src.simulation.frozen_lake.v5.simulator import SimulatorV5
 from torch.utils.data import Dataset, DataLoader, random_split
 
 import torch.nn.functional as F
@@ -13,12 +13,11 @@ from torch.distributions import (
     OneHotCategorical, Independent, kl_divergence
 )
 
-def compute_loss(outputs, outputs_next, targets):
+def compute_loss(outputs, targets):
     # Assuming 'outputs' is unpacked here as before or within the function
-    target_state, target_reward, target_state_next, target_done = targets
-    state_next_logits, _, _, decoder_logits, prior_dist, _ = outputs
-    _, reward_logits, done_logits, _ , _, posterior_dist = outputs_next
-
+    target_state, target_reward, target_done, target_state_next = targets
+    state_next_logits, reward_logits, done_logits, decoder_logits, prior_dist, posterior_dist = outputs
+    
     target_state_indices = torch.argmax(target_state, dim=1)
     target_state_next_indices = torch.argmax(target_state_next, dim=1)
     
@@ -27,18 +26,19 @@ def compute_loss(outputs, outputs_next, targets):
     
     kl_loss = kl_divergence(posterior_dist, prior_dist).mean()
     decoder_loss = F.cross_entropy(decoder_logits, target_state_indices)
-    sequence_model_loss = F.cross_entropy(state_next_logits, target_state_next_indices)
+    
+    state_next_loss = F.cross_entropy(state_next_logits, target_state_next_indices)
     reward_loss = -reward_dist.log_prob(target_reward).mean()
     done_loss = -done_dist.log_prob(target_done.float()).mean()
 
     # Combine the losses
-    total_loss =  kl_loss * 0.1 + decoder_loss * 0.4 + (sequence_model_loss + reward_loss + done_loss) * 1.0 
+    total_loss =  kl_loss * 0.4 + decoder_loss * 0.4 + (state_next_loss + reward_loss + done_loss) * 1.0 
     return total_loss, {
         'total_loss': total_loss.item(),
-        'sequence_model_loss': sequence_model_loss.item(),
+        'state_next_loss': state_next_loss.item(),
         'reward_loss': reward_loss.item(),
         'done_loss': done_loss.item(),
-        'recon_loss': decoder_loss.item(),
+        'decoder_loss': decoder_loss.item(),
         'kl_loss': kl_loss.item(),
     }
     
@@ -77,9 +77,10 @@ def train_and_validate(model, train_loader, val_loader, optimizer, epochs=20):
     train_losses = []
     val_losses = []
 
+    
     # Initialize dicts to store detailed loss components for each epoch
-    train_loss_details = {'total_loss': [], 'sequence_model_loss': [], 'reward_loss': [], 'done_loss': [], 'recon_loss': [], 'kl_loss': []}
-    val_loss_details = {'total_loss': [], 'sequence_model_loss': [], 'reward_loss': [], 'done_loss': [], 'recon_loss': [], 'kl_loss': []}
+    train_loss_details = {'total_loss': [], 'state_next_loss': [], 'reward_loss': [], 'done_loss': [], 'decoder_loss': [], 'kl_loss': []}
+    val_loss_details = {'total_loss': [], 'state_next_loss': [], 'reward_loss': [], 'done_loss': [], 'decoder_loss': [], 'kl_loss': []}
 
     for epoch in range(epochs):
         model.train()
@@ -90,9 +91,9 @@ def train_and_validate(model, train_loader, val_loader, optimizer, epochs=20):
         for states, actions, rewards, next_states, dones in train_loader:
             optimizer.zero_grad()
             outputs = model(states, actions)
-            outputs_next = model(next_states, actions)
-            targets = states, rewards, next_states, dones
-            loss, details = compute_loss(outputs, outputs_next, targets) 
+            targets = states, rewards, dones, next_states    
+
+            loss, details = compute_loss(outputs, targets) 
             loss.backward()
             optimizer.step()
             total_train_loss += loss.item()
@@ -111,10 +112,9 @@ def train_and_validate(model, train_loader, val_loader, optimizer, epochs=20):
 
         with torch.no_grad(): 
             for states, actions, rewards, next_states, dones in val_loader:
-                outputs = model(states, actions)
-                outputs_next = model(next_states, actions)
-                targets = states, rewards, next_states, dones
-                val_loss, details = compute_loss(outputs, outputs_next, targets) 
+                outputs = model(state = states, action = actions)
+                targets = states, rewards, dones, next_states
+                val_loss, details = compute_loss(outputs, targets) 
                 total_val_loss += val_loss.item()
                 for key in details:
                     details_accum_val[key] += details[key]
@@ -135,7 +135,7 @@ def train_and_validate(model, train_loader, val_loader, optimizer, epochs=20):
 def plot_loss_components(train_losses, val_losses):
     fig, axs = plt.subplots(2, 3, figsize=(12, 10))
     axs = axs.flatten()
-    keys = ['total_loss', 'sequence_model_loss', 'reward_loss', 'done_loss', 'recon_loss', 'kl_loss']
+    keys = ['total_loss', 'state_next_loss', 'reward_loss', 'done_loss', 'decoder_loss', 'kl_loss']
     
     for i, key in enumerate(keys):
         axs[i].plot(train_losses[key], label=f'Train {key}')
@@ -152,7 +152,7 @@ def plot_loss_components(train_losses, val_losses):
 def main():
     # Load data
     env_name = 'FrozenLake-v1'
-    simulator_version = 'v4'
+    simulator_version = 'v5'
     with open(f"./data/sampled_tuples/sampled_tuples_{env_name}.pkl", 'rb') as f:
         tuples = pickle.load(f)
 
@@ -165,13 +165,7 @@ def main():
 
     dataset = TuplesDataset(states, actions, rewards, next_states, dones)
     train_loader, val_loader = prepare_data_loaders(dataset, batch_size=1024, split_ratio=0.8)
-    
-    num_states = 16  
-    num_actions = 4  
-    hidden_dim=8
-    latent_dim=8
-    model = SimulatorV4(obs_dim=num_states, action_dim=num_actions,  hidden_dim=hidden_dim, latent_dim=latent_dim)
-
+    model = SimulatorV5(latent_dim=4,  hidden_dim=8, action_dim=4, state_dim=16)
     optimizer = optim.Adam(model.parameters(), lr=0.001)
 
     train_losses, val_losses, train_loss_details, val_loss_details = train_and_validate(model, train_loader, val_loader, optimizer, epochs=50)

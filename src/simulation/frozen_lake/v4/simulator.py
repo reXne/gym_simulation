@@ -43,9 +43,9 @@ class SimulatorV4(nn.Module):
 
 
         # acá se tiene que ocupar el next state, con cualquie acción (ej: 0)
-        reward_logits = self.reward_model(torch.cat([h_next, z_next], dim=1))
+        reward_logits = self.reward_model(torch.cat([h, z], dim=1))
         
-        continue_logits = self.continue_model(torch.cat([h_next, z_next], dim=1))
+        continue_logits = self.continue_model(torch.cat([h, z], dim=1))
         
         return state_next_logits, reward_logits, continue_logits, decoder_logits, prior_dist_next, posterior_dist
 
