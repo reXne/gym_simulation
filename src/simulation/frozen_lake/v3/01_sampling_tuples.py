@@ -3,6 +3,7 @@ import os
 import pickle
 import logging
 import numpy as np
+from collections import defaultdict
 
 def save_tuples(tuples, env_name, filename="./data/sampled_tuples/sampled_tuples"):
     """Save the collected tuples to a file."""
@@ -11,16 +12,14 @@ def save_tuples(tuples, env_name, filename="./data/sampled_tuples/sampled_tuples
     with open(filename, 'wb') as f:
         pickle.dump(tuples, f)
     logging.info(f"Tuples saved to {filename}")
-t
-def sample_environment(env_name='CartPole-v1', map_name="4x4", is_slippery=True, render=False):
+
+def sample_environment(env_name, map_name="4x4", is_slippery=True, render=False):
     """Simulate the environment and collect tuples of observations, actions, rewards, and new observations."""
-    if env_name == 'FrozenLake-v1':
-        env = gym.make(env_name, map_name=map_name, is_slippery=is_slippery, render_mode='human' if render else None)
-    else:
-        env = gym.make(env_name)
+    env = gym.make(env_name, map_name=map_name, is_slippery=is_slippery, render_mode='human' if render else None)
 
     num_episodes = 10000
     tuples = []
+    transitions = defaultdict(lambda: {'next_states': [], 'rewards': [], 'dones': []})
 
     logging.info(f'Environment: {env_name}')
     logging.info(f'Observation Space: {env.observation_space}')
@@ -41,6 +40,10 @@ def sample_environment(env_name='CartPole-v1', map_name="4x4", is_slippery=True,
                  observation = observation[0]
             tuples.append((old_observation, action, reward, observation, done, is_initial_state))
             is_initial_state = False
+            
+            transitions[(old_observation, action)]['next_states'].append(observation)
+            transitions[(old_observation, action)]['rewards'].append(reward)
+            transitions[(old_observation, action)]['dones'].append(done)
     
     env.close()
     
@@ -61,10 +64,25 @@ def sample_environment(env_name='CartPole-v1', map_name="4x4", is_slippery=True,
     logging.info(f"Action Distribution: {action_distribution}")
     logging.info(f"Reward Distribution: {reward_distribution}")
     
+    """Log distributions of rewards, next states, and dones given state-action combinations."""
+    for state_action, data in transitions.items():
+        logging.info(f"State-Action: {state_action}")
+        for key, values in data.items():
+            if key in ['next_states', 'rewards']:
+                unique, counts = np.unique(values, return_counts=True)
+                distribution = dict(zip(unique, counts))
+                logging.info(f"  {key.capitalize()} Distribution: {distribution}")
+            elif key == 'dones':
+                true_count = values.count(True)
+                false_count = values.count(False)
+                logging.info(f"  Dones Distribution: True - {true_count}, False - {false_count}")
+                
     return tuples
 
+
+
+
 def main():
-    # env_name= 'CartPole-v1'
     env_name = 'FrozenLake-v1'
     
     # Set up logging configuration
@@ -73,10 +91,12 @@ def main():
                         filename=f'./logs/01_sampling_tuples_{env_name}.log',  # Adjusted the log file name
                         filemode='w')  # Overwrite mode
 
-    is_slippery = False
+    is_slippery = True
     render = False
-    tuples = sample_environment(env_name, is_slippery=is_slippery, render=render)
+
+    tuples = sample_environment(env_name=env_name, is_slippery=is_slippery, render=render)
     save_tuples(tuples, env_name)
+
     
 
 if __name__ == "__main__":

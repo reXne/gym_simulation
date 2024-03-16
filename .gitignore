@@ -6,6 +6,7 @@
 *.gz
 *.pyc
 *.log
+*.txt
 wandb/
 
 venv/

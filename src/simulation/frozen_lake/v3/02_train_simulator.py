@@ -25,7 +25,8 @@ def compute_loss(outputs, outputs_next, targets):
     reward_dist = Bernoulli(logits = reward_logits)
     done_dist = Bernoulli(logits = done_logits)
     
-    kl_loss = kl_divergence(posterior_dist, prior_dist).mean()
+    kl_loss = kl_divergence(posterior_dist, prior_dist)
+    kl_loss = torch.maximum(kl_loss,  torch.tensor(1.0, device=kl_loss.device)).mean()
     decoder_loss = F.cross_entropy(decoder_logits, target_state_indices)
     sequence_model_loss = F.cross_entropy(state_next_logits, target_state_next_indices)
     reward_loss = -reward_dist.log_prob(target_reward).mean()

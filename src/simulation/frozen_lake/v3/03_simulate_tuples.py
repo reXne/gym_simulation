@@ -59,12 +59,17 @@ def simulate_environment(env_name, num_episodes):
             state_action = torch.cat([state, action], dim=-1)
             
             with torch.no_grad():
-                next_state_logits, reward_logits, done_logits,  decoder_logits, prior_dist, posterior_dist= model(state, action)
+                next_state_logits, _, _, _, _, _= model(state, action)
+                
+            next_state_dist = Categorical(logits=next_state_logits)
+            next_state_idx = next_state_dist.sample().item()       
+            # next_state_idx = torch.argmax(next_state_logits).item()
+            next_state = to_one_hot(next_state_idx, num_states).unsqueeze(0)   
+            
+            
+            _, reward_logits, done_logits, _, _, _= model(next_state, action)
             reward_dist = Bernoulli(logits=reward_logits)
             done_dist = Bernoulli(logits=done_logits)
-            
-            next_state_dist = Categorical(logits=next_state_logits)
-            next_state_idx = next_state_dist.sample().item()
             
             reward = reward_dist.sample().item()
             done = done_dist.sample().item() > 0.5
@@ -93,7 +98,8 @@ def simulate_environment(env_name, num_episodes):
         "total_episodes": num_episodes,
         "total_dones": total_dones,
         "reward_distribution": reward_distribution,
-        "state_distribution": state_distribution
+        "state_distribution": state_distribution,
+        "generated_tuples": generated_tuples 
     }
 
 
@@ -115,7 +121,10 @@ def main():
     logging.info(f"Total Episodes: {stats['total_episodes']}")
     logging.info(f"Total Dones: {stats['total_dones']}")
     logging.info(f"Reward Distribution: {stats['reward_distribution']}")
-
+    logging.info("Top 100 Tuples:")
+    for i, tuple in enumerate(stats['generated_tuples'][:100], 1):
+        logging.info(f"{i}: {tuple}")
+        
 if __name__ == "__main__":
     main()
 

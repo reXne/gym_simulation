@@ -29,7 +29,7 @@ class SimulatorV3(nn.Module):
         state_next_probs =  F.softmax(state_next_logits, dim=-1)
         state_next_sample = torch.argmax(state_next_probs, dim=-1)
         state_next_sample_one_hot = F.one_hot(state_next_sample, num_classes=state_next_probs.shape[-1]).float()
-        state_next_sample = (state_next_sample_one_hot + state_next_probs - state_next_probs.detach()).detach()
+        state_next_sample = state_next_sample_one_hot + state_next_probs - state_next_probs.detach()
 
         mu_next, logvar_next = self.encoder_model(state_next_sample)
         std_next = torch.exp(0.5 * logvar_next)
