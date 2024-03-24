@@ -248,7 +248,7 @@ class FrozenLakeDQL():
                     action = policy_dqn(self.state_to_dqn_input(state, num_states)).argmax().item()
 
                 # Execute action
-                state,reward,terminated,truncated,_ = env.step(action)
+                state, reward, terminated, truncated,_ = env.step(action)
 
         env.close()
 

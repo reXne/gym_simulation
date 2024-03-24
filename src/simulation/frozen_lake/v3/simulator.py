@@ -12,6 +12,7 @@ class SimulatorV3(nn.Module):
     def __init__(self, state_dim, action_dim, hidden_dim, latent_dim):
         super().__init__()
         self.encoder_model = EncoderModel(state_dim, hidden_dim, latent_dim)
+        self.dynamics_model = DynamicsModel(state_dim, hidden_dim, latent_dim)
         self.decoder_model = DecoderModel(latent_dim, hidden_dim, state_dim)
         self.sequence_model = SequenceModel(state_dim + latent_dim + action_dim, hidden_dim, state_dim)
         self.reward_model = RewardModel(state_dim + latent_dim , hidden_dim)
@@ -31,7 +32,7 @@ class SimulatorV3(nn.Module):
         state_next_sample_one_hot = F.one_hot(state_next_sample, num_classes=state_next_probs.shape[-1]).float()
         state_next_sample = state_next_sample_one_hot + state_next_probs - state_next_probs.detach()
 
-        mu_next, logvar_next = self.encoder_model(state_next_sample)
+        mu_next, logvar_next = self.dynamics_model(state_next_sample)
         std_next = torch.exp(0.5 * logvar_next)
         prior_dist_next = Normal(mu_next, std_next)     
         z_next = prior_dist_next.rsample()
@@ -61,6 +62,24 @@ class EncoderModel(nn.Module):
         logvar = self.fc_logvar(h)
         return mu, logvar
 
+class DynamicsModel(nn.Module):
+    def __init__(self, input_dim, hidden_dim, latent_dim):
+        super().__init__()
+        self.network = nn.Sequential(
+            nn.Linear(input_dim, hidden_dim),
+            nn.ReLU(),
+            nn.Linear(hidden_dim, hidden_dim),
+            nn.ReLU()
+        )
+        self.fc_mu = nn.Linear(hidden_dim, latent_dim)  
+        self.fc_logvar= nn.Linear(hidden_dim, latent_dim)
+        
+    def forward(self, x):
+        h = self.network(x)
+        mu = self.fc_mu(h)
+        logvar = self.fc_logvar(h)
+        return mu, logvar
+    
 class DecoderModel(nn.Module):
     def __init__(self, latent_dim, hidden_dim, output_dim):
         super().__init__()

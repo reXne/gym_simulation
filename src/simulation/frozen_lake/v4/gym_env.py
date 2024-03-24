@@ -7,6 +7,13 @@ from torch.distributions import (
     OneHotCategorical, Independent
 )
 
+
+def to_one_hot(index, num_classes):
+    """Converts an integer index into a one-hot encoded tensor."""
+    one_hot_tensor = torch.zeros(num_classes)
+    one_hot_tensor[index] = 1.0
+    return one_hot_tensor
+
 class ObservationSpace:
     def __init__(self, n):
         self.n = n
@@ -49,20 +56,25 @@ class SimulatedGymEnvironment:
         action_tensor[0, action_index] = 1.0
         
         with torch.no_grad():
-            next_state_logits, reward_logits, done_logits, _, _, _ = self.model(current_state_tensor, action_tensor)
+            next_state_logits, _, _, _, _, _ = self.model(current_state_tensor, action_tensor)
             
         next_state_dist = Categorical(logits=next_state_logits)
-        next_state_index = next_state_dist.sample().item()
-            
+        next_state_idx = next_state_dist.sample().item()      
+        # next_state_idx = torch.argmax(next_state_logits).item()
+        next_state = to_one_hot(next_state_idx, self.state_dim).unsqueeze(0)          
+        
+        with torch.no_grad():
+            _, reward_logits, done_logits, _, _, _ = self.model(next_state, action_tensor)
+
         reward_dist = Bernoulli(logits=reward_logits)
         done_dist = Bernoulli(logits=done_logits)
         
         reward = reward_dist.sample().item()
         done = done_dist.sample().item() > 0.5
         
-        self.current_state_index = next_state_index
+        self.current_state_index = next_state_idx
         
-        return next_state_index, reward, done, {}, {}
+        return next_state_idx, reward, done, {}, {}
 
 
 if __name__ == "__main__":
@@ -73,7 +85,7 @@ if __name__ == "__main__":
     action_dim = 4
     num_episodes = 100
     hidden_dim= 8
-    latent_dim = 4
+    latent_dim = 8
     simulated_env = SimulatedGymEnvironment(model_path=model_path, state_dim=state_dim, action_dim=action_dim, hidden_dim=hidden_dim, latent_dim=latent_dim)
     total_reward = 0  # Track total reward across all episodes
     
@@ -93,3 +105,6 @@ if __name__ == "__main__":
     
     average_reward = total_reward / num_episodes  # Calculate average reward per episode
     print(f"Average Reward per Episode: {average_reward}")
+    
+    
+    

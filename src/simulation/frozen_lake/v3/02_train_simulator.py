@@ -15,7 +15,7 @@ from torch.distributions import (
 
 def compute_loss(outputs, outputs_next, targets):
     # Assuming 'outputs' is unpacked here as before or within the function
-    target_state, target_reward, target_done, target_state_next = targets
+    target_state, target_reward, target_state_next, target_done = targets
     state_next_logits, _, _, decoder_logits, prior_dist, _ = outputs
     _, reward_logits, done_logits, _, _, posterior_dist = outputs_next
 
@@ -92,7 +92,7 @@ def train_and_validate(model, train_loader, val_loader, optimizer, epochs=20):
             optimizer.zero_grad()
             outputs = model(states, actions)
             outputs_next = model(next_states, actions)
-            targets = states, rewards, dones, next_states
+            targets = states, rewards, next_states, dones
             loss, details = compute_loss(outputs, outputs_next, targets) 
             loss.backward()
             optimizer.step()
@@ -114,7 +114,7 @@ def train_and_validate(model, train_loader, val_loader, optimizer, epochs=20):
             for states, actions, rewards, next_states, dones in val_loader:
                 outputs = model(states, actions)
                 outputs_next = model(next_states, actions)
-                targets = states, rewards, dones, next_states
+                targets = states, rewards, next_states, dones
                 val_loss, details = compute_loss(outputs, outputs_next, targets) 
                 total_val_loss += val_loss.item()
                 for key in details:

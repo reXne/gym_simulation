@@ -34,12 +34,12 @@ def simulate_environment(env_name, num_episodes):
     simulator_version = 'v4'
     model_path = f'./data/models/{env_name}/simulator_{simulator_version}.pth'
     
-    num_states = 16  
-    num_actions = 4  
-    hidden_dim=8
     latent_dim=8
+    hidden_dim=8
+    action_dim=4
+    state_dim=16
     
-    model = SimulatorV4(obs_dim=num_states, action_dim=num_actions,  hidden_dim=hidden_dim, latent_dim=latent_dim)
+    model = SimulatorV4(obs_dim=state_dim, action_dim=action_dim,  hidden_dim=hidden_dim, latent_dim=latent_dim)
     model.load_state_dict(torch.load(model_path, map_location=torch.device('cpu')))
     model.eval()
     
@@ -52,33 +52,33 @@ def simulate_environment(env_name, num_episodes):
 
     for episode in range(num_episodes):
         state_idx = env.reset()[0]  # Assuming env.reset() returns a single integer state index
-        state = to_one_hot(state_idx, num_states).unsqueeze(0)
+        state = to_one_hot(state_idx, state_dim).unsqueeze(0)
         
         is_initial = True
         done = False
+        
         while not done:
-            action_idx = select_random_action(num_actions)
-            action = to_one_hot(action_idx, num_actions).unsqueeze(0)
-            state_action = torch.cat([state, action], dim=-1)
+            action_idx = select_random_action(action_dim)
+            action = to_one_hot(action_idx, action_dim).unsqueeze(0)
             
             with torch.no_grad():
-                next_state_logits, reward_logits, done_logits,  decoder_logits, prior_dist, posterior_dist= model(state, action)
-                
-                
-            next_state_idx = torch.argmax(next_state_logits, dim=1).item()             
-                
-            # reward_dist = Bernoulli(logits=reward_logits)
-            # done_dist = Bernoulli(logits=done_logits)
-            # reward = reward_dist.sample().item()
-            # done = done_dist.sample().item() > 0.5          
-            reward_prob = torch.sigmoid(reward_logits)
-            done_prob = torch.sigmoid(done_logits)
-            reward = (reward_prob > 0.5).int().item()  
-            done = (done_prob > 0.5).item()
-
-
-    
+                next_state_logits, _, _, _, _, _= model(state, action)
             
+            # next_state_idx = torch.argmax(next_state_logits).item()
+
+            next_state_dist = Categorical(logits=next_state_logits)
+            next_state_idx = next_state_dist.sample().item()       
+            next_state = to_one_hot(next_state_idx, state_dim).unsqueeze(0)   
+            
+            with torch.no_grad():
+                _, reward_logits, done_logits, _, _, _= model(next_state, action)
+            reward_dist = Bernoulli(logits=reward_logits)
+            done_dist = Bernoulli(logits=done_logits)
+            
+            reward = reward_dist.sample().item()
+            done = done_dist.sample().item() > 0.5
+
+
             # Update distributions
             reward_distribution[reward] = reward_distribution.get(reward, 0) + 1
             state_distribution[next_state_idx] = state_distribution.get(next_state_idx, 0) + 1
@@ -90,7 +90,7 @@ def simulate_environment(env_name, num_episodes):
             total_rewards += reward
             if not done:
                 state_idx = next_state_idx  # Update for next iteration
-                state = to_one_hot(state_idx, num_states).unsqueeze(0)
+                state = to_one_hot(state_idx, state_dim).unsqueeze(0)
             else:
                 total_dones += 1
                 
@@ -103,8 +103,10 @@ def simulate_environment(env_name, num_episodes):
         "total_episodes": num_episodes,
         "total_dones": total_dones,
         "reward_distribution": reward_distribution,
-        "state_distribution": state_distribution
+        "state_distribution": state_distribution,
+        "generated_tuples": generated_tuples 
     }
+
 
 
 def main():
@@ -117,7 +119,7 @@ def main():
                         filemode='w')
 
     
-    num_episodes = 1000  # Adjust as needed
+    num_episodes = 10000 
     stats = simulate_environment(env_name, num_episodes)
 
     logging.info("Summary Statistics for Simulated Environment:")
@@ -125,7 +127,10 @@ def main():
     logging.info(f"Total Episodes: {stats['total_episodes']}")
     logging.info(f"Total Dones: {stats['total_dones']}")
     logging.info(f"Reward Distribution: {stats['reward_distribution']}")
-
+    logging.info("Top 100 Tuples:")
+    for i, tuple in enumerate(stats['generated_tuples'][:100], 1):
+        logging.info(f"{i}: {tuple}")
+        
 if __name__ == "__main__":
     main()
 

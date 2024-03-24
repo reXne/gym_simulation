@@ -62,10 +62,11 @@ def simulate_environment(env_name, num_episodes):
             
             with torch.no_grad():
                 next_state_logits, _, _, _, _, _= model(state, action)
-                
+            
+            # next_state_idx = torch.argmax(next_state_logits).item()
+
             next_state_dist = Categorical(logits=next_state_logits)
             next_state_idx = next_state_dist.sample().item()       
-            # next_state_idx = torch.argmax(next_state_logits).item()
             next_state = to_one_hot(next_state_idx, state_dim).unsqueeze(0)   
             
             with torch.no_grad():

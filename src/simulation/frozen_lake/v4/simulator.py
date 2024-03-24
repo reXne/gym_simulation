@@ -35,12 +35,6 @@ class SimulatorV4(nn.Module):
         z_next = prior_dist_next.rsample()
     
         state_next_logits =  self.decoder_model(torch.cat([h_next, z_next], dim=1)) 
-        # state_next_probs =  F.softmax(state_next_logits, dim=-1)
-        # state_next_sample = torch.argmax(state_next_probs, dim=-1)
-        # state_next_sample_one_hot = F.one_hot(state_next_sample, num_classes=state_next_probs.shape[-1]).float()
-        # state_next_sample = (state_next_sample_one_hot + state_next_probs - state_next_probs.detach()).detach()
-
-
 
         # acá se tiene que ocupar el next state, con cualquie acción (ej: 0)
         reward_logits = self.reward_model(torch.cat([h, z], dim=1))
