@@ -167,7 +167,7 @@ def main():
     dataset = TuplesDataset(states, actions, rewards, next_states, dones)
     train_loader, val_loader = prepare_data_loaders(dataset, batch_size=1024, split_ratio=0.8)
     
-    latent_dim=8
+    latent_dim=32
     hidden_dim=8
     action_dim=4
     state_dim=16

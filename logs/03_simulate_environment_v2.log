@@ -1,798 +1,439 @@
-2024-03-23 23:53:08,823 - INFO - Tuples saved to ./data/simulated_tuples/FrozenLake-v1/simulated_tuples_v2.pkl
-2024-03-23 23:53:08,825 - INFO - Summary Statistics for Simulated Environment:
-2024-03-23 23:53:08,825 - INFO - Average Reward: 0.0156
-2024-03-23 23:53:08,825 - INFO - Total Episodes: 10000
-2024-03-23 23:53:08,825 - INFO - Total Dones: 10000
-2024-03-23 23:53:08,825 - INFO - Reward Distribution: {0.0: 78382, 1.0: 156}
-2024-03-23 23:53:45,962 - INFO - Sample Real Environment Tuples:
-2024-03-23 23:53:45,962 - INFO - (0, 0, 0.0, 0, False, True)
-2024-03-23 23:53:45,962 - INFO - (0, 1, 0.0, 0, False, False)
-2024-03-23 23:53:45,962 - INFO - (0, 3, 0.0, 0, False, False)
-2024-03-23 23:53:45,962 - INFO - (0, 2, 0.0, 0, False, False)
-2024-03-23 23:53:45,962 - INFO - (0, 3, 0.0, 0, False, False)
-2024-03-23 23:53:45,962 - INFO - Sample Simulated Environment Tuples:
-2024-03-23 23:53:45,962 - INFO - (0, 2, 0.0, 1, False, True)
-2024-03-23 23:53:45,962 - INFO - (1, 3, 0.0, 0, False, False)
-2024-03-23 23:53:45,962 - INFO - (0, 0, 0.0, 0, False, False)
-2024-03-23 23:53:45,962 - INFO - (0, 3, 0.0, 0, False, False)
-2024-03-23 23:53:45,962 - INFO - (0, 0, 0.0, 4, False, False)
-2024-03-23 23:53:45,962 - INFO - Real Environment Metrics:
-2024-03-23 23:53:46,074 - INFO - Real Environment - Mean Reward: 0.0020, Mean Episode Length: 7.68
-2024-03-23 23:53:46,074 - INFO - Real Environment - Number of Episodes: 10000, Number of steps: 76815
-2024-03-23 23:53:46,076 - INFO - Simulated Environment Metrics:
-2024-03-23 23:53:46,174 - INFO - Simulated Environment - Mean Reward: 0.0020, Mean Episode Length: 7.85
-2024-03-23 23:53:46,174 - INFO - Simulated Environment - Number of Episodes: 10000, Number of steps: 78538
-2024-03-23 23:53:46,175 - INFO - Real Environment Distributions:
-2024-03-23 23:53:46,196 - INFO - Real Environment - State-Action: (0, 0)
-2024-03-23 23:53:46,196 - INFO -   Real Environment - Next_states Distribution: {0: 5386, 4: 2711}
-2024-03-23 23:53:46,197 - INFO -   Real Environment - Rewards Distribution: {0.0: 8097}
-2024-03-23 23:53:46,198 - INFO -   Real Environment - Dones Distribution: True - 0, False - 8097
-2024-03-23 23:53:46,198 - INFO - Real Environment - State-Action: (0, 1)
-2024-03-23 23:53:46,198 - INFO -   Real Environment - Next_states Distribution: {0: 2760, 1: 2738, 4: 2732}
-2024-03-23 23:53:46,200 - INFO -   Real Environment - Rewards Distribution: {0.0: 8230}
-2024-03-23 23:53:46,200 - INFO -   Real Environment - Dones Distribution: True - 0, False - 8230
-2024-03-23 23:53:46,200 - INFO - Real Environment - State-Action: (0, 2)
-2024-03-23 23:53:46,200 - INFO -   Real Environment - Next_states Distribution: {0: 2674, 1: 2712, 4: 2772}
-2024-03-23 23:53:46,201 - INFO -   Real Environment - Rewards Distribution: {0.0: 8158}
-2024-03-23 23:53:46,201 - INFO -   Real Environment - Dones Distribution: True - 0, False - 8158
-2024-03-23 23:53:46,201 - INFO - Real Environment - State-Action: (0, 3)
-2024-03-23 23:53:46,201 - INFO -   Real Environment - Next_states Distribution: {0: 5470, 1: 2673}
-2024-03-23 23:53:46,202 - INFO -   Real Environment - Rewards Distribution: {0.0: 8143}
-2024-03-23 23:53:46,202 - INFO -   Real Environment - Dones Distribution: True - 0, False - 8143
-2024-03-23 23:53:46,202 - INFO - Real Environment - State-Action: (1, 0)
-2024-03-23 23:53:46,202 - INFO -   Real Environment - Next_states Distribution: {0: 1013, 1: 1052, 5: 1036}
-2024-03-23 23:53:46,202 - INFO -   Real Environment - Rewards Distribution: {0.0: 3101}
-2024-03-23 23:53:46,202 - INFO -   Real Environment - Dones Distribution: True - 1036, False - 2065
-2024-03-23 23:53:46,202 - INFO - Real Environment - State-Action: (1, 1)
-2024-03-23 23:53:46,202 - INFO -   Real Environment - Next_states Distribution: {0: 1137, 2: 1105, 5: 1106}
-2024-03-23 23:53:46,203 - INFO -   Real Environment - Rewards Distribution: {0.0: 3348}
-2024-03-23 23:53:46,203 - INFO -   Real Environment - Dones Distribution: True - 1106, False - 2242
-2024-03-23 23:53:46,203 - INFO - Real Environment - State-Action: (1, 2)
-2024-03-23 23:53:46,203 - INFO -   Real Environment - Next_states Distribution: {1: 1034, 2: 1031, 5: 1051}
-2024-03-23 23:53:46,203 - INFO -   Real Environment - Rewards Distribution: {0.0: 3116}
-2024-03-23 23:53:46,203 - INFO -   Real Environment - Dones Distribution: True - 1051, False - 2065
-2024-03-23 23:53:46,203 - INFO - Real Environment - State-Action: (1, 3)
-2024-03-23 23:53:46,203 - INFO -   Real Environment - Next_states Distribution: {0: 1074, 1: 1007, 2: 1053}
-2024-03-23 23:53:46,204 - INFO -   Real Environment - Rewards Distribution: {0.0: 3134}
-2024-03-23 23:53:46,204 - INFO -   Real Environment - Dones Distribution: True - 0, False - 3134
-2024-03-23 23:53:46,204 - INFO - Real Environment - State-Action: (2, 0)
-2024-03-23 23:53:46,204 - INFO -   Real Environment - Next_states Distribution: {1: 482, 2: 484, 6: 507}
-2024-03-23 23:53:46,204 - INFO -   Real Environment - Rewards Distribution: {0.0: 1473}
-2024-03-23 23:53:46,204 - INFO -   Real Environment - Dones Distribution: True - 0, False - 1473
-2024-03-23 23:53:46,204 - INFO - Real Environment - State-Action: (2, 1)
-2024-03-23 23:53:46,204 - INFO -   Real Environment - Next_states Distribution: {1: 515, 3: 467, 6: 472}
-2024-03-23 23:53:46,204 - INFO -   Real Environment - Rewards Distribution: {0.0: 1454}
-2024-03-23 23:53:46,204 - INFO -   Real Environment - Dones Distribution: True - 0, False - 1454
-2024-03-23 23:53:46,204 - INFO - Real Environment - State-Action: (2, 2)
-2024-03-23 23:53:46,204 - INFO -   Real Environment - Next_states Distribution: {2: 479, 3: 461, 6: 463}
-2024-03-23 23:53:46,204 - INFO -   Real Environment - Rewards Distribution: {0.0: 1403}
-2024-03-23 23:53:46,204 - INFO -   Real Environment - Dones Distribution: True - 0, False - 1403
-2024-03-23 23:53:46,204 - INFO - Real Environment - State-Action: (2, 3)
-2024-03-23 23:53:46,204 - INFO -   Real Environment - Next_states Distribution: {1: 486, 2: 489, 3: 479}
-2024-03-23 23:53:46,205 - INFO -   Real Environment - Rewards Distribution: {0.0: 1454}
-2024-03-23 23:53:46,205 - INFO -   Real Environment - Dones Distribution: True - 0, False - 1454
-2024-03-23 23:53:46,205 - INFO - Real Environment - State-Action: (3, 0)
-2024-03-23 23:53:46,205 - INFO -   Real Environment - Next_states Distribution: {2: 244, 3: 248, 7: 253}
-2024-03-23 23:53:46,205 - INFO -   Real Environment - Rewards Distribution: {0.0: 745}
-2024-03-23 23:53:46,205 - INFO -   Real Environment - Dones Distribution: True - 253, False - 492
-2024-03-23 23:53:46,205 - INFO - Real Environment - State-Action: (3, 1)
-2024-03-23 23:53:46,205 - INFO -   Real Environment - Next_states Distribution: {2: 236, 3: 223, 7: 226}
-2024-03-23 23:53:46,205 - INFO -   Real Environment - Rewards Distribution: {0.0: 685}
-2024-03-23 23:53:46,205 - INFO -   Real Environment - Dones Distribution: True - 226, False - 459
-2024-03-23 23:53:46,205 - INFO - Real Environment - State-Action: (3, 2)
-2024-03-23 23:53:46,205 - INFO -   Real Environment - Next_states Distribution: {3: 487, 7: 223}
-2024-03-23 23:53:46,205 - INFO -   Real Environment - Rewards Distribution: {0.0: 710}
-2024-03-23 23:53:46,205 - INFO -   Real Environment - Dones Distribution: True - 223, False - 487
-2024-03-23 23:53:46,205 - INFO - Real Environment - State-Action: (3, 3)
-2024-03-23 23:53:46,205 - INFO -   Real Environment - Next_states Distribution: {2: 225, 3: 502}
-2024-03-23 23:53:46,205 - INFO -   Real Environment - Rewards Distribution: {0.0: 727}
-2024-03-23 23:53:46,205 - INFO -   Real Environment - Dones Distribution: True - 0, False - 727
-2024-03-23 23:53:46,205 - INFO - Real Environment - State-Action: (4, 0)
-2024-03-23 23:53:46,205 - INFO -   Real Environment - Next_states Distribution: {0: 1015, 4: 1084, 8: 1051}
-2024-03-23 23:53:46,206 - INFO -   Real Environment - Rewards Distribution: {0.0: 3150}
-2024-03-23 23:53:46,206 - INFO -   Real Environment - Dones Distribution: True - 0, False - 3150
-2024-03-23 23:53:46,206 - INFO - Real Environment - State-Action: (4, 1)
-2024-03-23 23:53:46,206 - INFO -   Real Environment - Next_states Distribution: {4: 1040, 5: 996, 8: 1028}
-2024-03-23 23:53:46,206 - INFO -   Real Environment - Rewards Distribution: {0.0: 3064}
-2024-03-23 23:53:46,206 - INFO -   Real Environment - Dones Distribution: True - 996, False - 2068
-2024-03-23 23:53:46,206 - INFO - Real Environment - State-Action: (4, 2)
-2024-03-23 23:53:46,207 - INFO -   Real Environment - Next_states Distribution: {0: 1044, 5: 1075, 8: 1091}
-2024-03-23 23:53:46,207 - INFO -   Real Environment - Rewards Distribution: {0.0: 3210}
-2024-03-23 23:53:46,207 - INFO -   Real Environment - Dones Distribution: True - 1075, False - 2135
-2024-03-23 23:53:46,208 - INFO - Real Environment - State-Action: (4, 3)
-2024-03-23 23:53:46,208 - INFO -   Real Environment - Next_states Distribution: {0: 1055, 4: 1011, 5: 1012}
-2024-03-23 23:53:46,208 - INFO -   Real Environment - Rewards Distribution: {0.0: 3078}
-2024-03-23 23:53:46,209 - INFO -   Real Environment - Dones Distribution: True - 1012, False - 2066
-2024-03-23 23:53:46,209 - INFO - Real Environment - State-Action: (6, 0)
-2024-03-23 23:53:46,209 - INFO -   Real Environment - Next_states Distribution: {2: 156, 5: 139, 10: 115}
-2024-03-23 23:53:46,209 - INFO -   Real Environment - Rewards Distribution: {0.0: 410}
-2024-03-23 23:53:46,209 - INFO -   Real Environment - Dones Distribution: True - 139, False - 271
-2024-03-23 23:53:46,209 - INFO - Real Environment - State-Action: (6, 1)
-2024-03-23 23:53:46,209 - INFO -   Real Environment - Next_states Distribution: {5: 143, 7: 148, 10: 162}
-2024-03-23 23:53:46,209 - INFO -   Real Environment - Rewards Distribution: {0.0: 453}
-2024-03-23 23:53:46,209 - INFO -   Real Environment - Dones Distribution: True - 291, False - 162
-2024-03-23 23:53:46,209 - INFO - Real Environment - State-Action: (6, 2)
-2024-03-23 23:53:46,209 - INFO -   Real Environment - Next_states Distribution: {2: 130, 7: 145, 10: 156}
-2024-03-23 23:53:46,209 - INFO -   Real Environment - Rewards Distribution: {0.0: 431}
-2024-03-23 23:53:46,209 - INFO -   Real Environment - Dones Distribution: True - 145, False - 286
-2024-03-23 23:53:46,209 - INFO - Real Environment - State-Action: (6, 3)
-2024-03-23 23:53:46,209 - INFO -   Real Environment - Next_states Distribution: {2: 152, 5: 132, 7: 136}
-2024-03-23 23:53:46,209 - INFO -   Real Environment - Rewards Distribution: {0.0: 420}
-2024-03-23 23:53:46,209 - INFO -   Real Environment - Dones Distribution: True - 268, False - 152
-2024-03-23 23:53:46,209 - INFO - Real Environment - State-Action: (8, 0)
-2024-03-23 23:53:46,210 - INFO -   Real Environment - Next_states Distribution: {4: 364, 8: 411, 12: 449}
-2024-03-23 23:53:46,210 - INFO -   Real Environment - Rewards Distribution: {0.0: 1224}
-2024-03-23 23:53:46,210 - INFO -   Real Environment - Dones Distribution: True - 449, False - 775
-2024-03-23 23:53:46,210 - INFO - Real Environment - State-Action: (8, 1)
-2024-03-23 23:53:46,210 - INFO -   Real Environment - Next_states Distribution: {8: 416, 9: 414, 12: 386}
-2024-03-23 23:53:46,210 - INFO -   Real Environment - Rewards Distribution: {0.0: 1216}
-2024-03-23 23:53:46,210 - INFO -   Real Environment - Dones Distribution: True - 386, False - 830
-2024-03-23 23:53:46,210 - INFO - Real Environment - State-Action: (8, 2)
-2024-03-23 23:53:46,210 - INFO -   Real Environment - Next_states Distribution: {4: 399, 9: 374, 12: 415}
-2024-03-23 23:53:46,210 - INFO -   Real Environment - Rewards Distribution: {0.0: 1188}
-2024-03-23 23:53:46,210 - INFO -   Real Environment - Dones Distribution: True - 415, False - 773
-2024-03-23 23:53:46,210 - INFO - Real Environment - State-Action: (8, 3)
-2024-03-23 23:53:46,210 - INFO -   Real Environment - Next_states Distribution: {4: 389, 8: 372, 9: 391}
-2024-03-23 23:53:46,211 - INFO -   Real Environment - Rewards Distribution: {0.0: 1152}
-2024-03-23 23:53:46,211 - INFO -   Real Environment - Dones Distribution: True - 0, False - 1152
-2024-03-23 23:53:46,211 - INFO - Real Environment - State-Action: (9, 0)
-2024-03-23 23:53:46,211 - INFO -   Real Environment - Next_states Distribution: {5: 118, 8: 129, 13: 143}
-2024-03-23 23:53:46,211 - INFO -   Real Environment - Rewards Distribution: {0.0: 390}
-2024-03-23 23:53:46,211 - INFO -   Real Environment - Dones Distribution: True - 118, False - 272
-2024-03-23 23:53:46,211 - INFO - Real Environment - State-Action: (9, 1)
-2024-03-23 23:53:46,211 - INFO -   Real Environment - Next_states Distribution: {8: 135, 10: 115, 13: 144}
-2024-03-23 23:53:46,211 - INFO -   Real Environment - Rewards Distribution: {0.0: 394}
-2024-03-23 23:53:46,211 - INFO -   Real Environment - Dones Distribution: True - 0, False - 394
-2024-03-23 23:53:46,211 - INFO - Real Environment - State-Action: (9, 2)
-2024-03-23 23:53:46,211 - INFO -   Real Environment - Next_states Distribution: {5: 129, 10: 134, 13: 137}
-2024-03-23 23:53:46,212 - INFO -   Real Environment - Rewards Distribution: {0.0: 400}
-2024-03-23 23:53:46,212 - INFO -   Real Environment - Dones Distribution: True - 129, False - 271
-2024-03-23 23:53:46,212 - INFO - Real Environment - State-Action: (9, 3)
-2024-03-23 23:53:46,212 - INFO -   Real Environment - Next_states Distribution: {5: 115, 8: 147, 10: 127}
-2024-03-23 23:53:46,212 - INFO -   Real Environment - Rewards Distribution: {0.0: 389}
-2024-03-23 23:53:46,212 - INFO -   Real Environment - Dones Distribution: True - 115, False - 274
-2024-03-23 23:53:46,212 - INFO - Real Environment - State-Action: (10, 0)
-2024-03-23 23:53:46,212 - INFO -   Real Environment - Next_states Distribution: {6: 95, 9: 72, 14: 82}
-2024-03-23 23:53:46,212 - INFO -   Real Environment - Rewards Distribution: {0.0: 249}
-2024-03-23 23:53:46,212 - INFO -   Real Environment - Dones Distribution: True - 0, False - 249
-2024-03-23 23:53:46,212 - INFO - Real Environment - State-Action: (10, 1)
-2024-03-23 23:53:46,212 - INFO -   Real Environment - Next_states Distribution: {9: 64, 11: 86, 14: 79}
-2024-03-23 23:53:46,212 - INFO -   Real Environment - Rewards Distribution: {0.0: 229}
-2024-03-23 23:53:46,212 - INFO -   Real Environment - Dones Distribution: True - 86, False - 143
-2024-03-23 23:53:46,212 - INFO - Real Environment - State-Action: (10, 2)
-2024-03-23 23:53:46,212 - INFO -   Real Environment - Next_states Distribution: {6: 80, 11: 76, 14: 67}
-2024-03-23 23:53:46,212 - INFO -   Real Environment - Rewards Distribution: {0.0: 223}
-2024-03-23 23:53:46,212 - INFO -   Real Environment - Dones Distribution: True - 76, False - 147
-2024-03-23 23:53:46,212 - INFO - Real Environment - State-Action: (10, 3)
-2024-03-23 23:53:46,212 - INFO -   Real Environment - Next_states Distribution: {6: 97, 9: 71, 11: 86}
-2024-03-23 23:53:46,213 - INFO -   Real Environment - Rewards Distribution: {0.0: 254}
-2024-03-23 23:53:46,213 - INFO -   Real Environment - Dones Distribution: True - 86, False - 168
-2024-03-23 23:53:46,213 - INFO - Real Environment - State-Action: (13, 0)
-2024-03-23 23:53:46,213 - INFO -   Real Environment - Next_states Distribution: {9: 63, 12: 59, 13: 48}
-2024-03-23 23:53:46,213 - INFO -   Real Environment - Rewards Distribution: {0.0: 170}
-2024-03-23 23:53:46,213 - INFO -   Real Environment - Dones Distribution: True - 59, False - 111
-2024-03-23 23:53:46,213 - INFO - Real Environment - State-Action: (13, 1)
-2024-03-23 23:53:46,213 - INFO -   Real Environment - Next_states Distribution: {12: 53, 13: 74, 14: 68}
-2024-03-23 23:53:46,213 - INFO -   Real Environment - Rewards Distribution: {0.0: 195}
-2024-03-23 23:53:46,213 - INFO -   Real Environment - Dones Distribution: True - 53, False - 142
-2024-03-23 23:53:46,213 - INFO - Real Environment - State-Action: (13, 2)
-2024-03-23 23:53:46,213 - INFO -   Real Environment - Next_states Distribution: {9: 64, 13: 59, 14: 52}
-2024-03-23 23:53:46,213 - INFO -   Real Environment - Rewards Distribution: {0.0: 175}
-2024-03-23 23:53:46,213 - INFO -   Real Environment - Dones Distribution: True - 0, False - 175
-2024-03-23 23:53:46,213 - INFO - Real Environment - State-Action: (13, 3)
-2024-03-23 23:53:46,213 - INFO -   Real Environment - Next_states Distribution: {9: 60, 12: 57, 14: 78}
-2024-03-23 23:53:46,213 - INFO -   Real Environment - Rewards Distribution: {0.0: 195}
-2024-03-23 23:53:46,213 - INFO -   Real Environment - Dones Distribution: True - 57, False - 138
-2024-03-23 23:53:46,213 - INFO - Real Environment - State-Action: (14, 0)
-2024-03-23 23:53:46,213 - INFO -   Real Environment - Next_states Distribution: {10: 43, 13: 47, 14: 53}
-2024-03-23 23:53:46,213 - INFO -   Real Environment - Rewards Distribution: {0.0: 143}
-2024-03-23 23:53:46,213 - INFO -   Real Environment - Dones Distribution: True - 0, False - 143
-2024-03-23 23:53:46,213 - INFO - Real Environment - State-Action: (14, 1)
-2024-03-23 23:53:46,213 - INFO -   Real Environment - Next_states Distribution: {13: 46, 14: 50, 15: 60}
-2024-03-23 23:53:46,214 - INFO -   Real Environment - Rewards Distribution: {0.0: 96, 1.0: 60}
-2024-03-23 23:53:46,214 - INFO -   Real Environment - Dones Distribution: True - 60, False - 96
-2024-03-23 23:53:46,214 - INFO - Real Environment - State-Action: (14, 2)
-2024-03-23 23:53:46,214 - INFO -   Real Environment - Next_states Distribution: {10: 49, 14: 49, 15: 44}
-2024-03-23 23:53:46,214 - INFO -   Real Environment - Rewards Distribution: {0.0: 98, 1.0: 44}
-2024-03-23 23:53:46,214 - INFO -   Real Environment - Dones Distribution: True - 44, False - 98
-2024-03-23 23:53:46,214 - INFO - Real Environment - State-Action: (14, 3)
-2024-03-23 23:53:46,214 - INFO -   Real Environment - Next_states Distribution: {10: 54, 13: 37, 15: 46}
-2024-03-23 23:53:46,214 - INFO -   Real Environment - Rewards Distribution: {0.0: 91, 1.0: 46}
-2024-03-23 23:53:46,214 - INFO -   Real Environment - Dones Distribution: True - 46, False - 91
-2024-03-23 23:53:46,215 - INFO - Simulated Environment Distributions:
-2024-03-23 23:53:46,232 - INFO - Simulated Environment - State-Action: (0, 0)
-2024-03-23 23:53:46,233 - INFO -   Simulated Environment - Next_states Distribution: {0: 5147, 1: 392, 4: 2889, 5: 10, 8: 6, 9: 4, 12: 5, 14: 1}
-2024-03-23 23:53:46,235 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 8446, 1.0: 8}
-2024-03-23 23:53:46,235 - INFO -   Simulated Environment - Dones Distribution: True - 18, False - 8436
-2024-03-23 23:53:46,235 - INFO - Simulated Environment - State-Action: (0, 1)
-2024-03-23 23:53:46,235 - INFO -   Simulated Environment - Next_states Distribution: {0: 3225, 1: 2534, 2: 8, 4: 2535, 5: 28, 6: 1, 8: 4, 9: 11, 11: 2, 12: 2, 13: 1, 14: 2, 15: 2}
-2024-03-23 23:53:46,236 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 8350, 1.0: 5}
-2024-03-23 23:53:46,236 - INFO -   Simulated Environment - Dones Distribution: True - 36, False - 8319
-2024-03-23 23:53:46,236 - INFO - Simulated Environment - State-Action: (0, 2)
-2024-03-23 23:53:46,236 - INFO -   Simulated Environment - Next_states Distribution: {0: 2946, 1: 2894, 2: 12, 4: 2417, 5: 22, 6: 5, 8: 6, 9: 3, 12: 1, 14: 4, 15: 2}
-2024-03-23 23:53:46,237 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 8308, 1.0: 4}
-2024-03-23 23:53:46,237 - INFO -   Simulated Environment - Dones Distribution: True - 25, False - 8287
-2024-03-23 23:53:46,237 - INFO - Simulated Environment - State-Action: (0, 3)
-2024-03-23 23:53:46,237 - INFO -   Simulated Environment - Next_states Distribution: {0: 5373, 1: 2674, 2: 4, 4: 268, 5: 5}
-2024-03-23 23:53:46,238 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 8318, 1.0: 6}
-2024-03-23 23:53:46,238 - INFO -   Simulated Environment - Dones Distribution: True - 10, False - 8314
-2024-03-23 23:53:46,238 - INFO - Simulated Environment - State-Action: (1, 0)
-2024-03-23 23:53:46,238 - INFO -   Simulated Environment - Next_states Distribution: {0: 1897, 1: 637, 2: 169, 4: 27, 5: 642, 8: 6, 9: 2, 10: 1}
-2024-03-23 23:53:46,239 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 3380, 1.0: 1}
-2024-03-23 23:53:46,239 - INFO -   Simulated Environment - Dones Distribution: True - 643, False - 2738
-2024-03-23 23:53:46,239 - INFO - Simulated Environment - State-Action: (1, 1)
-2024-03-23 23:53:46,239 - INFO -   Simulated Environment - Next_states Distribution: {0: 483, 1: 432, 2: 1051, 3: 1, 4: 23, 5: 1355, 8: 8, 10: 2}
-2024-03-23 23:53:46,239 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 3355}
-2024-03-23 23:53:46,239 - INFO -   Simulated Environment - Dones Distribution: True - 1355, False - 2000
-2024-03-23 23:53:46,239 - INFO - Simulated Environment - State-Action: (1, 2)
-2024-03-23 23:53:46,239 - INFO -   Simulated Environment - Next_states Distribution: {0: 289, 1: 757, 2: 1267, 3: 7, 4: 7, 5: 1017, 6: 2, 7: 5, 8: 1, 10: 1, 14: 1}
-2024-03-23 23:53:46,240 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 3353, 1.0: 1}
-2024-03-23 23:53:46,240 - INFO -   Simulated Environment - Dones Distribution: True - 1021, False - 2333
-2024-03-23 23:53:46,240 - INFO - Simulated Environment - State-Action: (1, 3)
-2024-03-23 23:53:46,240 - INFO -   Simulated Environment - Next_states Distribution: {0: 833, 1: 1399, 2: 998, 4: 1, 5: 134, 7: 1}
-2024-03-23 23:53:46,241 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 3365, 1.0: 1}
-2024-03-23 23:53:46,241 - INFO -   Simulated Environment - Dones Distribution: True - 135, False - 3231
-2024-03-23 23:53:46,241 - INFO - Simulated Environment - State-Action: (2, 0)
-2024-03-23 23:53:46,241 - INFO -   Simulated Environment - Next_states Distribution: {0: 28, 1: 554, 2: 326, 3: 87, 5: 17, 6: 551, 7: 1, 9: 2, 11: 1}
-2024-03-23 23:53:46,241 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 1566, 1.0: 1}
-2024-03-23 23:53:46,241 - INFO -   Simulated Environment - Dones Distribution: True - 19, False - 1548
-2024-03-23 23:53:46,241 - INFO - Simulated Environment - State-Action: (2, 1)
-2024-03-23 23:53:46,242 - INFO -   Simulated Environment - Next_states Distribution: {0: 8, 1: 361, 2: 266, 3: 386, 5: 5, 6: 509, 7: 1, 9: 2}
-2024-03-23 23:53:46,242 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 1538}
-2024-03-23 23:53:46,242 - INFO -   Simulated Environment - Dones Distribution: True - 7, False - 1531
-2024-03-23 23:53:46,242 - INFO - Simulated Environment - State-Action: (2, 2)
-2024-03-23 23:53:46,242 - INFO -   Simulated Environment - Next_states Distribution: {0: 7, 1: 304, 2: 310, 3: 557, 5: 6, 6: 396, 7: 2, 9: 1, 10: 1}
-2024-03-23 23:53:46,242 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 1581, 1.0: 3}
-2024-03-23 23:53:46,242 - INFO -   Simulated Environment - Dones Distribution: True - 8, False - 1576
-2024-03-23 23:53:46,242 - INFO - Simulated Environment - State-Action: (2, 3)
-2024-03-23 23:53:46,242 - INFO -   Simulated Environment - Next_states Distribution: {0: 4, 1: 422, 2: 654, 3: 450, 6: 44, 7: 2}
-2024-03-23 23:53:46,242 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 1575, 1.0: 1}
-2024-03-23 23:53:46,242 - INFO -   Simulated Environment - Dones Distribution: True - 2, False - 1574
-2024-03-23 23:53:46,242 - INFO - Simulated Environment - State-Action: (3, 0)
-2024-03-23 23:53:46,242 - INFO -   Simulated Environment - Next_states Distribution: {0: 1, 1: 1, 2: 245, 3: 216, 5: 17, 6: 1, 7: 224, 10: 14}
-2024-03-23 23:53:46,242 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 717, 1.0: 2}
-2024-03-23 23:53:46,242 - INFO -   Simulated Environment - Dones Distribution: True - 241, False - 478
-2024-03-23 23:53:46,242 - INFO - Simulated Environment - State-Action: (3, 1)
-2024-03-23 23:53:46,243 - INFO -   Simulated Environment - Next_states Distribution: {2: 132, 3: 380, 5: 9, 7: 230, 10: 11}
-2024-03-23 23:53:46,243 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 762}
-2024-03-23 23:53:46,243 - INFO -   Simulated Environment - Dones Distribution: True - 239, False - 523
-2024-03-23 23:53:46,243 - INFO - Simulated Environment - State-Action: (3, 2)
-2024-03-23 23:53:46,243 - INFO -   Simulated Environment - Next_states Distribution: {1: 1, 2: 119, 3: 366, 5: 13, 7: 202, 10: 9}
-2024-03-23 23:53:46,243 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 710}
-2024-03-23 23:53:46,243 - INFO -   Simulated Environment - Dones Distribution: True - 215, False - 495
-2024-03-23 23:53:46,243 - INFO - Simulated Environment - State-Action: (3, 3)
-2024-03-23 23:53:46,243 - INFO -   Simulated Environment - Next_states Distribution: {1: 2, 2: 223, 3: 507, 5: 1, 6: 1, 7: 55, 10: 2}
-2024-03-23 23:53:46,243 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 791}
-2024-03-23 23:53:46,243 - INFO -   Simulated Environment - Dones Distribution: True - 56, False - 735
-2024-03-23 23:53:46,243 - INFO - Simulated Environment - State-Action: (4, 0)
-2024-03-23 23:53:46,243 - INFO -   Simulated Environment - Next_states Distribution: {0: 817, 1: 1, 4: 1039, 5: 287, 8: 918, 9: 1, 12: 4, 13: 1}
-2024-03-23 23:53:46,244 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 3068}
-2024-03-23 23:53:46,244 - INFO -   Simulated Environment - Dones Distribution: True - 291, False - 2777
-2024-03-23 23:53:46,244 - INFO - Simulated Environment - State-Action: (4, 1)
-2024-03-23 23:53:46,244 - INFO -   Simulated Environment - Next_states Distribution: {0: 269, 1: 5, 2: 1, 4: 938, 5: 680, 8: 1143, 10: 3, 13: 6}
-2024-03-23 23:53:46,244 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 3043, 1.0: 2}
-2024-03-23 23:53:46,244 - INFO -   Simulated Environment - Dones Distribution: True - 681, False - 2364
-2024-03-23 23:53:46,244 - INFO - Simulated Environment - State-Action: (4, 2)
-2024-03-23 23:53:46,244 - INFO -   Simulated Environment - Next_states Distribution: {0: 595, 1: 16, 2: 9, 4: 466, 5: 1248, 8: 745, 9: 1, 10: 2, 13: 5}
-2024-03-23 23:53:46,245 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 3086, 1.0: 1}
-2024-03-23 23:53:46,245 - INFO -   Simulated Environment - Dones Distribution: True - 1249, False - 1838
-2024-03-23 23:53:46,245 - INFO - Simulated Environment - State-Action: (4, 3)
-2024-03-23 23:53:46,245 - INFO -   Simulated Environment - Next_states Distribution: {0: 1343, 1: 12, 2: 3, 4: 589, 5: 852, 8: 238, 13: 1}
-2024-03-23 23:53:46,245 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 3036, 1.0: 2}
-2024-03-23 23:53:46,245 - INFO -   Simulated Environment - Dones Distribution: True - 852, False - 2186
-2024-03-23 23:53:46,245 - INFO - Simulated Environment - State-Action: (5, 0)
-2024-03-23 23:53:46,245 - INFO -   Simulated Environment - Next_states Distribution: {8: 1, 9: 1}
-2024-03-23 23:53:46,245 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 2}
-2024-03-23 23:53:46,245 - INFO -   Simulated Environment - Dones Distribution: True - 0, False - 2
-2024-03-23 23:53:46,245 - INFO - Simulated Environment - State-Action: (5, 1)
-2024-03-23 23:53:46,245 - INFO -   Simulated Environment - Next_states Distribution: {8: 1}
-2024-03-23 23:53:46,245 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 1}
-2024-03-23 23:53:46,245 - INFO -   Simulated Environment - Dones Distribution: True - 0, False - 1
-2024-03-23 23:53:46,245 - INFO - Simulated Environment - State-Action: (6, 0)
-2024-03-23 23:53:46,245 - INFO -   Simulated Environment - Next_states Distribution: {0: 7, 1: 1, 2: 94, 3: 2, 5: 202, 7: 38, 8: 9, 9: 5, 10: 120, 13: 5}
-2024-03-23 23:53:46,246 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 483}
-2024-03-23 23:53:46,246 - INFO -   Simulated Environment - Dones Distribution: True - 240, False - 243
-2024-03-23 23:53:46,246 - INFO - Simulated Environment - State-Action: (6, 1)
-2024-03-23 23:53:46,246 - INFO -   Simulated Environment - Next_states Distribution: {0: 1, 2: 43, 3: 3, 5: 129, 7: 95, 8: 11, 10: 133, 13: 3, 15: 1}
-2024-03-23 23:53:46,246 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 417, 1.0: 2}
-2024-03-23 23:53:46,246 - INFO -   Simulated Environment - Dones Distribution: True - 225, False - 194
-2024-03-23 23:53:46,246 - INFO - Simulated Environment - State-Action: (6, 2)
-2024-03-23 23:53:46,246 - INFO -   Simulated Environment - Next_states Distribution: {0: 2, 2: 45, 3: 10, 5: 80, 7: 173, 8: 3, 9: 1, 10: 125}
-2024-03-23 23:53:46,246 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 439}
-2024-03-23 23:53:46,246 - INFO -   Simulated Environment - Dones Distribution: True - 254, False - 185
-2024-03-23 23:53:46,246 - INFO - Simulated Environment - State-Action: (6, 3)
-2024-03-23 23:53:46,246 - INFO -   Simulated Environment - Next_states Distribution: {0: 2, 2: 259, 3: 9, 5: 44, 7: 118, 10: 21}
-2024-03-23 23:53:46,246 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 453}
-2024-03-23 23:53:46,246 - INFO -   Simulated Environment - Dones Distribution: True - 160, False - 293
-2024-03-23 23:53:46,246 - INFO - Simulated Environment - State-Action: (7, 0)
-2024-03-23 23:53:46,246 - INFO -   Simulated Environment - Next_states Distribution: {6: 1, 9: 1}
-2024-03-23 23:53:46,246 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 2}
-2024-03-23 23:53:46,246 - INFO -   Simulated Environment - Dones Distribution: True - 0, False - 2
-2024-03-23 23:53:46,246 - INFO - Simulated Environment - State-Action: (7, 3)
-2024-03-23 23:53:46,246 - INFO -   Simulated Environment - Next_states Distribution: {0: 1}
-2024-03-23 23:53:46,246 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 1}
-2024-03-23 23:53:46,246 - INFO -   Simulated Environment - Dones Distribution: True - 0, False - 1
-2024-03-23 23:53:46,246 - INFO - Simulated Environment - State-Action: (8, 0)
-2024-03-23 23:53:46,246 - INFO -   Simulated Environment - Next_states Distribution: {0: 25, 1: 2, 4: 366, 5: 5, 8: 357, 9: 114, 10: 1, 12: 326, 13: 2, 14: 1}
-2024-03-23 23:53:46,246 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 1199}
-2024-03-23 23:53:46,247 - INFO -   Simulated Environment - Dones Distribution: True - 331, False - 868
-2024-03-23 23:53:46,247 - INFO - Simulated Environment - State-Action: (8, 1)
-2024-03-23 23:53:46,247 - INFO -   Simulated Environment - Next_states Distribution: {0: 17, 2: 2, 4: 137, 5: 28, 8: 267, 9: 354, 10: 3, 12: 320, 13: 2}
-2024-03-23 23:53:46,247 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 1130}
-2024-03-23 23:53:46,247 - INFO -   Simulated Environment - Dones Distribution: True - 348, False - 782
-2024-03-23 23:53:46,247 - INFO - Simulated Environment - State-Action: (8, 2)
-2024-03-23 23:53:46,247 - INFO -   Simulated Environment - Next_states Distribution: {0: 26, 2: 2, 4: 203, 5: 18, 6: 1, 8: 224, 9: 325, 12: 361, 13: 5, 14: 1}
-2024-03-23 23:53:46,247 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 1165, 1.0: 1}
-2024-03-23 23:53:46,247 - INFO -   Simulated Environment - Dones Distribution: True - 380, False - 786
-2024-03-23 23:53:46,247 - INFO - Simulated Environment - State-Action: (8, 3)
-2024-03-23 23:53:46,248 - INFO -   Simulated Environment - Next_states Distribution: {0: 76, 2: 1, 4: 283, 5: 14, 8: 281, 9: 337, 10: 1, 12: 158}
-2024-03-23 23:53:46,248 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 1149, 1.0: 2}
-2024-03-23 23:53:46,248 - INFO -   Simulated Environment - Dones Distribution: True - 172, False - 979
-2024-03-23 23:53:46,248 - INFO - Simulated Environment - State-Action: (9, 0)
-2024-03-23 23:53:46,248 - INFO -   Simulated Environment - Next_states Distribution: {0: 6, 4: 4, 5: 64, 8: 160, 10: 36, 12: 1, 13: 100, 14: 2}
-2024-03-23 23:53:46,248 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 371, 1.0: 2}
-2024-03-23 23:53:46,248 - INFO -   Simulated Environment - Dones Distribution: True - 65, False - 308
-2024-03-23 23:53:46,248 - INFO - Simulated Environment - State-Action: (9, 1)
-2024-03-23 23:53:46,248 - INFO -   Simulated Environment - Next_states Distribution: {2: 1, 5: 36, 8: 91, 10: 79, 13: 135, 14: 6, 15: 5}
-2024-03-23 23:53:46,248 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 348, 1.0: 5}
-2024-03-23 23:53:46,248 - INFO -   Simulated Environment - Dones Distribution: True - 41, False - 312
-2024-03-23 23:53:46,248 - INFO - Simulated Environment - State-Action: (9, 2)
-2024-03-23 23:53:46,248 - INFO -   Simulated Environment - Next_states Distribution: {0: 1, 5: 39, 7: 1, 8: 31, 10: 204, 13: 101, 14: 4, 15: 10}
-2024-03-23 23:53:46,248 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 381, 1.0: 10}
-2024-03-23 23:53:46,248 - INFO -   Simulated Environment - Dones Distribution: True - 50, False - 341
-2024-03-23 23:53:46,248 - INFO - Simulated Environment - State-Action: (9, 3)
-2024-03-23 23:53:46,248 - INFO -   Simulated Environment - Next_states Distribution: {0: 7, 2: 2, 4: 3, 5: 139, 7: 2, 8: 91, 10: 100, 13: 22}
-2024-03-23 23:53:46,248 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 365, 1.0: 1}
-2024-03-23 23:53:46,248 - INFO -   Simulated Environment - Dones Distribution: True - 141, False - 225
-2024-03-23 23:53:46,248 - INFO - Simulated Environment - State-Action: (10, 0)
-2024-03-23 23:53:46,248 - INFO -   Simulated Environment - Next_states Distribution: {0: 2, 1: 5, 4: 1, 6: 47, 8: 1, 9: 84, 11: 34, 12: 1, 13: 1, 14: 79}
-2024-03-23 23:53:46,248 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 255}
-2024-03-23 23:53:46,248 - INFO -   Simulated Environment - Dones Distribution: True - 35, False - 220
-2024-03-23 23:53:46,248 - INFO - Simulated Environment - State-Action: (10, 1)
-2024-03-23 23:53:46,248 - INFO -   Simulated Environment - Next_states Distribution: {1: 13, 2: 1, 6: 51, 9: 35, 10: 1, 11: 55, 12: 2, 14: 82, 15: 2}
-2024-03-23 23:53:46,249 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 240, 1.0: 2}
-2024-03-23 23:53:46,249 - INFO -   Simulated Environment - Dones Distribution: True - 59, False - 183
-2024-03-23 23:53:46,249 - INFO - Simulated Environment - State-Action: (10, 2)
-2024-03-23 23:53:46,249 - INFO -   Simulated Environment - Next_states Distribution: {0: 2, 1: 6, 6: 83, 9: 3, 11: 49, 12: 2, 14: 90, 15: 1}
-2024-03-23 23:53:46,249 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 235, 1.0: 1}
-2024-03-23 23:53:46,249 - INFO -   Simulated Environment - Dones Distribution: True - 52, False - 184
-2024-03-23 23:53:46,249 - INFO - Simulated Environment - State-Action: (10, 3)
-2024-03-23 23:53:46,249 - INFO -   Simulated Environment - Next_states Distribution: {0: 2, 1: 19, 2: 5, 6: 61, 9: 49, 11: 85, 14: 8}
-2024-03-23 23:53:46,249 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 229}
-2024-03-23 23:53:46,249 - INFO -   Simulated Environment - Dones Distribution: True - 85, False - 144
-2024-03-23 23:53:46,249 - INFO - Simulated Environment - State-Action: (13, 0)
-2024-03-23 23:53:46,249 - INFO -   Simulated Environment - Next_states Distribution: {0: 3, 1: 1, 4: 10, 5: 1, 6: 1, 8: 5, 9: 27, 12: 49, 13: 27, 14: 25, 15: 2}
-2024-03-23 23:53:46,249 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 149, 1.0: 2}
-2024-03-23 23:53:46,249 - INFO -   Simulated Environment - Dones Distribution: True - 51, False - 100
-2024-03-23 23:53:46,249 - INFO - Simulated Environment - State-Action: (13, 1)
-2024-03-23 23:53:46,249 - INFO -   Simulated Environment - Next_states Distribution: {0: 2, 1: 2, 4: 7, 6: 2, 8: 14, 9: 24, 10: 6, 11: 1, 12: 28, 13: 45, 14: 49, 15: 6}
-2024-03-23 23:53:46,249 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 180, 1.0: 6}
-2024-03-23 23:53:46,249 - INFO -   Simulated Environment - Dones Distribution: True - 36, False - 150
-2024-03-23 23:53:46,249 - INFO - Simulated Environment - State-Action: (13, 2)
-2024-03-23 23:53:46,249 - INFO -   Simulated Environment - Next_states Distribution: {0: 1, 1: 3, 2: 2, 4: 6, 5: 3, 6: 9, 7: 1, 8: 3, 9: 12, 10: 4, 11: 1, 12: 22, 13: 40, 14: 69, 15: 11}
-2024-03-23 23:53:46,249 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 176, 1.0: 11}
-2024-03-23 23:53:46,249 - INFO -   Simulated Environment - Dones Distribution: True - 38, False - 149
-2024-03-23 23:53:46,249 - INFO - Simulated Environment - State-Action: (13, 3)
-2024-03-23 23:53:46,249 - INFO -   Simulated Environment - Next_states Distribution: {0: 6, 1: 3, 4: 12, 5: 2, 6: 9, 8: 4, 9: 81, 11: 4, 12: 26, 13: 3, 14: 23}
-2024-03-23 23:53:46,249 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 173}
-2024-03-23 23:53:46,249 - INFO -   Simulated Environment - Dones Distribution: True - 32, False - 141
-2024-03-23 23:53:46,249 - INFO - Simulated Environment - State-Action: (14, 0)
-2024-03-23 23:53:46,249 - INFO -   Simulated Environment - Next_states Distribution: {0: 1, 4: 1, 5: 1, 6: 4, 8: 4, 9: 1, 10: 6, 11: 2, 12: 2, 13: 53, 14: 38, 15: 12}
-2024-03-23 23:53:46,249 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 113, 1.0: 12}
-2024-03-23 23:53:46,249 - INFO -   Simulated Environment - Dones Distribution: True - 16, False - 109
-2024-03-23 23:53:46,249 - INFO - Simulated Environment - State-Action: (14, 1)
-2024-03-23 23:53:46,250 - INFO -   Simulated Environment - Next_states Distribution: {4: 2, 5: 4, 6: 2, 8: 9, 9: 1, 10: 19, 11: 2, 12: 2, 13: 57, 14: 35, 15: 23}
-2024-03-23 23:53:46,250 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 135, 1.0: 21}
-2024-03-23 23:53:46,250 - INFO -   Simulated Environment - Dones Distribution: True - 31, False - 125
-2024-03-23 23:53:46,250 - INFO - Simulated Environment - State-Action: (14, 2)
-2024-03-23 23:53:46,250 - INFO -   Simulated Environment - Next_states Distribution: {0: 1, 4: 1, 5: 2, 6: 8, 8: 2, 10: 20, 12: 1, 13: 47, 14: 31, 15: 19}
-2024-03-23 23:53:46,250 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 113, 1.0: 19}
-2024-03-23 23:53:46,250 - INFO -   Simulated Environment - Dones Distribution: True - 22, False - 110
-2024-03-23 23:53:46,250 - INFO - Simulated Environment - State-Action: (14, 3)
-2024-03-23 23:53:46,250 - INFO -   Simulated Environment - Next_states Distribution: {1: 4, 2: 11, 3: 1, 4: 3, 5: 9, 6: 6, 7: 2, 8: 3, 9: 1, 10: 40, 11: 1, 13: 35, 14: 12, 15: 21}
-2024-03-23 23:53:46,250 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 128, 1.0: 21}
-2024-03-23 23:53:46,250 - INFO -   Simulated Environment - Dones Distribution: True - 33, False - 116
-2024-03-23 23:53:46,250 - INFO - Simulated Environment - State-Action: (15, 0)
-2024-03-23 23:53:46,250 - INFO -   Simulated Environment - Next_states Distribution: {8: 1}
-2024-03-23 23:53:46,250 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 1}
-2024-03-23 23:53:46,250 - INFO -   Simulated Environment - Dones Distribution: True - 0, False - 1
-2024-03-23 23:53:46,250 - INFO - Simulated Environment - State-Action: (15, 2)
-2024-03-23 23:53:46,250 - INFO -   Simulated Environment - Next_states Distribution: {9: 1}
-2024-03-23 23:53:46,250 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 1}
-2024-03-23 23:53:46,250 - INFO -   Simulated Environment - Dones Distribution: True - 0, False - 1
-2024-03-24 00:07:39,315 - INFO - Sample Real Environment Tuples:
-2024-03-24 00:07:39,315 - INFO - (0, 0, 0.0, 0, False, True)
-2024-03-24 00:07:39,315 - INFO - (0, 1, 0.0, 0, False, False)
-2024-03-24 00:07:39,315 - INFO - (0, 3, 0.0, 0, False, False)
-2024-03-24 00:07:39,315 - INFO - (0, 2, 0.0, 0, False, False)
-2024-03-24 00:07:39,315 - INFO - (0, 3, 0.0, 0, False, False)
-2024-03-24 00:07:39,315 - INFO - Sample Simulated Environment Tuples:
-2024-03-24 00:07:39,315 - INFO - (0, 2, 0.0, 1, False, True)
-2024-03-24 00:07:39,315 - INFO - (1, 3, 0.0, 0, False, False)
-2024-03-24 00:07:39,315 - INFO - (0, 0, 0.0, 0, False, False)
-2024-03-24 00:07:39,315 - INFO - (0, 3, 0.0, 0, False, False)
-2024-03-24 00:07:39,315 - INFO - (0, 0, 0.0, 4, False, False)
-2024-03-24 00:07:39,315 - INFO - Real Environment Metrics:
-2024-03-24 00:07:39,448 - INFO - Real Environment - Mean Reward: 0.0020, Mean Episode Length: 7.68
-2024-03-24 00:07:39,448 - INFO - Real Environment - Number of Episodes: 10000, Number of steps: 76815
-2024-03-24 00:07:39,452 - INFO - Simulated Environment Metrics:
-2024-03-24 00:07:39,651 - INFO - Simulated Environment - Mean Reward: 0.0020, Mean Episode Length: 7.85
-2024-03-24 00:07:39,651 - INFO - Simulated Environment - Number of Episodes: 10000, Number of steps: 78538
-2024-03-24 00:07:39,655 - INFO - Real Environment Distributions:
-2024-03-24 00:07:39,719 - INFO - Real Environment - State-Action: (0, 0)
-2024-03-24 00:07:39,720 - INFO -   Real Environment - Next_states Distribution: {0: 5386, 4: 2711}
-2024-03-24 00:07:39,725 - INFO -   Real Environment - Rewards Distribution: {0.0: 8097}
-2024-03-24 00:07:39,725 - INFO -   Real Environment - Dones Distribution: True - 0, False - 8097
-2024-03-24 00:07:39,725 - INFO - Real Environment - State-Action: (0, 1)
-2024-03-24 00:07:39,725 - INFO -   Real Environment - Next_states Distribution: {0: 2760, 1: 2738, 4: 2732}
-2024-03-24 00:07:39,728 - INFO -   Real Environment - Rewards Distribution: {0.0: 8230}
-2024-03-24 00:07:39,729 - INFO -   Real Environment - Dones Distribution: True - 0, False - 8230
-2024-03-24 00:07:39,729 - INFO - Real Environment - State-Action: (0, 2)
-2024-03-24 00:07:39,729 - INFO -   Real Environment - Next_states Distribution: {0: 2674, 1: 2712, 4: 2772}
-2024-03-24 00:07:39,731 - INFO -   Real Environment - Rewards Distribution: {0.0: 8158}
-2024-03-24 00:07:39,732 - INFO -   Real Environment - Dones Distribution: True - 0, False - 8158
-2024-03-24 00:07:39,732 - INFO - Real Environment - State-Action: (0, 3)
-2024-03-24 00:07:39,732 - INFO -   Real Environment - Next_states Distribution: {0: 5470, 1: 2673}
-2024-03-24 00:07:39,737 - INFO -   Real Environment - Rewards Distribution: {0.0: 8143}
-2024-03-24 00:07:39,737 - INFO -   Real Environment - Dones Distribution: True - 0, False - 8143
-2024-03-24 00:07:39,737 - INFO - Real Environment - State-Action: (1, 0)
-2024-03-24 00:07:39,738 - INFO -   Real Environment - Next_states Distribution: {0: 1013, 1: 1052, 5: 1036}
-2024-03-24 00:07:39,739 - INFO -   Real Environment - Rewards Distribution: {0.0: 3101}
-2024-03-24 00:07:39,740 - INFO -   Real Environment - Dones Distribution: True - 1036, False - 2065
-2024-03-24 00:07:39,740 - INFO - Real Environment - State-Action: (1, 1)
-2024-03-24 00:07:39,740 - INFO -   Real Environment - Next_states Distribution: {0: 1137, 2: 1105, 5: 1106}
-2024-03-24 00:07:39,741 - INFO -   Real Environment - Rewards Distribution: {0.0: 3348}
-2024-03-24 00:07:39,742 - INFO -   Real Environment - Dones Distribution: True - 1106, False - 2242
-2024-03-24 00:07:39,742 - INFO - Real Environment - State-Action: (1, 2)
-2024-03-24 00:07:39,742 - INFO -   Real Environment - Next_states Distribution: {1: 1034, 2: 1031, 5: 1051}
-2024-03-24 00:07:39,743 - INFO -   Real Environment - Rewards Distribution: {0.0: 3116}
-2024-03-24 00:07:39,743 - INFO -   Real Environment - Dones Distribution: True - 1051, False - 2065
-2024-03-24 00:07:39,743 - INFO - Real Environment - State-Action: (1, 3)
-2024-03-24 00:07:39,743 - INFO -   Real Environment - Next_states Distribution: {0: 1074, 1: 1007, 2: 1053}
-2024-03-24 00:07:39,744 - INFO -   Real Environment - Rewards Distribution: {0.0: 3134}
-2024-03-24 00:07:39,744 - INFO -   Real Environment - Dones Distribution: True - 0, False - 3134
-2024-03-24 00:07:39,744 - INFO - Real Environment - State-Action: (2, 0)
-2024-03-24 00:07:39,744 - INFO -   Real Environment - Next_states Distribution: {1: 482, 2: 484, 6: 507}
-2024-03-24 00:07:39,744 - INFO -   Real Environment - Rewards Distribution: {0.0: 1473}
-2024-03-24 00:07:39,744 - INFO -   Real Environment - Dones Distribution: True - 0, False - 1473
-2024-03-24 00:07:39,744 - INFO - Real Environment - State-Action: (2, 1)
-2024-03-24 00:07:39,745 - INFO -   Real Environment - Next_states Distribution: {1: 515, 3: 467, 6: 472}
-2024-03-24 00:07:39,745 - INFO -   Real Environment - Rewards Distribution: {0.0: 1454}
-2024-03-24 00:07:39,745 - INFO -   Real Environment - Dones Distribution: True - 0, False - 1454
-2024-03-24 00:07:39,746 - INFO - Real Environment - State-Action: (2, 2)
-2024-03-24 00:07:39,746 - INFO -   Real Environment - Next_states Distribution: {2: 479, 3: 461, 6: 463}
-2024-03-24 00:07:39,746 - INFO -   Real Environment - Rewards Distribution: {0.0: 1403}
-2024-03-24 00:07:39,746 - INFO -   Real Environment - Dones Distribution: True - 0, False - 1403
-2024-03-24 00:07:39,746 - INFO - Real Environment - State-Action: (2, 3)
-2024-03-24 00:07:39,746 - INFO -   Real Environment - Next_states Distribution: {1: 486, 2: 489, 3: 479}
-2024-03-24 00:07:39,749 - INFO -   Real Environment - Rewards Distribution: {0.0: 1454}
-2024-03-24 00:07:39,749 - INFO -   Real Environment - Dones Distribution: True - 0, False - 1454
-2024-03-24 00:07:39,749 - INFO - Real Environment - State-Action: (3, 0)
-2024-03-24 00:07:39,749 - INFO -   Real Environment - Next_states Distribution: {2: 244, 3: 248, 7: 253}
-2024-03-24 00:07:39,749 - INFO -   Real Environment - Rewards Distribution: {0.0: 745}
-2024-03-24 00:07:39,750 - INFO -   Real Environment - Dones Distribution: True - 253, False - 492
-2024-03-24 00:07:39,750 - INFO - Real Environment - State-Action: (3, 1)
-2024-03-24 00:07:39,750 - INFO -   Real Environment - Next_states Distribution: {2: 236, 3: 223, 7: 226}
-2024-03-24 00:07:39,751 - INFO -   Real Environment - Rewards Distribution: {0.0: 685}
-2024-03-24 00:07:39,751 - INFO -   Real Environment - Dones Distribution: True - 226, False - 459
-2024-03-24 00:07:39,751 - INFO - Real Environment - State-Action: (3, 2)
-2024-03-24 00:07:39,751 - INFO -   Real Environment - Next_states Distribution: {3: 487, 7: 223}
-2024-03-24 00:07:39,752 - INFO -   Real Environment - Rewards Distribution: {0.0: 710}
-2024-03-24 00:07:39,752 - INFO -   Real Environment - Dones Distribution: True - 223, False - 487
-2024-03-24 00:07:39,752 - INFO - Real Environment - State-Action: (3, 3)
-2024-03-24 00:07:39,752 - INFO -   Real Environment - Next_states Distribution: {2: 225, 3: 502}
-2024-03-24 00:07:39,753 - INFO -   Real Environment - Rewards Distribution: {0.0: 727}
-2024-03-24 00:07:39,753 - INFO -   Real Environment - Dones Distribution: True - 0, False - 727
-2024-03-24 00:07:39,753 - INFO - Real Environment - State-Action: (4, 0)
-2024-03-24 00:07:39,753 - INFO -   Real Environment - Next_states Distribution: {0: 1015, 4: 1084, 8: 1051}
-2024-03-24 00:07:39,755 - INFO -   Real Environment - Rewards Distribution: {0.0: 3150}
-2024-03-24 00:07:39,756 - INFO -   Real Environment - Dones Distribution: True - 0, False - 3150
-2024-03-24 00:07:39,756 - INFO - Real Environment - State-Action: (4, 1)
-2024-03-24 00:07:39,756 - INFO -   Real Environment - Next_states Distribution: {4: 1040, 5: 996, 8: 1028}
-2024-03-24 00:07:39,758 - INFO -   Real Environment - Rewards Distribution: {0.0: 3064}
-2024-03-24 00:07:39,758 - INFO -   Real Environment - Dones Distribution: True - 996, False - 2068
-2024-03-24 00:07:39,758 - INFO - Real Environment - State-Action: (4, 2)
-2024-03-24 00:07:39,758 - INFO -   Real Environment - Next_states Distribution: {0: 1044, 5: 1075, 8: 1091}
-2024-03-24 00:07:39,760 - INFO -   Real Environment - Rewards Distribution: {0.0: 3210}
-2024-03-24 00:07:39,760 - INFO -   Real Environment - Dones Distribution: True - 1075, False - 2135
-2024-03-24 00:07:39,760 - INFO - Real Environment - State-Action: (4, 3)
-2024-03-24 00:07:39,760 - INFO -   Real Environment - Next_states Distribution: {0: 1055, 4: 1011, 5: 1012}
-2024-03-24 00:07:39,761 - INFO -   Real Environment - Rewards Distribution: {0.0: 3078}
-2024-03-24 00:07:39,761 - INFO -   Real Environment - Dones Distribution: True - 1012, False - 2066
-2024-03-24 00:07:39,761 - INFO - Real Environment - State-Action: (6, 0)
-2024-03-24 00:07:39,761 - INFO -   Real Environment - Next_states Distribution: {2: 156, 5: 139, 10: 115}
-2024-03-24 00:07:39,761 - INFO -   Real Environment - Rewards Distribution: {0.0: 410}
-2024-03-24 00:07:39,762 - INFO -   Real Environment - Dones Distribution: True - 139, False - 271
-2024-03-24 00:07:39,762 - INFO - Real Environment - State-Action: (6, 1)
-2024-03-24 00:07:39,762 - INFO -   Real Environment - Next_states Distribution: {5: 143, 7: 148, 10: 162}
-2024-03-24 00:07:39,762 - INFO -   Real Environment - Rewards Distribution: {0.0: 453}
-2024-03-24 00:07:39,762 - INFO -   Real Environment - Dones Distribution: True - 291, False - 162
-2024-03-24 00:07:39,762 - INFO - Real Environment - State-Action: (6, 2)
-2024-03-24 00:07:39,762 - INFO -   Real Environment - Next_states Distribution: {2: 130, 7: 145, 10: 156}
-2024-03-24 00:07:39,762 - INFO -   Real Environment - Rewards Distribution: {0.0: 431}
-2024-03-24 00:07:39,762 - INFO -   Real Environment - Dones Distribution: True - 145, False - 286
-2024-03-24 00:07:39,762 - INFO - Real Environment - State-Action: (6, 3)
-2024-03-24 00:07:39,762 - INFO -   Real Environment - Next_states Distribution: {2: 152, 5: 132, 7: 136}
-2024-03-24 00:07:39,763 - INFO -   Real Environment - Rewards Distribution: {0.0: 420}
-2024-03-24 00:07:39,763 - INFO -   Real Environment - Dones Distribution: True - 268, False - 152
-2024-03-24 00:07:39,763 - INFO - Real Environment - State-Action: (8, 0)
-2024-03-24 00:07:39,763 - INFO -   Real Environment - Next_states Distribution: {4: 364, 8: 411, 12: 449}
-2024-03-24 00:07:39,763 - INFO -   Real Environment - Rewards Distribution: {0.0: 1224}
-2024-03-24 00:07:39,763 - INFO -   Real Environment - Dones Distribution: True - 449, False - 775
-2024-03-24 00:07:39,764 - INFO - Real Environment - State-Action: (8, 1)
-2024-03-24 00:07:39,764 - INFO -   Real Environment - Next_states Distribution: {8: 416, 9: 414, 12: 386}
-2024-03-24 00:07:39,764 - INFO -   Real Environment - Rewards Distribution: {0.0: 1216}
-2024-03-24 00:07:39,764 - INFO -   Real Environment - Dones Distribution: True - 386, False - 830
-2024-03-24 00:07:39,764 - INFO - Real Environment - State-Action: (8, 2)
-2024-03-24 00:07:39,764 - INFO -   Real Environment - Next_states Distribution: {4: 399, 9: 374, 12: 415}
-2024-03-24 00:07:39,764 - INFO -   Real Environment - Rewards Distribution: {0.0: 1188}
-2024-03-24 00:07:39,764 - INFO -   Real Environment - Dones Distribution: True - 415, False - 773
-2024-03-24 00:07:39,765 - INFO - Real Environment - State-Action: (8, 3)
-2024-03-24 00:07:39,765 - INFO -   Real Environment - Next_states Distribution: {4: 389, 8: 372, 9: 391}
-2024-03-24 00:07:39,765 - INFO -   Real Environment - Rewards Distribution: {0.0: 1152}
-2024-03-24 00:07:39,765 - INFO -   Real Environment - Dones Distribution: True - 0, False - 1152
-2024-03-24 00:07:39,765 - INFO - Real Environment - State-Action: (9, 0)
-2024-03-24 00:07:39,765 - INFO -   Real Environment - Next_states Distribution: {5: 118, 8: 129, 13: 143}
-2024-03-24 00:07:39,765 - INFO -   Real Environment - Rewards Distribution: {0.0: 390}
-2024-03-24 00:07:39,765 - INFO -   Real Environment - Dones Distribution: True - 118, False - 272
-2024-03-24 00:07:39,765 - INFO - Real Environment - State-Action: (9, 1)
-2024-03-24 00:07:39,765 - INFO -   Real Environment - Next_states Distribution: {8: 135, 10: 115, 13: 144}
-2024-03-24 00:07:39,766 - INFO -   Real Environment - Rewards Distribution: {0.0: 394}
-2024-03-24 00:07:39,766 - INFO -   Real Environment - Dones Distribution: True - 0, False - 394
-2024-03-24 00:07:39,766 - INFO - Real Environment - State-Action: (9, 2)
-2024-03-24 00:07:39,766 - INFO -   Real Environment - Next_states Distribution: {5: 129, 10: 134, 13: 137}
-2024-03-24 00:07:39,766 - INFO -   Real Environment - Rewards Distribution: {0.0: 400}
-2024-03-24 00:07:39,766 - INFO -   Real Environment - Dones Distribution: True - 129, False - 271
-2024-03-24 00:07:39,766 - INFO - Real Environment - State-Action: (9, 3)
-2024-03-24 00:07:39,766 - INFO -   Real Environment - Next_states Distribution: {5: 115, 8: 147, 10: 127}
-2024-03-24 00:07:39,766 - INFO -   Real Environment - Rewards Distribution: {0.0: 389}
-2024-03-24 00:07:39,766 - INFO -   Real Environment - Dones Distribution: True - 115, False - 274
-2024-03-24 00:07:39,766 - INFO - Real Environment - State-Action: (10, 0)
-2024-03-24 00:07:39,766 - INFO -   Real Environment - Next_states Distribution: {6: 95, 9: 72, 14: 82}
-2024-03-24 00:07:39,766 - INFO -   Real Environment - Rewards Distribution: {0.0: 249}
-2024-03-24 00:07:39,766 - INFO -   Real Environment - Dones Distribution: True - 0, False - 249
-2024-03-24 00:07:39,766 - INFO - Real Environment - State-Action: (10, 1)
-2024-03-24 00:07:39,766 - INFO -   Real Environment - Next_states Distribution: {9: 64, 11: 86, 14: 79}
-2024-03-24 00:07:39,767 - INFO -   Real Environment - Rewards Distribution: {0.0: 229}
-2024-03-24 00:07:39,767 - INFO -   Real Environment - Dones Distribution: True - 86, False - 143
-2024-03-24 00:07:39,767 - INFO - Real Environment - State-Action: (10, 2)
-2024-03-24 00:07:39,767 - INFO -   Real Environment - Next_states Distribution: {6: 80, 11: 76, 14: 67}
-2024-03-24 00:07:39,767 - INFO -   Real Environment - Rewards Distribution: {0.0: 223}
-2024-03-24 00:07:39,768 - INFO -   Real Environment - Dones Distribution: True - 76, False - 147
-2024-03-24 00:07:39,768 - INFO - Real Environment - State-Action: (10, 3)
-2024-03-24 00:07:39,768 - INFO -   Real Environment - Next_states Distribution: {6: 97, 9: 71, 11: 86}
-2024-03-24 00:07:39,768 - INFO -   Real Environment - Rewards Distribution: {0.0: 254}
-2024-03-24 00:07:39,768 - INFO -   Real Environment - Dones Distribution: True - 86, False - 168
-2024-03-24 00:07:39,768 - INFO - Real Environment - State-Action: (13, 0)
-2024-03-24 00:07:39,768 - INFO -   Real Environment - Next_states Distribution: {9: 63, 12: 59, 13: 48}
-2024-03-24 00:07:39,768 - INFO -   Real Environment - Rewards Distribution: {0.0: 170}
-2024-03-24 00:07:39,768 - INFO -   Real Environment - Dones Distribution: True - 59, False - 111
-2024-03-24 00:07:39,769 - INFO - Real Environment - State-Action: (13, 1)
-2024-03-24 00:07:39,769 - INFO -   Real Environment - Next_states Distribution: {12: 53, 13: 74, 14: 68}
-2024-03-24 00:07:39,769 - INFO -   Real Environment - Rewards Distribution: {0.0: 195}
-2024-03-24 00:07:39,769 - INFO -   Real Environment - Dones Distribution: True - 53, False - 142
-2024-03-24 00:07:39,769 - INFO - Real Environment - State-Action: (13, 2)
-2024-03-24 00:07:39,769 - INFO -   Real Environment - Next_states Distribution: {9: 64, 13: 59, 14: 52}
-2024-03-24 00:07:39,769 - INFO -   Real Environment - Rewards Distribution: {0.0: 175}
-2024-03-24 00:07:39,769 - INFO -   Real Environment - Dones Distribution: True - 0, False - 175
-2024-03-24 00:07:39,769 - INFO - Real Environment - State-Action: (13, 3)
-2024-03-24 00:07:39,769 - INFO -   Real Environment - Next_states Distribution: {9: 60, 12: 57, 14: 78}
-2024-03-24 00:07:39,769 - INFO -   Real Environment - Rewards Distribution: {0.0: 195}
-2024-03-24 00:07:39,769 - INFO -   Real Environment - Dones Distribution: True - 57, False - 138
-2024-03-24 00:07:39,769 - INFO - Real Environment - State-Action: (14, 0)
-2024-03-24 00:07:39,770 - INFO -   Real Environment - Next_states Distribution: {10: 43, 13: 47, 14: 53}
-2024-03-24 00:07:39,770 - INFO -   Real Environment - Rewards Distribution: {0.0: 143}
-2024-03-24 00:07:39,770 - INFO -   Real Environment - Dones Distribution: True - 0, False - 143
-2024-03-24 00:07:39,770 - INFO - Real Environment - State-Action: (14, 1)
-2024-03-24 00:07:39,770 - INFO -   Real Environment - Next_states Distribution: {13: 46, 14: 50, 15: 60}
-2024-03-24 00:07:39,770 - INFO -   Real Environment - Rewards Distribution: {0.0: 96, 1.0: 60}
-2024-03-24 00:07:39,770 - INFO -   Real Environment - Dones Distribution: True - 60, False - 96
-2024-03-24 00:07:39,770 - INFO - Real Environment - State-Action: (14, 2)
-2024-03-24 00:07:39,770 - INFO -   Real Environment - Next_states Distribution: {10: 49, 14: 49, 15: 44}
-2024-03-24 00:07:39,770 - INFO -   Real Environment - Rewards Distribution: {0.0: 98, 1.0: 44}
-2024-03-24 00:07:39,770 - INFO -   Real Environment - Dones Distribution: True - 44, False - 98
-2024-03-24 00:07:39,770 - INFO - Real Environment - State-Action: (14, 3)
-2024-03-24 00:07:39,770 - INFO -   Real Environment - Next_states Distribution: {10: 54, 13: 37, 15: 46}
-2024-03-24 00:07:39,771 - INFO -   Real Environment - Rewards Distribution: {0.0: 91, 1.0: 46}
-2024-03-24 00:07:39,771 - INFO -   Real Environment - Dones Distribution: True - 46, False - 91
-2024-03-24 00:07:39,773 - INFO - Simulated Environment Distributions:
-2024-03-24 00:07:39,803 - INFO - Simulated Environment - State-Action: (0, 0)
-2024-03-24 00:07:39,805 - INFO -   Simulated Environment - Next_states Distribution: {0: 5147, 1: 392, 4: 2889, 5: 10, 8: 6, 9: 4, 12: 5, 14: 1}
-2024-03-24 00:07:39,806 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 8446, 1.0: 8}
-2024-03-24 00:07:39,807 - INFO -   Simulated Environment - Dones Distribution: True - 18, False - 8436
-2024-03-24 00:07:39,807 - INFO - Simulated Environment - State-Action: (0, 1)
-2024-03-24 00:07:39,807 - INFO -   Simulated Environment - Next_states Distribution: {0: 3225, 1: 2534, 2: 8, 4: 2535, 5: 28, 6: 1, 8: 4, 9: 11, 11: 2, 12: 2, 13: 1, 14: 2, 15: 2}
-2024-03-24 00:07:39,809 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 8350, 1.0: 5}
-2024-03-24 00:07:39,809 - INFO -   Simulated Environment - Dones Distribution: True - 36, False - 8319
-2024-03-24 00:07:39,809 - INFO - Simulated Environment - State-Action: (0, 2)
-2024-03-24 00:07:39,810 - INFO -   Simulated Environment - Next_states Distribution: {0: 2946, 1: 2894, 2: 12, 4: 2417, 5: 22, 6: 5, 8: 6, 9: 3, 12: 1, 14: 4, 15: 2}
-2024-03-24 00:07:39,811 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 8308, 1.0: 4}
-2024-03-24 00:07:39,811 - INFO -   Simulated Environment - Dones Distribution: True - 25, False - 8287
-2024-03-24 00:07:39,811 - INFO - Simulated Environment - State-Action: (0, 3)
-2024-03-24 00:07:39,811 - INFO -   Simulated Environment - Next_states Distribution: {0: 5373, 1: 2674, 2: 4, 4: 268, 5: 5}
-2024-03-24 00:07:39,812 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 8318, 1.0: 6}
-2024-03-24 00:07:39,812 - INFO -   Simulated Environment - Dones Distribution: True - 10, False - 8314
-2024-03-24 00:07:39,812 - INFO - Simulated Environment - State-Action: (1, 0)
-2024-03-24 00:07:39,812 - INFO -   Simulated Environment - Next_states Distribution: {0: 1897, 1: 637, 2: 169, 4: 27, 5: 642, 8: 6, 9: 2, 10: 1}
-2024-03-24 00:07:39,813 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 3380, 1.0: 1}
-2024-03-24 00:07:39,813 - INFO -   Simulated Environment - Dones Distribution: True - 643, False - 2738
-2024-03-24 00:07:39,813 - INFO - Simulated Environment - State-Action: (1, 1)
-2024-03-24 00:07:39,813 - INFO -   Simulated Environment - Next_states Distribution: {0: 483, 1: 432, 2: 1051, 3: 1, 4: 23, 5: 1355, 8: 8, 10: 2}
-2024-03-24 00:07:39,814 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 3355}
-2024-03-24 00:07:39,814 - INFO -   Simulated Environment - Dones Distribution: True - 1355, False - 2000
-2024-03-24 00:07:39,814 - INFO - Simulated Environment - State-Action: (1, 2)
-2024-03-24 00:07:39,814 - INFO -   Simulated Environment - Next_states Distribution: {0: 289, 1: 757, 2: 1267, 3: 7, 4: 7, 5: 1017, 6: 2, 7: 5, 8: 1, 10: 1, 14: 1}
-2024-03-24 00:07:39,814 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 3353, 1.0: 1}
-2024-03-24 00:07:39,814 - INFO -   Simulated Environment - Dones Distribution: True - 1021, False - 2333
-2024-03-24 00:07:39,814 - INFO - Simulated Environment - State-Action: (1, 3)
-2024-03-24 00:07:39,814 - INFO -   Simulated Environment - Next_states Distribution: {0: 833, 1: 1399, 2: 998, 4: 1, 5: 134, 7: 1}
-2024-03-24 00:07:39,815 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 3365, 1.0: 1}
-2024-03-24 00:07:39,815 - INFO -   Simulated Environment - Dones Distribution: True - 135, False - 3231
-2024-03-24 00:07:39,815 - INFO - Simulated Environment - State-Action: (2, 0)
-2024-03-24 00:07:39,815 - INFO -   Simulated Environment - Next_states Distribution: {0: 28, 1: 554, 2: 326, 3: 87, 5: 17, 6: 551, 7: 1, 9: 2, 11: 1}
-2024-03-24 00:07:39,816 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 1566, 1.0: 1}
-2024-03-24 00:07:39,816 - INFO -   Simulated Environment - Dones Distribution: True - 19, False - 1548
-2024-03-24 00:07:39,816 - INFO - Simulated Environment - State-Action: (2, 1)
-2024-03-24 00:07:39,816 - INFO -   Simulated Environment - Next_states Distribution: {0: 8, 1: 361, 2: 266, 3: 386, 5: 5, 6: 509, 7: 1, 9: 2}
-2024-03-24 00:07:39,817 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 1538}
-2024-03-24 00:07:39,817 - INFO -   Simulated Environment - Dones Distribution: True - 7, False - 1531
-2024-03-24 00:07:39,817 - INFO - Simulated Environment - State-Action: (2, 2)
-2024-03-24 00:07:39,817 - INFO -   Simulated Environment - Next_states Distribution: {0: 7, 1: 304, 2: 310, 3: 557, 5: 6, 6: 396, 7: 2, 9: 1, 10: 1}
-2024-03-24 00:07:39,819 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 1581, 1.0: 3}
-2024-03-24 00:07:39,819 - INFO -   Simulated Environment - Dones Distribution: True - 8, False - 1576
-2024-03-24 00:07:39,819 - INFO - Simulated Environment - State-Action: (2, 3)
-2024-03-24 00:07:39,820 - INFO -   Simulated Environment - Next_states Distribution: {0: 4, 1: 422, 2: 654, 3: 450, 6: 44, 7: 2}
-2024-03-24 00:07:39,820 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 1575, 1.0: 1}
-2024-03-24 00:07:39,820 - INFO -   Simulated Environment - Dones Distribution: True - 2, False - 1574
-2024-03-24 00:07:39,820 - INFO - Simulated Environment - State-Action: (3, 0)
-2024-03-24 00:07:39,820 - INFO -   Simulated Environment - Next_states Distribution: {0: 1, 1: 1, 2: 245, 3: 216, 5: 17, 6: 1, 7: 224, 10: 14}
-2024-03-24 00:07:39,821 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 717, 1.0: 2}
-2024-03-24 00:07:39,821 - INFO -   Simulated Environment - Dones Distribution: True - 241, False - 478
-2024-03-24 00:07:39,821 - INFO - Simulated Environment - State-Action: (3, 1)
-2024-03-24 00:07:39,821 - INFO -   Simulated Environment - Next_states Distribution: {2: 132, 3: 380, 5: 9, 7: 230, 10: 11}
-2024-03-24 00:07:39,821 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 762}
-2024-03-24 00:07:39,822 - INFO -   Simulated Environment - Dones Distribution: True - 239, False - 523
-2024-03-24 00:07:39,822 - INFO - Simulated Environment - State-Action: (3, 2)
-2024-03-24 00:07:39,822 - INFO -   Simulated Environment - Next_states Distribution: {1: 1, 2: 119, 3: 366, 5: 13, 7: 202, 10: 9}
-2024-03-24 00:07:39,822 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 710}
-2024-03-24 00:07:39,822 - INFO -   Simulated Environment - Dones Distribution: True - 215, False - 495
-2024-03-24 00:07:39,822 - INFO - Simulated Environment - State-Action: (3, 3)
-2024-03-24 00:07:39,822 - INFO -   Simulated Environment - Next_states Distribution: {1: 2, 2: 223, 3: 507, 5: 1, 6: 1, 7: 55, 10: 2}
-2024-03-24 00:07:39,823 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 791}
-2024-03-24 00:07:39,823 - INFO -   Simulated Environment - Dones Distribution: True - 56, False - 735
-2024-03-24 00:07:39,823 - INFO - Simulated Environment - State-Action: (4, 0)
-2024-03-24 00:07:39,823 - INFO -   Simulated Environment - Next_states Distribution: {0: 817, 1: 1, 4: 1039, 5: 287, 8: 918, 9: 1, 12: 4, 13: 1}
-2024-03-24 00:07:39,825 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 3068}
-2024-03-24 00:07:39,825 - INFO -   Simulated Environment - Dones Distribution: True - 291, False - 2777
-2024-03-24 00:07:39,825 - INFO - Simulated Environment - State-Action: (4, 1)
-2024-03-24 00:07:39,825 - INFO -   Simulated Environment - Next_states Distribution: {0: 269, 1: 5, 2: 1, 4: 938, 5: 680, 8: 1143, 10: 3, 13: 6}
-2024-03-24 00:07:39,826 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 3043, 1.0: 2}
-2024-03-24 00:07:39,826 - INFO -   Simulated Environment - Dones Distribution: True - 681, False - 2364
-2024-03-24 00:07:39,827 - INFO - Simulated Environment - State-Action: (4, 2)
-2024-03-24 00:07:39,827 - INFO -   Simulated Environment - Next_states Distribution: {0: 595, 1: 16, 2: 9, 4: 466, 5: 1248, 8: 745, 9: 1, 10: 2, 13: 5}
-2024-03-24 00:07:39,827 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 3086, 1.0: 1}
-2024-03-24 00:07:39,827 - INFO -   Simulated Environment - Dones Distribution: True - 1249, False - 1838
-2024-03-24 00:07:39,827 - INFO - Simulated Environment - State-Action: (4, 3)
-2024-03-24 00:07:39,828 - INFO -   Simulated Environment - Next_states Distribution: {0: 1343, 1: 12, 2: 3, 4: 589, 5: 852, 8: 238, 13: 1}
-2024-03-24 00:07:39,828 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 3036, 1.0: 2}
-2024-03-24 00:07:39,828 - INFO -   Simulated Environment - Dones Distribution: True - 852, False - 2186
-2024-03-24 00:07:39,828 - INFO - Simulated Environment - State-Action: (5, 0)
-2024-03-24 00:07:39,828 - INFO -   Simulated Environment - Next_states Distribution: {8: 1, 9: 1}
-2024-03-24 00:07:39,828 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 2}
-2024-03-24 00:07:39,828 - INFO -   Simulated Environment - Dones Distribution: True - 0, False - 2
-2024-03-24 00:07:39,829 - INFO - Simulated Environment - State-Action: (5, 1)
-2024-03-24 00:07:39,829 - INFO -   Simulated Environment - Next_states Distribution: {8: 1}
-2024-03-24 00:07:39,829 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 1}
-2024-03-24 00:07:39,829 - INFO -   Simulated Environment - Dones Distribution: True - 0, False - 1
-2024-03-24 00:07:39,829 - INFO - Simulated Environment - State-Action: (6, 0)
-2024-03-24 00:07:39,829 - INFO -   Simulated Environment - Next_states Distribution: {0: 7, 1: 1, 2: 94, 3: 2, 5: 202, 7: 38, 8: 9, 9: 5, 10: 120, 13: 5}
-2024-03-24 00:07:39,829 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 483}
-2024-03-24 00:07:39,829 - INFO -   Simulated Environment - Dones Distribution: True - 240, False - 243
-2024-03-24 00:07:39,829 - INFO - Simulated Environment - State-Action: (6, 1)
-2024-03-24 00:07:39,829 - INFO -   Simulated Environment - Next_states Distribution: {0: 1, 2: 43, 3: 3, 5: 129, 7: 95, 8: 11, 10: 133, 13: 3, 15: 1}
-2024-03-24 00:07:39,829 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 417, 1.0: 2}
-2024-03-24 00:07:39,829 - INFO -   Simulated Environment - Dones Distribution: True - 225, False - 194
-2024-03-24 00:07:39,829 - INFO - Simulated Environment - State-Action: (6, 2)
-2024-03-24 00:07:39,829 - INFO -   Simulated Environment - Next_states Distribution: {0: 2, 2: 45, 3: 10, 5: 80, 7: 173, 8: 3, 9: 1, 10: 125}
-2024-03-24 00:07:39,829 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 439}
-2024-03-24 00:07:39,829 - INFO -   Simulated Environment - Dones Distribution: True - 254, False - 185
-2024-03-24 00:07:39,829 - INFO - Simulated Environment - State-Action: (6, 3)
-2024-03-24 00:07:39,830 - INFO -   Simulated Environment - Next_states Distribution: {0: 2, 2: 259, 3: 9, 5: 44, 7: 118, 10: 21}
-2024-03-24 00:07:39,830 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 453}
-2024-03-24 00:07:39,830 - INFO -   Simulated Environment - Dones Distribution: True - 160, False - 293
-2024-03-24 00:07:39,830 - INFO - Simulated Environment - State-Action: (7, 0)
-2024-03-24 00:07:39,830 - INFO -   Simulated Environment - Next_states Distribution: {6: 1, 9: 1}
-2024-03-24 00:07:39,830 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 2}
-2024-03-24 00:07:39,830 - INFO -   Simulated Environment - Dones Distribution: True - 0, False - 2
-2024-03-24 00:07:39,830 - INFO - Simulated Environment - State-Action: (7, 3)
-2024-03-24 00:07:39,830 - INFO -   Simulated Environment - Next_states Distribution: {0: 1}
-2024-03-24 00:07:39,830 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 1}
-2024-03-24 00:07:39,830 - INFO -   Simulated Environment - Dones Distribution: True - 0, False - 1
-2024-03-24 00:07:39,830 - INFO - Simulated Environment - State-Action: (8, 0)
-2024-03-24 00:07:39,830 - INFO -   Simulated Environment - Next_states Distribution: {0: 25, 1: 2, 4: 366, 5: 5, 8: 357, 9: 114, 10: 1, 12: 326, 13: 2, 14: 1}
-2024-03-24 00:07:39,830 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 1199}
-2024-03-24 00:07:39,830 - INFO -   Simulated Environment - Dones Distribution: True - 331, False - 868
-2024-03-24 00:07:39,830 - INFO - Simulated Environment - State-Action: (8, 1)
-2024-03-24 00:07:39,830 - INFO -   Simulated Environment - Next_states Distribution: {0: 17, 2: 2, 4: 137, 5: 28, 8: 267, 9: 354, 10: 3, 12: 320, 13: 2}
-2024-03-24 00:07:39,830 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 1130}
-2024-03-24 00:07:39,830 - INFO -   Simulated Environment - Dones Distribution: True - 348, False - 782
-2024-03-24 00:07:39,830 - INFO - Simulated Environment - State-Action: (8, 2)
-2024-03-24 00:07:39,830 - INFO -   Simulated Environment - Next_states Distribution: {0: 26, 2: 2, 4: 203, 5: 18, 6: 1, 8: 224, 9: 325, 12: 361, 13: 5, 14: 1}
-2024-03-24 00:07:39,831 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 1165, 1.0: 1}
-2024-03-24 00:07:39,831 - INFO -   Simulated Environment - Dones Distribution: True - 380, False - 786
-2024-03-24 00:07:39,831 - INFO - Simulated Environment - State-Action: (8, 3)
-2024-03-24 00:07:39,831 - INFO -   Simulated Environment - Next_states Distribution: {0: 76, 2: 1, 4: 283, 5: 14, 8: 281, 9: 337, 10: 1, 12: 158}
-2024-03-24 00:07:39,831 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 1149, 1.0: 2}
-2024-03-24 00:07:39,831 - INFO -   Simulated Environment - Dones Distribution: True - 172, False - 979
-2024-03-24 00:07:39,831 - INFO - Simulated Environment - State-Action: (9, 0)
-2024-03-24 00:07:39,831 - INFO -   Simulated Environment - Next_states Distribution: {0: 6, 4: 4, 5: 64, 8: 160, 10: 36, 12: 1, 13: 100, 14: 2}
-2024-03-24 00:07:39,831 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 371, 1.0: 2}
-2024-03-24 00:07:39,831 - INFO -   Simulated Environment - Dones Distribution: True - 65, False - 308
-2024-03-24 00:07:39,831 - INFO - Simulated Environment - State-Action: (9, 1)
-2024-03-24 00:07:39,831 - INFO -   Simulated Environment - Next_states Distribution: {2: 1, 5: 36, 8: 91, 10: 79, 13: 135, 14: 6, 15: 5}
-2024-03-24 00:07:39,831 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 348, 1.0: 5}
-2024-03-24 00:07:39,831 - INFO -   Simulated Environment - Dones Distribution: True - 41, False - 312
-2024-03-24 00:07:39,831 - INFO - Simulated Environment - State-Action: (9, 2)
-2024-03-24 00:07:39,831 - INFO -   Simulated Environment - Next_states Distribution: {0: 1, 5: 39, 7: 1, 8: 31, 10: 204, 13: 101, 14: 4, 15: 10}
-2024-03-24 00:07:39,831 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 381, 1.0: 10}
-2024-03-24 00:07:39,831 - INFO -   Simulated Environment - Dones Distribution: True - 50, False - 341
-2024-03-24 00:07:39,831 - INFO - Simulated Environment - State-Action: (9, 3)
-2024-03-24 00:07:39,831 - INFO -   Simulated Environment - Next_states Distribution: {0: 7, 2: 2, 4: 3, 5: 139, 7: 2, 8: 91, 10: 100, 13: 22}
-2024-03-24 00:07:39,831 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 365, 1.0: 1}
-2024-03-24 00:07:39,831 - INFO -   Simulated Environment - Dones Distribution: True - 141, False - 225
-2024-03-24 00:07:39,832 - INFO - Simulated Environment - State-Action: (10, 0)
-2024-03-24 00:07:39,832 - INFO -   Simulated Environment - Next_states Distribution: {0: 2, 1: 5, 4: 1, 6: 47, 8: 1, 9: 84, 11: 34, 12: 1, 13: 1, 14: 79}
-2024-03-24 00:07:39,832 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 255}
-2024-03-24 00:07:39,832 - INFO -   Simulated Environment - Dones Distribution: True - 35, False - 220
-2024-03-24 00:07:39,832 - INFO - Simulated Environment - State-Action: (10, 1)
-2024-03-24 00:07:39,832 - INFO -   Simulated Environment - Next_states Distribution: {1: 13, 2: 1, 6: 51, 9: 35, 10: 1, 11: 55, 12: 2, 14: 82, 15: 2}
-2024-03-24 00:07:39,832 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 240, 1.0: 2}
-2024-03-24 00:07:39,832 - INFO -   Simulated Environment - Dones Distribution: True - 59, False - 183
-2024-03-24 00:07:39,832 - INFO - Simulated Environment - State-Action: (10, 2)
-2024-03-24 00:07:39,832 - INFO -   Simulated Environment - Next_states Distribution: {0: 2, 1: 6, 6: 83, 9: 3, 11: 49, 12: 2, 14: 90, 15: 1}
-2024-03-24 00:07:39,833 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 235, 1.0: 1}
-2024-03-24 00:07:39,833 - INFO -   Simulated Environment - Dones Distribution: True - 52, False - 184
-2024-03-24 00:07:39,833 - INFO - Simulated Environment - State-Action: (10, 3)
-2024-03-24 00:07:39,833 - INFO -   Simulated Environment - Next_states Distribution: {0: 2, 1: 19, 2: 5, 6: 61, 9: 49, 11: 85, 14: 8}
-2024-03-24 00:07:39,833 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 229}
-2024-03-24 00:07:39,833 - INFO -   Simulated Environment - Dones Distribution: True - 85, False - 144
-2024-03-24 00:07:39,833 - INFO - Simulated Environment - State-Action: (13, 0)
-2024-03-24 00:07:39,833 - INFO -   Simulated Environment - Next_states Distribution: {0: 3, 1: 1, 4: 10, 5: 1, 6: 1, 8: 5, 9: 27, 12: 49, 13: 27, 14: 25, 15: 2}
-2024-03-24 00:07:39,833 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 149, 1.0: 2}
-2024-03-24 00:07:39,833 - INFO -   Simulated Environment - Dones Distribution: True - 51, False - 100
-2024-03-24 00:07:39,833 - INFO - Simulated Environment - State-Action: (13, 1)
-2024-03-24 00:07:39,833 - INFO -   Simulated Environment - Next_states Distribution: {0: 2, 1: 2, 4: 7, 6: 2, 8: 14, 9: 24, 10: 6, 11: 1, 12: 28, 13: 45, 14: 49, 15: 6}
-2024-03-24 00:07:39,833 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 180, 1.0: 6}
-2024-03-24 00:07:39,833 - INFO -   Simulated Environment - Dones Distribution: True - 36, False - 150
-2024-03-24 00:07:39,833 - INFO - Simulated Environment - State-Action: (13, 2)
-2024-03-24 00:07:39,833 - INFO -   Simulated Environment - Next_states Distribution: {0: 1, 1: 3, 2: 2, 4: 6, 5: 3, 6: 9, 7: 1, 8: 3, 9: 12, 10: 4, 11: 1, 12: 22, 13: 40, 14: 69, 15: 11}
-2024-03-24 00:07:39,834 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 176, 1.0: 11}
-2024-03-24 00:07:39,834 - INFO -   Simulated Environment - Dones Distribution: True - 38, False - 149
-2024-03-24 00:07:39,834 - INFO - Simulated Environment - State-Action: (13, 3)
-2024-03-24 00:07:39,834 - INFO -   Simulated Environment - Next_states Distribution: {0: 6, 1: 3, 4: 12, 5: 2, 6: 9, 8: 4, 9: 81, 11: 4, 12: 26, 13: 3, 14: 23}
-2024-03-24 00:07:39,835 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 173}
-2024-03-24 00:07:39,835 - INFO -   Simulated Environment - Dones Distribution: True - 32, False - 141
-2024-03-24 00:07:39,835 - INFO - Simulated Environment - State-Action: (14, 0)
-2024-03-24 00:07:39,835 - INFO -   Simulated Environment - Next_states Distribution: {0: 1, 4: 1, 5: 1, 6: 4, 8: 4, 9: 1, 10: 6, 11: 2, 12: 2, 13: 53, 14: 38, 15: 12}
-2024-03-24 00:07:39,835 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 113, 1.0: 12}
-2024-03-24 00:07:39,835 - INFO -   Simulated Environment - Dones Distribution: True - 16, False - 109
-2024-03-24 00:07:39,836 - INFO - Simulated Environment - State-Action: (14, 1)
-2024-03-24 00:07:39,836 - INFO -   Simulated Environment - Next_states Distribution: {4: 2, 5: 4, 6: 2, 8: 9, 9: 1, 10: 19, 11: 2, 12: 2, 13: 57, 14: 35, 15: 23}
-2024-03-24 00:07:39,836 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 135, 1.0: 21}
-2024-03-24 00:07:39,836 - INFO -   Simulated Environment - Dones Distribution: True - 31, False - 125
-2024-03-24 00:07:39,836 - INFO - Simulated Environment - State-Action: (14, 2)
-2024-03-24 00:07:39,836 - INFO -   Simulated Environment - Next_states Distribution: {0: 1, 4: 1, 5: 2, 6: 8, 8: 2, 10: 20, 12: 1, 13: 47, 14: 31, 15: 19}
-2024-03-24 00:07:39,836 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 113, 1.0: 19}
-2024-03-24 00:07:39,836 - INFO -   Simulated Environment - Dones Distribution: True - 22, False - 110
-2024-03-24 00:07:39,836 - INFO - Simulated Environment - State-Action: (14, 3)
-2024-03-24 00:07:39,836 - INFO -   Simulated Environment - Next_states Distribution: {1: 4, 2: 11, 3: 1, 4: 3, 5: 9, 6: 6, 7: 2, 8: 3, 9: 1, 10: 40, 11: 1, 13: 35, 14: 12, 15: 21}
-2024-03-24 00:07:39,836 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 128, 1.0: 21}
-2024-03-24 00:07:39,836 - INFO -   Simulated Environment - Dones Distribution: True - 33, False - 116
-2024-03-24 00:07:39,836 - INFO - Simulated Environment - State-Action: (15, 0)
-2024-03-24 00:07:39,836 - INFO -   Simulated Environment - Next_states Distribution: {8: 1}
-2024-03-24 00:07:39,836 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 1}
-2024-03-24 00:07:39,836 - INFO -   Simulated Environment - Dones Distribution: True - 0, False - 1
-2024-03-24 00:07:39,836 - INFO - Simulated Environment - State-Action: (15, 2)
-2024-03-24 00:07:39,836 - INFO -   Simulated Environment - Next_states Distribution: {9: 1}
-2024-03-24 00:07:39,836 - INFO -   Simulated Environment - Rewards Distribution: {0.0: 1}
-2024-03-24 00:07:39,837 - INFO -   Simulated Environment - Dones Distribution: True - 0, False - 1
+2024-03-24 14:57:45,008 - INFO - Tuples saved to ./data/simulated_tuples/FrozenLake-v1/simulated_tuples_v2.pkl
+2024-03-24 14:57:45,009 - INFO - Summary Statistics for Simulated Environment:
+2024-03-24 14:57:45,009 - INFO - Average Reward: 0.0
+2024-03-24 14:57:45,009 - INFO - Total Episodes: 1
+2024-03-24 14:57:45,009 - INFO - Total Dones: 1
+2024-03-24 14:57:45,009 - INFO - Reward Distribution: {0.0: 4}
+2024-03-24 14:57:45,009 - INFO - Top 100 Tuples:
+2024-03-24 14:57:45,010 - INFO - 1: (0, 3, 0.0, 0, False, True)
+2024-03-24 14:57:45,010 - INFO - 2: (0, 3, 0.0, 0, False, False)
+2024-03-24 14:57:45,010 - INFO - 3: (0, 2, 0.0, 4, False, False)
+2024-03-24 14:57:45,010 - INFO - 4: (4, 2, 0.0, 5, True, False)
+2024-03-24 15:00:53,029 - INFO - Tuples saved to ./data/simulated_tuples/FrozenLake-v1/simulated_tuples_v2.pkl
+2024-03-24 15:00:53,030 - INFO - Summary Statistics for Simulated Environment:
+2024-03-24 15:00:53,030 - INFO - Average Reward: 0.0148
+2024-03-24 15:00:53,030 - INFO - Total Episodes: 10000
+2024-03-24 15:00:53,030 - INFO - Total Dones: 10000
+2024-03-24 15:00:53,030 - INFO - Reward Distribution: {0.0: 77003, 1.0: 148}
+2024-03-24 15:00:53,030 - INFO - Top 100 Tuples:
+2024-03-24 15:00:53,030 - INFO - 1: (0, 1, 0.0, 4, False, True)
+2024-03-24 15:00:53,031 - INFO - 2: (4, 0, 0.0, 8, False, False)
+2024-03-24 15:00:53,031 - INFO - 3: (8, 1, 0.0, 9, False, False)
+2024-03-24 15:00:53,031 - INFO - 4: (9, 0, 0.0, 10, False, False)
+2024-03-24 15:00:53,031 - INFO - 5: (10, 1, 0.0, 1, False, False)
+2024-03-24 15:00:53,031 - INFO - 6: (1, 1, 0.0, 0, False, False)
+2024-03-24 15:00:53,031 - INFO - 7: (0, 3, 0.0, 0, False, False)
+2024-03-24 15:00:53,031 - INFO - 8: (0, 1, 0.0, 4, False, False)
+2024-03-24 15:00:53,031 - INFO - 9: (4, 0, 0.0, 0, False, False)
+2024-03-24 15:00:53,031 - INFO - 10: (0, 1, 0.0, 1, False, False)
+2024-03-24 15:00:53,031 - INFO - 11: (1, 0, 0.0, 0, False, False)
+2024-03-24 15:00:53,031 - INFO - 12: (0, 1, 0.0, 4, False, False)
+2024-03-24 15:00:53,031 - INFO - 13: (4, 0, 0.0, 8, False, False)
+2024-03-24 15:00:53,031 - INFO - 14: (8, 0, 0.0, 8, False, False)
+2024-03-24 15:00:53,032 - INFO - 15: (8, 3, 0.0, 4, False, False)
+2024-03-24 15:00:53,032 - INFO - 16: (4, 2, 0.0, 8, False, False)
+2024-03-24 15:00:53,032 - INFO - 17: (8, 1, 0.0, 12, True, False)
+2024-03-24 15:00:53,032 - INFO - 18: (0, 3, 0.0, 0, False, True)
+2024-03-24 15:00:53,032 - INFO - 19: (0, 3, 0.0, 1, False, False)
+2024-03-24 15:00:53,032 - INFO - 20: (1, 3, 0.0, 2, False, False)
+2024-03-24 15:00:53,032 - INFO - 21: (2, 2, 0.0, 3, False, False)
+2024-03-24 15:00:53,032 - INFO - 22: (3, 2, 0.0, 2, False, False)
+2024-03-24 15:00:53,032 - INFO - 23: (2, 1, 0.0, 1, False, False)
+2024-03-24 15:00:53,032 - INFO - 24: (1, 3, 0.0, 1, False, False)
+2024-03-24 15:00:53,032 - INFO - 25: (1, 2, 0.0, 1, False, False)
+2024-03-24 15:00:53,032 - INFO - 26: (1, 1, 0.0, 2, False, False)
+2024-03-24 15:00:53,032 - INFO - 27: (2, 1, 0.0, 1, False, False)
+2024-03-24 15:00:53,032 - INFO - 28: (1, 1, 0.0, 5, True, False)
+2024-03-24 15:00:53,032 - INFO - 29: (0, 2, 0.0, 0, False, True)
+2024-03-24 15:00:53,032 - INFO - 30: (0, 1, 0.0, 0, False, False)
+2024-03-24 15:00:53,032 - INFO - 31: (0, 2, 0.0, 0, False, False)
+2024-03-24 15:00:53,032 - INFO - 32: (0, 2, 0.0, 4, False, False)
+2024-03-24 15:00:53,032 - INFO - 33: (4, 0, 0.0, 0, False, False)
+2024-03-24 15:00:53,032 - INFO - 34: (0, 3, 0.0, 0, False, False)
+2024-03-24 15:00:53,033 - INFO - 35: (0, 1, 0.0, 1, False, False)
+2024-03-24 15:00:53,033 - INFO - 36: (1, 3, 0.0, 2, False, False)
+2024-03-24 15:00:53,033 - INFO - 37: (2, 1, 0.0, 6, False, False)
+2024-03-24 15:00:53,033 - INFO - 38: (6, 0, 0.0, 10, False, False)
+2024-03-24 15:00:53,033 - INFO - 39: (10, 3, 0.0, 0, False, False)
+2024-03-24 15:00:53,033 - INFO - 40: (0, 1, 0.0, 4, False, False)
+2024-03-24 15:00:53,033 - INFO - 41: (4, 1, 0.0, 5, True, False)
+2024-03-24 15:00:53,033 - INFO - 42: (0, 0, 0.0, 4, False, True)
+2024-03-24 15:00:53,033 - INFO - 43: (4, 0, 0.0, 4, False, False)
+2024-03-24 15:00:53,033 - INFO - 44: (4, 1, 0.0, 5, True, False)
+2024-03-24 15:00:53,033 - INFO - 45: (0, 1, 0.0, 4, False, True)
+2024-03-24 15:00:53,033 - INFO - 46: (4, 3, 0.0, 5, True, False)
+2024-03-24 15:00:53,033 - INFO - 47: (0, 1, 0.0, 4, False, True)
+2024-03-24 15:00:53,033 - INFO - 48: (4, 1, 0.0, 8, False, False)
+2024-03-24 15:00:53,033 - INFO - 49: (8, 2, 0.0, 4, False, False)
+2024-03-24 15:00:53,033 - INFO - 50: (4, 0, 0.0, 4, False, False)
+2024-03-24 15:00:53,033 - INFO - 51: (4, 0, 0.0, 0, False, False)
+2024-03-24 15:00:53,033 - INFO - 52: (0, 2, 0.0, 1, False, False)
+2024-03-24 15:00:53,033 - INFO - 53: (1, 0, 0.0, 1, False, False)
+2024-03-24 15:00:53,033 - INFO - 54: (1, 2, 0.0, 5, True, False)
+2024-03-24 15:00:53,033 - INFO - 55: (0, 3, 0.0, 1, False, True)
+2024-03-24 15:00:53,034 - INFO - 56: (1, 1, 0.0, 1, False, False)
+2024-03-24 15:00:53,034 - INFO - 57: (1, 1, 0.0, 2, False, False)
+2024-03-24 15:00:53,034 - INFO - 58: (2, 0, 0.0, 3, False, False)
+2024-03-24 15:00:53,034 - INFO - 59: (3, 2, 0.0, 2, False, False)
+2024-03-24 15:00:53,034 - INFO - 60: (2, 0, 0.0, 2, False, False)
+2024-03-24 15:00:53,034 - INFO - 61: (2, 0, 0.0, 1, False, False)
+2024-03-24 15:00:53,034 - INFO - 62: (1, 3, 0.0, 0, False, False)
+2024-03-24 15:00:53,034 - INFO - 63: (0, 2, 0.0, 0, False, False)
+2024-03-24 15:00:53,034 - INFO - 64: (0, 3, 0.0, 1, False, False)
+2024-03-24 15:00:53,034 - INFO - 65: (1, 1, 0.0, 5, True, False)
+2024-03-24 15:00:53,034 - INFO - 66: (0, 2, 0.0, 0, False, True)
+2024-03-24 15:00:53,034 - INFO - 67: (0, 3, 0.0, 0, False, False)
+2024-03-24 15:00:53,034 - INFO - 68: (0, 3, 0.0, 0, False, False)
+2024-03-24 15:00:53,034 - INFO - 69: (0, 2, 0.0, 0, False, False)
+2024-03-24 15:00:53,034 - INFO - 70: (0, 0, 0.0, 4, False, False)
+2024-03-24 15:00:53,034 - INFO - 71: (4, 0, 0.0, 8, False, False)
+2024-03-24 15:00:53,034 - INFO - 72: (8, 1, 0.0, 9, False, False)
+2024-03-24 15:00:53,034 - INFO - 73: (9, 2, 0.0, 13, False, False)
+2024-03-24 15:00:53,034 - INFO - 74: (13, 0, 0.0, 13, False, False)
+2024-03-24 15:00:53,034 - INFO - 75: (13, 3, 0.0, 14, False, False)
+2024-03-24 15:00:53,034 - INFO - 76: (14, 2, 0.0, 14, False, False)
+2024-03-24 15:00:53,034 - INFO - 77: (14, 1, 1.0, 15, True, False)
+2024-03-24 15:00:53,034 - INFO - 78: (0, 2, 0.0, 0, False, True)
+2024-03-24 15:00:53,035 - INFO - 79: (0, 3, 0.0, 0, False, False)
+2024-03-24 15:00:53,035 - INFO - 80: (0, 2, 0.0, 4, False, False)
+2024-03-24 15:00:53,035 - INFO - 81: (4, 0, 0.0, 0, False, False)
+2024-03-24 15:00:53,035 - INFO - 82: (0, 3, 0.0, 0, False, False)
+2024-03-24 15:00:53,035 - INFO - 83: (0, 3, 0.0, 0, False, False)
+2024-03-24 15:00:53,035 - INFO - 84: (0, 0, 0.0, 4, False, False)
+2024-03-24 15:00:53,035 - INFO - 85: (4, 1, 0.0, 5, True, False)
+2024-03-24 15:00:53,035 - INFO - 86: (0, 3, 0.0, 0, False, True)
+2024-03-24 15:00:53,035 - INFO - 87: (0, 0, 0.0, 4, False, False)
+2024-03-24 15:00:53,035 - INFO - 88: (4, 1, 0.0, 8, False, False)
+2024-03-24 15:00:53,035 - INFO - 89: (8, 3, 0.0, 8, False, False)
+2024-03-24 15:00:53,035 - INFO - 90: (8, 1, 0.0, 9, False, False)
+2024-03-24 15:00:53,035 - INFO - 91: (9, 1, 0.0, 13, False, False)
+2024-03-24 15:00:53,035 - INFO - 92: (13, 1, 0.0, 14, False, False)
+2024-03-24 15:00:53,035 - INFO - 93: (14, 2, 0.0, 14, False, False)
+2024-03-24 15:00:53,035 - INFO - 94: (14, 1, 0.0, 13, False, False)
+2024-03-24 15:00:53,035 - INFO - 95: (13, 3, 0.0, 12, True, False)
+2024-03-24 15:00:53,035 - INFO - 96: (0, 3, 0.0, 0, False, True)
+2024-03-24 15:00:53,035 - INFO - 97: (0, 3, 0.0, 0, False, False)
+2024-03-24 15:00:53,035 - INFO - 98: (0, 2, 0.0, 1, False, False)
+2024-03-24 15:00:53,035 - INFO - 99: (1, 0, 0.0, 0, False, False)
+2024-03-24 15:00:53,036 - INFO - 100: (0, 1, 0.0, 0, False, False)
+2024-03-24 15:07:01,525 - INFO - Tuples saved to ./data/simulated_tuples/FrozenLake-v1/simulated_tuples_v3.pkl
+2024-03-24 15:07:01,525 - INFO - Summary Statistics for Simulated Environment:
+2024-03-24 15:07:01,525 - INFO - Average Reward: 0.0
+2024-03-24 15:07:01,525 - INFO - Total Episodes: 1000
+2024-03-24 15:07:01,525 - INFO - Total Dones: 1000
+2024-03-24 15:07:01,525 - INFO - Reward Distribution: {0.0: 14254}
+2024-03-24 15:07:01,525 - INFO - Top 100 Tuples:
+2024-03-24 15:07:01,526 - INFO - 1: (0, 3, 0.0, 0, False, True)
+2024-03-24 15:07:01,526 - INFO - 2: (0, 2, 0.0, 1, False, False)
+2024-03-24 15:07:01,526 - INFO - 3: (1, 0, 0.0, 0, False, False)
+2024-03-24 15:07:01,526 - INFO - 4: (0, 0, 0.0, 0, False, False)
+2024-03-24 15:07:01,527 - INFO - 5: (0, 0, 0.0, 0, False, False)
+2024-03-24 15:07:01,527 - INFO - 6: (0, 3, 0.0, 0, False, False)
+2024-03-24 15:07:01,527 - INFO - 7: (0, 2, 0.0, 1, False, False)
+2024-03-24 15:07:01,527 - INFO - 8: (1, 1, 0.0, 2, False, False)
+2024-03-24 15:07:01,527 - INFO - 9: (2, 1, 0.0, 6, False, False)
+2024-03-24 15:07:01,527 - INFO - 10: (6, 2, 0.0, 7, True, False)
+2024-03-24 15:07:01,527 - INFO - 11: (0, 2, 0.0, 1, False, True)
+2024-03-24 15:07:01,527 - INFO - 12: (1, 0, 0.0, 0, False, False)
+2024-03-24 15:07:01,527 - INFO - 13: (0, 1, 0.0, 0, False, False)
+2024-03-24 15:07:01,527 - INFO - 14: (0, 0, 0.0, 0, False, False)
+2024-03-24 15:07:01,528 - INFO - 15: (0, 1, 0.0, 0, False, False)
+2024-03-24 15:07:01,528 - INFO - 16: (0, 0, 0.0, 0, False, False)
+2024-03-24 15:07:01,528 - INFO - 17: (0, 0, 0.0, 0, False, False)
+2024-03-24 15:07:01,528 - INFO - 18: (0, 2, 0.0, 1, False, False)
+2024-03-24 15:07:01,528 - INFO - 19: (1, 1, 0.0, 5, True, False)
+2024-03-24 15:07:01,528 - INFO - 20: (0, 0, 0.0, 0, False, True)
+2024-03-24 15:07:01,528 - INFO - 21: (0, 0, 0.0, 0, False, False)
+2024-03-24 15:07:01,528 - INFO - 22: (0, 2, 0.0, 1, False, False)
+2024-03-24 15:07:01,528 - INFO - 23: (1, 0, 0.0, 0, False, False)
+2024-03-24 15:07:01,528 - INFO - 24: (0, 3, 0.0, 0, False, False)
+2024-03-24 15:07:01,528 - INFO - 25: (0, 2, 0.0, 1, False, False)
+2024-03-24 15:07:01,528 - INFO - 26: (1, 1, 0.0, 5, True, False)
+2024-03-24 15:07:01,528 - INFO - 27: (0, 3, 0.0, 0, False, True)
+2024-03-24 15:07:01,529 - INFO - 28: (0, 3, 0.0, 0, False, False)
+2024-03-24 15:07:01,529 - INFO - 29: (0, 0, 0.0, 0, False, False)
+2024-03-24 15:07:01,529 - INFO - 30: (0, 0, 0.0, 0, False, False)
+2024-03-24 15:07:01,529 - INFO - 31: (0, 2, 0.0, 1, False, False)
+2024-03-24 15:07:01,529 - INFO - 32: (1, 2, 0.0, 2, False, False)
+2024-03-24 15:07:01,529 - INFO - 33: (2, 1, 0.0, 6, False, False)
+2024-03-24 15:07:01,529 - INFO - 34: (6, 3, 0.0, 2, False, False)
+2024-03-24 15:07:01,529 - INFO - 35: (2, 2, 0.0, 2, False, False)
+2024-03-24 15:07:01,529 - INFO - 36: (2, 3, 0.0, 2, False, False)
+2024-03-24 15:07:01,529 - INFO - 37: (2, 1, 0.0, 6, False, False)
+2024-03-24 15:07:01,529 - INFO - 38: (6, 3, 0.0, 2, False, False)
+2024-03-24 15:07:01,529 - INFO - 39: (2, 2, 0.0, 6, False, False)
+2024-03-24 15:07:01,529 - INFO - 40: (6, 2, 0.0, 7, True, False)
+2024-03-24 15:07:01,529 - INFO - 41: (0, 0, 0.0, 0, False, True)
+2024-03-24 15:07:01,529 - INFO - 42: (0, 2, 0.0, 4, False, False)
+2024-03-24 15:07:01,530 - INFO - 43: (4, 0, 0.0, 0, False, False)
+2024-03-24 15:07:01,530 - INFO - 44: (0, 1, 0.0, 0, False, False)
+2024-03-24 15:07:01,530 - INFO - 45: (0, 3, 0.0, 0, False, False)
+2024-03-24 15:07:01,530 - INFO - 46: (0, 0, 0.0, 0, False, False)
+2024-03-24 15:07:01,530 - INFO - 47: (0, 3, 0.0, 0, False, False)
+2024-03-24 15:07:01,530 - INFO - 48: (0, 0, 0.0, 0, False, False)
+2024-03-24 15:07:01,530 - INFO - 49: (0, 0, 0.0, 0, False, False)
+2024-03-24 15:07:01,530 - INFO - 50: (0, 2, 0.0, 1, False, False)
+2024-03-24 15:07:01,530 - INFO - 51: (1, 3, 0.0, 1, False, False)
+2024-03-24 15:07:01,530 - INFO - 52: (1, 0, 0.0, 0, False, False)
+2024-03-24 15:07:01,530 - INFO - 53: (0, 3, 0.0, 0, False, False)
+2024-03-24 15:07:01,530 - INFO - 54: (0, 2, 0.0, 1, False, False)
+2024-03-24 15:07:01,530 - INFO - 55: (1, 2, 0.0, 2, False, False)
+2024-03-24 15:07:01,530 - INFO - 56: (2, 3, 0.0, 2, False, False)
+2024-03-24 15:07:01,531 - INFO - 57: (2, 0, 0.0, 1, False, False)
+2024-03-24 15:07:01,531 - INFO - 58: (1, 1, 0.0, 5, True, False)
+2024-03-24 15:07:01,531 - INFO - 59: (0, 2, 0.0, 1, False, True)
+2024-03-24 15:07:01,531 - INFO - 60: (1, 1, 0.0, 5, True, False)
+2024-03-24 15:07:01,531 - INFO - 61: (0, 3, 0.0, 0, False, True)
+2024-03-24 15:07:01,531 - INFO - 62: (0, 0, 0.0, 0, False, False)
+2024-03-24 15:07:01,531 - INFO - 63: (0, 1, 0.0, 4, False, False)
+2024-03-24 15:07:01,531 - INFO - 64: (4, 1, 0.0, 8, False, False)
+2024-03-24 15:07:01,531 - INFO - 65: (8, 3, 0.0, 9, False, False)
+2024-03-24 15:07:01,531 - INFO - 66: (9, 3, 0.0, 5, True, False)
+2024-03-24 15:07:01,531 - INFO - 67: (0, 0, 0.0, 0, False, True)
+2024-03-24 15:07:01,531 - INFO - 68: (0, 3, 0.0, 0, False, False)
+2024-03-24 15:07:01,531 - INFO - 69: (0, 1, 0.0, 0, False, False)
+2024-03-24 15:07:01,531 - INFO - 70: (0, 2, 0.0, 0, False, False)
+2024-03-24 15:07:01,531 - INFO - 71: (0, 2, 0.0, 0, False, False)
+2024-03-24 15:07:01,531 - INFO - 72: (0, 0, 0.0, 0, False, False)
+2024-03-24 15:07:01,531 - INFO - 73: (0, 3, 0.0, 0, False, False)
+2024-03-24 15:07:01,531 - INFO - 74: (0, 3, 0.0, 0, False, False)
+2024-03-24 15:07:01,531 - INFO - 75: (0, 0, 0.0, 0, False, False)
+2024-03-24 15:07:01,531 - INFO - 76: (0, 3, 0.0, 0, False, False)
+2024-03-24 15:07:01,531 - INFO - 77: (0, 1, 0.0, 0, False, False)
+2024-03-24 15:07:01,531 - INFO - 78: (0, 3, 0.0, 0, False, False)
+2024-03-24 15:07:01,531 - INFO - 79: (0, 2, 0.0, 1, False, False)
+2024-03-24 15:07:01,531 - INFO - 80: (1, 3, 0.0, 2, False, False)
+2024-03-24 15:07:01,531 - INFO - 81: (2, 2, 0.0, 2, False, False)
+2024-03-24 15:07:01,531 - INFO - 82: (2, 3, 0.0, 1, False, False)
+2024-03-24 15:07:01,531 - INFO - 83: (1, 1, 0.0, 1, False, False)
+2024-03-24 15:07:01,531 - INFO - 84: (1, 2, 0.0, 2, False, False)
+2024-03-24 15:07:01,531 - INFO - 85: (2, 2, 0.0, 6, False, False)
+2024-03-24 15:07:01,531 - INFO - 86: (6, 1, 0.0, 10, False, False)
+2024-03-24 15:07:01,531 - INFO - 87: (10, 1, 0.0, 14, False, False)
+2024-03-24 15:07:01,531 - INFO - 88: (14, 1, 0.0, 14, False, False)
+2024-03-24 15:07:01,531 - INFO - 89: (14, 1, 0.0, 14, False, False)
+2024-03-24 15:07:01,531 - INFO - 90: (14, 0, 0.0, 13, False, False)
+2024-03-24 15:07:01,532 - INFO - 91: (13, 2, 0.0, 14, False, False)
+2024-03-24 15:07:01,532 - INFO - 92: (14, 3, 0.0, 13, False, False)
+2024-03-24 15:07:01,532 - INFO - 93: (13, 3, 0.0, 9, False, False)
+2024-03-24 15:07:01,532 - INFO - 94: (9, 3, 0.0, 5, True, False)
+2024-03-24 15:07:01,532 - INFO - 95: (0, 1, 0.0, 0, False, True)
+2024-03-24 15:07:01,532 - INFO - 96: (0, 0, 0.0, 0, False, False)
+2024-03-24 15:07:01,532 - INFO - 97: (0, 1, 0.0, 0, False, False)
+2024-03-24 15:07:01,532 - INFO - 98: (0, 2, 0.0, 0, False, False)
+2024-03-24 15:07:01,532 - INFO - 99: (0, 3, 0.0, 0, False, False)
+2024-03-24 15:07:01,532 - INFO - 100: (0, 3, 0.0, 0, False, False)
+2024-03-24 15:17:18,799 - INFO - Tuples saved to ./data/simulated_tuples/FrozenLake-v1/simulated_tuples_v3.pkl
+2024-03-24 15:17:18,800 - INFO - Summary Statistics for Simulated Environment:
+2024-03-24 15:17:18,800 - INFO - Average Reward: 0.003
+2024-03-24 15:17:18,800 - INFO - Total Episodes: 1000
+2024-03-24 15:17:18,800 - INFO - Total Dones: 1000
+2024-03-24 15:17:18,800 - INFO - Reward Distribution: {0.0: 9433, 1.0: 3}
+2024-03-24 15:17:18,800 - INFO - Top 100 Tuples:
+2024-03-24 15:17:18,800 - INFO - 1: (0, 2, 0.0, 1, False, True)
+2024-03-24 15:17:18,800 - INFO - 2: (1, 1, 0.0, 5, True, False)
+2024-03-24 15:17:18,800 - INFO - 3: (0, 0, 0.0, 0, False, True)
+2024-03-24 15:17:18,800 - INFO - 4: (0, 0, 0.0, 0, False, False)
+2024-03-24 15:17:18,800 - INFO - 5: (0, 1, 0.0, 0, False, False)
+2024-03-24 15:17:18,800 - INFO - 6: (0, 2, 0.0, 0, False, False)
+2024-03-24 15:17:18,800 - INFO - 7: (0, 0, 0.0, 0, False, False)
+2024-03-24 15:17:18,800 - INFO - 8: (0, 0, 0.0, 0, False, False)
+2024-03-24 15:17:18,800 - INFO - 9: (0, 2, 0.0, 1, False, False)
+2024-03-24 15:17:18,800 - INFO - 10: (1, 1, 0.0, 2, False, False)
+2024-03-24 15:17:18,801 - INFO - 11: (2, 0, 0.0, 6, False, False)
+2024-03-24 15:17:18,801 - INFO - 12: (6, 3, 0.0, 2, False, False)
+2024-03-24 15:17:18,801 - INFO - 13: (2, 2, 0.0, 3, False, False)
+2024-03-24 15:17:18,801 - INFO - 14: (3, 3, 0.0, 3, False, False)
+2024-03-24 15:17:18,801 - INFO - 15: (3, 1, 0.0, 3, False, False)
+2024-03-24 15:17:18,801 - INFO - 16: (3, 2, 0.0, 3, False, False)
+2024-03-24 15:17:18,801 - INFO - 17: (3, 3, 0.0, 3, False, False)
+2024-03-24 15:17:18,801 - INFO - 18: (3, 1, 0.0, 7, True, False)
+2024-03-24 15:17:18,801 - INFO - 19: (0, 0, 0.0, 0, False, True)
+2024-03-24 15:17:18,801 - INFO - 20: (0, 2, 0.0, 1, False, False)
+2024-03-24 15:17:18,801 - INFO - 21: (1, 1, 0.0, 5, True, False)
+2024-03-24 15:17:18,801 - INFO - 22: (0, 2, 0.0, 0, False, True)
+2024-03-24 15:17:18,801 - INFO - 23: (0, 3, 0.0, 0, False, False)
+2024-03-24 15:17:18,801 - INFO - 24: (0, 1, 0.0, 0, False, False)
+2024-03-24 15:17:18,801 - INFO - 25: (0, 2, 0.0, 0, False, False)
+2024-03-24 15:17:18,801 - INFO - 26: (0, 2, 0.0, 1, False, False)
+2024-03-24 15:17:18,801 - INFO - 27: (1, 1, 0.0, 5, True, False)
+2024-03-24 15:17:18,801 - INFO - 28: (0, 2, 0.0, 1, False, True)
+2024-03-24 15:17:18,801 - INFO - 29: (1, 2, 0.0, 1, False, False)
+2024-03-24 15:17:18,801 - INFO - 30: (1, 0, 0.0, 0, False, False)
+2024-03-24 15:17:18,802 - INFO - 31: (0, 2, 0.0, 0, False, False)
+2024-03-24 15:17:18,802 - INFO - 32: (0, 1, 0.0, 4, False, False)
+2024-03-24 15:17:18,802 - INFO - 33: (4, 3, 0.0, 5, True, False)
+2024-03-24 15:17:18,802 - INFO - 34: (0, 1, 0.0, 0, False, True)
+2024-03-24 15:17:18,802 - INFO - 35: (0, 2, 0.0, 1, False, False)
+2024-03-24 15:17:18,802 - INFO - 36: (1, 1, 0.0, 2, False, False)
+2024-03-24 15:17:18,802 - INFO - 37: (2, 0, 0.0, 6, False, False)
+2024-03-24 15:17:18,802 - INFO - 38: (6, 2, 0.0, 7, True, False)
+2024-03-24 15:17:18,802 - INFO - 39: (0, 0, 0.0, 0, False, True)
+2024-03-24 15:17:18,802 - INFO - 40: (0, 1, 0.0, 0, False, False)
+2024-03-24 15:17:18,802 - INFO - 41: (0, 2, 0.0, 1, False, False)
+2024-03-24 15:17:18,802 - INFO - 42: (1, 3, 0.0, 2, False, False)
+2024-03-24 15:17:18,802 - INFO - 43: (2, 2, 0.0, 3, False, False)
+2024-03-24 15:17:18,802 - INFO - 44: (3, 3, 0.0, 3, False, False)
+2024-03-24 15:17:18,802 - INFO - 45: (3, 3, 0.0, 3, False, False)
+2024-03-24 15:17:18,802 - INFO - 46: (3, 1, 0.0, 3, False, False)
+2024-03-24 15:17:18,802 - INFO - 47: (3, 3, 0.0, 3, False, False)
+2024-03-24 15:17:18,802 - INFO - 48: (3, 3, 0.0, 3, False, False)
+2024-03-24 15:17:18,802 - INFO - 49: (3, 0, 0.0, 2, False, False)
+2024-03-24 15:17:18,802 - INFO - 50: (2, 3, 0.0, 1, False, False)
+2024-03-24 15:17:18,802 - INFO - 51: (1, 3, 0.0, 1, False, False)
+2024-03-24 15:17:18,802 - INFO - 52: (1, 1, 0.0, 5, True, False)
+2024-03-24 15:17:18,803 - INFO - 53: (0, 1, 0.0, 0, False, True)
+2024-03-24 15:17:18,803 - INFO - 54: (0, 3, 0.0, 0, False, False)
+2024-03-24 15:17:18,803 - INFO - 55: (0, 3, 0.0, 0, False, False)
+2024-03-24 15:17:18,803 - INFO - 56: (0, 2, 0.0, 4, False, False)
+2024-03-24 15:17:18,803 - INFO - 57: (4, 1, 0.0, 8, False, False)
+2024-03-24 15:17:18,803 - INFO - 58: (8, 2, 0.0, 9, False, False)
+2024-03-24 15:17:18,803 - INFO - 59: (9, 3, 0.0, 5, True, False)
+2024-03-24 15:17:18,803 - INFO - 60: (0, 1, 0.0, 0, False, True)
+2024-03-24 15:17:18,803 - INFO - 61: (0, 2, 0.0, 4, False, False)
+2024-03-24 15:17:18,803 - INFO - 62: (4, 3, 0.0, 0, False, False)
+2024-03-24 15:17:18,803 - INFO - 63: (0, 1, 0.0, 4, False, False)
+2024-03-24 15:17:18,803 - INFO - 64: (4, 2, 0.0, 5, True, False)
+2024-03-24 15:17:18,803 - INFO - 65: (0, 2, 0.0, 1, False, True)
+2024-03-24 15:17:18,803 - INFO - 66: (1, 3, 0.0, 1, False, False)
+2024-03-24 15:17:18,803 - INFO - 67: (1, 2, 0.0, 5, True, False)
+2024-03-24 15:17:18,803 - INFO - 68: (0, 1, 0.0, 0, False, True)
+2024-03-24 15:17:18,803 - INFO - 69: (0, 3, 0.0, 0, False, False)
+2024-03-24 15:17:18,803 - INFO - 70: (0, 0, 0.0, 0, False, False)
+2024-03-24 15:17:18,803 - INFO - 71: (0, 1, 0.0, 4, False, False)
+2024-03-24 15:17:18,803 - INFO - 72: (4, 0, 0.0, 4, False, False)
+2024-03-24 15:17:18,803 - INFO - 73: (4, 2, 0.0, 8, False, False)
+2024-03-24 15:17:18,804 - INFO - 74: (8, 3, 0.0, 9, False, False)
+2024-03-24 15:17:18,804 - INFO - 75: (9, 1, 0.0, 13, False, False)
+2024-03-24 15:17:18,804 - INFO - 76: (13, 3, 0.0, 9, False, False)
+2024-03-24 15:17:18,804 - INFO - 77: (9, 2, 0.0, 10, False, False)
+2024-03-24 15:17:18,804 - INFO - 78: (10, 1, 0.0, 14, False, False)
+2024-03-24 15:17:18,804 - INFO - 79: (14, 3, 0.0, 15, True, False)
+2024-03-24 15:17:18,804 - INFO - 80: (0, 1, 0.0, 0, False, True)
+2024-03-24 15:17:18,804 - INFO - 81: (0, 2, 0.0, 0, False, False)
+2024-03-24 15:17:18,804 - INFO - 82: (0, 2, 0.0, 4, False, False)
+2024-03-24 15:17:18,804 - INFO - 83: (4, 2, 0.0, 5, True, False)
+2024-03-24 15:17:18,804 - INFO - 84: (0, 3, 0.0, 0, False, True)
+2024-03-24 15:17:18,804 - INFO - 85: (0, 0, 0.0, 0, False, False)
+2024-03-24 15:17:18,804 - INFO - 86: (0, 2, 0.0, 0, False, False)
+2024-03-24 15:17:18,804 - INFO - 87: (0, 3, 0.0, 0, False, False)
+2024-03-24 15:17:18,804 - INFO - 88: (0, 2, 0.0, 4, False, False)
+2024-03-24 15:17:18,804 - INFO - 89: (4, 1, 0.0, 8, False, False)
+2024-03-24 15:17:18,804 - INFO - 90: (8, 3, 0.0, 9, False, False)
+2024-03-24 15:17:18,804 - INFO - 91: (9, 3, 0.0, 5, True, False)
+2024-03-24 15:17:18,804 - INFO - 92: (0, 0, 0.0, 0, False, True)
+2024-03-24 15:17:18,804 - INFO - 93: (0, 2, 0.0, 1, False, False)
+2024-03-24 15:17:18,805 - INFO - 94: (1, 3, 0.0, 1, False, False)
+2024-03-24 15:17:18,805 - INFO - 95: (1, 3, 0.0, 1, False, False)
+2024-03-24 15:17:18,805 - INFO - 96: (1, 1, 0.0, 5, True, False)
+2024-03-24 15:17:18,805 - INFO - 97: (0, 0, 0.0, 0, False, True)
+2024-03-24 15:17:18,805 - INFO - 98: (0, 2, 0.0, 1, False, False)
+2024-03-24 15:17:18,805 - INFO - 99: (1, 3, 0.0, 1, False, False)
+2024-03-24 15:17:18,805 - INFO - 100: (1, 3, 0.0, 1, False, False)
+2024-03-24 15:24:38,469 - INFO - Tuples saved to ./data/simulated_tuples/FrozenLake-v1/simulated_tuples_v3.pkl
+2024-03-24 15:24:38,469 - INFO - Summary Statistics for Simulated Environment:
+2024-03-24 15:24:38,469 - INFO - Average Reward: 0.0077
+2024-03-24 15:24:38,469 - INFO - Total Episodes: 10000
+2024-03-24 15:24:38,469 - INFO - Total Dones: 10000
+2024-03-24 15:24:38,469 - INFO - Reward Distribution: {0.0: 74554, 1.0: 77}
+2024-03-24 15:24:38,469 - INFO - Top 100 Tuples:
+2024-03-24 15:24:38,469 - INFO - 1: (0, 0, 0.0, 4, False, True)
+2024-03-24 15:24:38,469 - INFO - 2: (4, 2, 0.0, 0, False, False)
+2024-03-24 15:24:38,469 - INFO - 3: (0, 3, 0.0, 1, False, False)
+2024-03-24 15:24:38,469 - INFO - 4: (1, 3, 0.0, 1, False, False)
+2024-03-24 15:24:38,469 - INFO - 5: (1, 2, 0.0, 2, False, False)
+2024-03-24 15:24:38,469 - INFO - 6: (2, 3, 0.0, 3, False, False)
+2024-03-24 15:24:38,469 - INFO - 7: (3, 1, 0.0, 3, False, False)
+2024-03-24 15:24:38,469 - INFO - 8: (3, 3, 0.0, 3, False, False)
+2024-03-24 15:24:38,469 - INFO - 9: (3, 0, 0.0, 2, False, False)
+2024-03-24 15:24:38,469 - INFO - 10: (2, 3, 0.0, 3, False, False)
+2024-03-24 15:24:38,469 - INFO - 11: (3, 0, 0.0, 2, False, False)
+2024-03-24 15:24:38,469 - INFO - 12: (2, 0, 0.0, 2, False, False)
+2024-03-24 15:24:38,469 - INFO - 13: (2, 2, 0.0, 3, False, False)
+2024-03-24 15:24:38,469 - INFO - 14: (3, 1, 0.0, 7, True, False)
+2024-03-24 15:24:38,469 - INFO - 15: (0, 2, 0.0, 1, False, True)
+2024-03-24 15:24:38,469 - INFO - 16: (1, 1, 0.0, 5, True, False)
+2024-03-24 15:24:38,469 - INFO - 17: (0, 1, 0.0, 1, False, True)
+2024-03-24 15:24:38,469 - INFO - 18: (1, 3, 0.0, 0, False, False)
+2024-03-24 15:24:38,471 - INFO - 19: (0, 0, 0.0, 0, False, False)
+2024-03-24 15:24:38,471 - INFO - 20: (0, 0, 0.0, 0, False, False)
+2024-03-24 15:24:38,471 - INFO - 21: (0, 3, 0.0, 1, False, False)
+2024-03-24 15:24:38,471 - INFO - 22: (1, 3, 0.0, 2, False, False)
+2024-03-24 15:24:38,471 - INFO - 23: (2, 3, 0.0, 3, False, False)
+2024-03-24 15:24:38,471 - INFO - 24: (3, 2, 0.0, 3, False, False)
+2024-03-24 15:24:38,471 - INFO - 25: (3, 1, 0.0, 3, False, False)
+2024-03-24 15:24:38,471 - INFO - 26: (3, 3, 0.0, 14, False, False)
+2024-03-24 15:24:38,471 - INFO - 27: (14, 2, 0.0, 13, False, False)
+2024-03-24 15:24:38,471 - INFO - 28: (13, 3, 0.0, 8, False, False)
+2024-03-24 15:24:38,471 - INFO - 29: (8, 3, 0.0, 0, False, False)
+2024-03-24 15:24:38,471 - INFO - 30: (0, 3, 0.0, 1, False, False)
+2024-03-24 15:24:38,472 - INFO - 31: (1, 1, 0.0, 5, True, False)
+2024-03-24 15:24:38,472 - INFO - 32: (0, 1, 0.0, 0, False, True)
+2024-03-24 15:24:38,472 - INFO - 33: (0, 0, 0.0, 0, False, False)
+2024-03-24 15:24:38,472 - INFO - 34: (0, 3, 0.0, 0, False, False)
+2024-03-24 15:24:38,472 - INFO - 35: (0, 0, 0.0, 4, False, False)
+2024-03-24 15:24:38,472 - INFO - 36: (4, 0, 0.0, 0, False, False)
+2024-03-24 15:24:38,472 - INFO - 37: (0, 2, 0.0, 0, False, False)
+2024-03-24 15:24:38,472 - INFO - 38: (0, 2, 0.0, 4, False, False)
+2024-03-24 15:24:38,472 - INFO - 39: (4, 3, 0.0, 0, False, False)
+2024-03-24 15:24:38,472 - INFO - 40: (0, 1, 0.0, 0, False, False)
+2024-03-24 15:24:38,472 - INFO - 41: (0, 0, 0.0, 0, False, False)
+2024-03-24 15:24:38,472 - INFO - 42: (0, 3, 0.0, 0, False, False)
+2024-03-24 15:24:38,472 - INFO - 43: (0, 2, 0.0, 0, False, False)
+2024-03-24 15:24:38,472 - INFO - 44: (0, 1, 0.0, 1, False, False)
+2024-03-24 15:24:38,472 - INFO - 45: (1, 0, 0.0, 1, False, False)
+2024-03-24 15:24:38,472 - INFO - 46: (1, 2, 0.0, 1, False, False)
+2024-03-24 15:24:38,472 - INFO - 47: (1, 0, 0.0, 0, False, False)
+2024-03-24 15:24:38,472 - INFO - 48: (0, 3, 0.0, 1, False, False)
+2024-03-24 15:24:38,472 - INFO - 49: (1, 3, 0.0, 2, False, False)
+2024-03-24 15:24:38,472 - INFO - 50: (2, 2, 0.0, 6, False, False)
+2024-03-24 15:24:38,472 - INFO - 51: (6, 0, 0.0, 5, True, False)
+2024-03-24 15:24:38,472 - INFO - 52: (0, 1, 0.0, 0, False, True)
+2024-03-24 15:24:38,472 - INFO - 53: (0, 1, 0.0, 0, False, False)
+2024-03-24 15:24:38,472 - INFO - 54: (0, 0, 0.0, 0, False, False)
+2024-03-24 15:24:38,472 - INFO - 55: (0, 2, 0.0, 1, False, False)
+2024-03-24 15:24:38,472 - INFO - 56: (1, 0, 0.0, 5, True, False)
+2024-03-24 15:24:38,472 - INFO - 57: (0, 1, 0.0, 0, False, True)
+2024-03-24 15:24:38,472 - INFO - 58: (0, 1, 0.0, 1, False, False)
+2024-03-24 15:24:38,473 - INFO - 59: (1, 3, 0.0, 0, False, False)
+2024-03-24 15:24:38,473 - INFO - 60: (0, 0, 0.0, 4, False, False)
+2024-03-24 15:24:38,473 - INFO - 61: (4, 1, 0.0, 5, True, False)
+2024-03-24 15:24:38,473 - INFO - 62: (0, 2, 0.0, 1, False, True)
+2024-03-24 15:24:38,473 - INFO - 63: (1, 1, 0.0, 5, True, False)
+2024-03-24 15:24:38,473 - INFO - 64: (0, 3, 0.0, 0, False, True)
+2024-03-24 15:24:38,473 - INFO - 65: (0, 3, 0.0, 0, False, False)
+2024-03-24 15:24:38,473 - INFO - 66: (0, 1, 0.0, 1, False, False)
+2024-03-24 15:24:38,473 - INFO - 67: (1, 0, 0.0, 0, False, False)
+2024-03-24 15:24:38,473 - INFO - 68: (0, 0, 0.0, 0, False, False)
+2024-03-24 15:24:38,473 - INFO - 69: (0, 2, 0.0, 4, False, False)
+2024-03-24 15:24:38,473 - INFO - 70: (4, 2, 0.0, 5, True, False)
+2024-03-24 15:24:38,473 - INFO - 71: (0, 1, 0.0, 4, False, True)
+2024-03-24 15:24:38,474 - INFO - 72: (4, 1, 0.0, 8, False, False)
+2024-03-24 15:24:38,474 - INFO - 73: (8, 3, 0.0, 8, False, False)
+2024-03-24 15:24:38,474 - INFO - 74: (8, 0, 0.0, 12, True, False)
+2024-03-24 15:24:38,474 - INFO - 75: (0, 1, 0.0, 1, False, True)
+2024-03-24 15:24:38,474 - INFO - 76: (1, 1, 0.0, 1, False, False)
+2024-03-24 15:24:38,474 - INFO - 77: (1, 1, 0.0, 5, True, False)
+2024-03-24 15:24:38,474 - INFO - 78: (0, 3, 0.0, 1, False, True)
+2024-03-24 15:24:38,474 - INFO - 79: (1, 2, 0.0, 2, False, False)
+2024-03-24 15:24:38,474 - INFO - 80: (2, 3, 0.0, 2, False, False)
+2024-03-24 15:24:38,474 - INFO - 81: (2, 0, 0.0, 2, False, False)
+2024-03-24 15:24:38,474 - INFO - 82: (2, 0, 0.0, 6, False, False)
+2024-03-24 15:24:38,474 - INFO - 83: (6, 2, 0.0, 2, False, False)
+2024-03-24 15:24:38,474 - INFO - 84: (2, 2, 0.0, 2, False, False)
+2024-03-24 15:24:38,474 - INFO - 85: (2, 0, 0.0, 6, False, False)
+2024-03-24 15:24:38,474 - INFO - 86: (6, 3, 0.0, 10, False, False)
+2024-03-24 15:24:38,474 - INFO - 87: (10, 2, 0.0, 9, False, False)
+2024-03-24 15:24:38,474 - INFO - 88: (9, 2, 0.0, 10, False, False)
+2024-03-24 15:24:38,474 - INFO - 89: (10, 2, 0.0, 14, False, False)
+2024-03-24 15:24:38,475 - INFO - 90: (14, 3, 0.0, 14, False, False)
+2024-03-24 15:24:38,475 - INFO - 91: (14, 3, 0.0, 13, False, False)
+2024-03-24 15:24:38,475 - INFO - 92: (13, 0, 0.0, 4, False, False)
+2024-03-24 15:24:38,475 - INFO - 93: (4, 3, 0.0, 0, False, False)
+2024-03-24 15:24:38,475 - INFO - 94: (0, 1, 0.0, 4, False, False)
+2024-03-24 15:24:38,475 - INFO - 95: (4, 3, 0.0, 0, False, False)
+2024-03-24 15:24:38,475 - INFO - 96: (0, 0, 0.0, 0, False, False)
+2024-03-24 15:24:38,475 - INFO - 97: (0, 3, 0.0, 0, False, False)
+2024-03-24 15:24:38,475 - INFO - 98: (0, 1, 0.0, 4, False, False)
+2024-03-24 15:24:38,475 - INFO - 99: (4, 1, 0.0, 8, False, False)
+2024-03-24 15:24:38,475 - INFO - 100: (8, 3, 0.0, 4, False, False)

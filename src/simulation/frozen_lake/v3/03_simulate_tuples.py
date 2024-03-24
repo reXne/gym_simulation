@@ -34,7 +34,7 @@ def simulate_environment(env_name, num_episodes):
     simulator_version = 'v3'
     model_path = f'./data/models/{env_name}/simulator_{simulator_version}.pth'
     
-    latent_dim=8
+    latent_dim=32
     hidden_dim=8
     action_dim=4
     state_dim=16
@@ -64,9 +64,9 @@ def simulate_environment(env_name, num_episodes):
                 next_state_logits, _, _, _, _, _= model(state, action)
             
             # next_state_idx = torch.argmax(next_state_logits).item()
-
             next_state_dist = Categorical(logits=next_state_logits)
             next_state_idx = next_state_dist.sample().item()       
+            
             next_state = to_one_hot(next_state_idx, state_dim).unsqueeze(0)   
             
             with torch.no_grad():
@@ -115,7 +115,7 @@ def main():
                         filename=f'./logs/03_simulate_environment_{simulator_version}.log',
                         filemode='w')
 
-    
+
     num_episodes = 10000
     stats = simulate_environment(env_name, num_episodes)
 

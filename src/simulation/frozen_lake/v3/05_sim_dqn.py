@@ -67,7 +67,7 @@ class FrozenLakeDQL():
         action_dim = 4
         num_episodes = 100
         hidden_dim=8
-        latent_dim = 8
+        latent_dim = 32
         env = SimulatedGymEnvironment(model_path=model_path, state_dim=state_dim, action_dim=action_dim, hidden_dim=hidden_dim, latent_dim=latent_dim)
         num_states = env.observation_space.n
         num_actions = env.action_space.n
@@ -223,7 +223,7 @@ class FrozenLakeDQL():
         action_dim = 4
         num_episodes = 50
         hidden_dim=8
-        latent_dim = 8
+        latent_dim = 32
         env = SimulatedGymEnvironment(model_path=model_path, state_dim=state_dim, action_dim=action_dim, hidden_dim=hidden_dim, latent_dim=latent_dim)
         num_states = env.observation_space.n
         num_actions = env.action_space.n

@@ -10,7 +10,7 @@ import random
 import torch
 from torch import nn
 import torch.nn.functional as F
-from src.simulation.frozen_lake.v3.gym_env import SimulatedGymEnvironment  
+from src.simulation.frozen_lake.v4.gym_env import SimulatedGymEnvironment  
 
 
 # Define model

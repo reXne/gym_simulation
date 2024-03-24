@@ -116,7 +116,7 @@ def main():
                         filemode='w')
 
     
-    num_episodes = 10000 
+    num_episodes = 10000
     stats = simulate_environment(env_name, num_episodes)
 
     logging.info("Summary Statistics for Simulated Environment:")
