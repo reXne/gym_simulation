@@ -20,7 +20,7 @@ class ActionSpace:
     
 class SimulatedGymEnvironment:
     def __init__(self, model_path, state_dim, action_dim, hidden_dim=8):
-        self.model = SimulatorV1(input_dim=state_dim+action_dim, hidden_dim=hidden_dim, state_dim=state_dim)
+        self.model = SimulatorV1(state_dim=state_dim, action_dim=action_dim, hidden_dim=hidden_dim)
         self.model.load_state_dict(torch.load(model_path))
         self.model.eval()  # Set the model to evaluation mode
         
@@ -47,11 +47,9 @@ class SimulatedGymEnvironment:
         current_state_tensor[0, self.current_state_index] = 1.0
         action_tensor = torch.zeros(1, self.action_dim)
         action_tensor[0, action_index] = 1.0
-        
-        state_action_tensor = torch.cat([current_state_tensor, action_tensor], dim=1)
-        
+                
         with torch.no_grad():
-            next_state_logits, reward_logits, done_logits = self.model(state_action_tensor)
+            next_state_logits, reward_logits, done_logits = self.model(current_state_tensor, action_tensor)
             
         next_state_dist = Categorical(logits=next_state_logits)
         next_state_index = next_state_dist.sample().item()

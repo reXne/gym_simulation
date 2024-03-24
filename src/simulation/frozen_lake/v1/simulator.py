@@ -1,32 +1,69 @@
-# Simple Neural Network approach
+# VAE approach
 
 import torch
 import torch.nn as nn
+from torch.distributions import (
+    Normal, Bernoulli, Beta, Binomial, Categorical, 
+    OneHotCategorical, Independent
+)
+
 
 class SimulatorV1(nn.Module):
-    def __init__(self, input_dim, hidden_dim, state_dim):
+    def __init__(self, state_dim, action_dim, hidden_dim):
         super().__init__()
+        self.sequence_model = SequenceModel(state_dim  + action_dim, hidden_dim, state_dim)
+        self.reward_model = RewardModel(state_dim  + action_dim, hidden_dim)
+        self.continue_model = ContinueModel(state_dim  + action_dim, hidden_dim)
+
+    def forward(self, state, action):
+    
+        state_next_logits = self.sequence_model(torch.cat([state, action], dim=1))
+
+        reward_logits = self.reward_model(torch.cat([state, action], dim=1))
         
-        # Shared layers
+        continue_logits = self.continue_model(torch.cat([state, action], dim=1))
+        
+        return state_next_logits, reward_logits, continue_logits
+
+
+class SequenceModel(nn.Module):
+    def __init__(self, input_dim, hidden_dim, output_dim):
+        super().__init__()
         self.network = nn.Sequential(
             nn.Linear(input_dim, hidden_dim),
             nn.ReLU(),
-            nn.Linear(hidden_dim, hidden_dim),
-            nn.ReLU()
+            nn.Linear(hidden_dim, output_dim)
         )
-        
-        self.next_state_head = nn.Linear(hidden_dim, state_dim)
-        self.reward_head = nn.Linear(hidden_dim, 1)  
-        self.done_head = nn.Linear(hidden_dim, 1)  
-        
-    def forward(self, state_action):
-        output = self.network(state_action)
-        
-        next_state = self.next_state_head(output)
-        reward = self.reward_head(output)
-        done = self.done_head(output)
-        
-        return next_state, reward, done
+
+    def forward(self, x):
+        return self.network(x)
 
 
+class RewardModel(nn.Module):
+    def __init__(self, input_dim, hidden_dim):
+        super().__init__()
+        self.network = nn.Sequential(
+            nn.Linear(input_dim, hidden_dim),
+            nn.ReLU(),
+            nn.Linear(hidden_dim, 1) 
+        )
 
+    def forward(self, x):
+        logits = self.network(x)
+        return logits  
+
+
+class ContinueModel(nn.Module):
+    def __init__(self, input_dim, hidden_dim):
+        super().__init__()
+        self.network = nn.Sequential(
+            nn.Linear(input_dim, hidden_dim),
+            nn.ReLU(),
+            nn.Linear(hidden_dim, 1) 
+        )
+
+    def forward(self, x):
+        logits = self.network(x)
+        return logits 
+
+    
